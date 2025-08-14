@@ -1,71 +1,76 @@
-console.log("Script.js loaded and running");
-
 document.addEventListener('DOMContentLoaded', () => {
-  console.log("DOMContentLoaded event fired");
+    console.log("Script loaded. DOM is ready.");
 
-  const form = document.getElementById('newsletter-form');
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const emailInput = document.getElementById('newsletter-email');
-      if (emailInput && emailInput.value) {
-        alert(`Gracias por suscribirte con el correo: ${emailInput.value}`);
-        emailInput.value = '';
-      } else {
-        alert('Por favor, ingresa un correo válido.');
-      }
-    });
-  }
+    // --- Modal de Gestión de Documentos ---
+    const modalDocumentos = document.getElementById('modal-documentos');
+    const openBtnDocumentos = document.getElementById('btn-documentos');
+    const closeBtnDocumentos = modalDocumentos ? modalDocumentos.querySelector('.close-button') : null;
 
-  // New code for Oficina Principal button toggle
-  const oficinaBtn = document.getElementById('oficina-btn');
-  const phoneNumbersContainer = document.getElementById('phone-numbers');
+    if (modalDocumentos && openBtnDocumentos && closeBtnDocumentos) {
+        openBtnDocumentos.addEventListener('click', () => {
+            console.log("Open button for Documentos modal clicked.");
+            modalDocumentos.style.display = 'block';
+        });
 
-  if (oficinaBtn && phoneNumbersContainer) {
-    oficinaBtn.addEventListener('click', () => {
-      if (phoneNumbersContainer.style.display === 'none' || phoneNumbersContainer.style.display === '') {
-        phoneNumbersContainer.style.display = 'flex';
-      } else {
-        phoneNumbersContainer.style.display = 'none';
-      }
-    });
-  }
+        closeBtnDocumentos.addEventListener('click', () => {
+            console.log("Close button for Documentos modal clicked.");
+            modalDocumentos.style.display = 'none';
+        });
 
-  // New code for Afiliados modal
-  const afiliadosBtn = document.getElementById('afiliados-btn');
-  const afiliadosModal = document.getElementById('afiliados-modal');
-  const modalCloseBtn = afiliadosModal.querySelector('.modal-close-btn');
+        window.addEventListener('click', (event) => {
+            if (event.target === modalDocumentos) {
+                console.log("Clicked outside the Documentos modal.");
+                modalDocumentos.style.display = 'none';
+            }
+        });
+    } else {
+        console.error('A critical element for the Documentos modal is missing.');
+    }
 
-  // Open modal
-  function openModal() {
-    console.log("Afiliados button clicked, opening modal");
-    afiliadosModal.style.display = 'flex';
-    afiliadosModal.setAttribute('aria-hidden', 'false');
-  }
+    // --- Modal de Términos y Condiciones ---
+    const modalTerminos = document.getElementById('modal-terminos');
+    const openBtnTerminos = document.getElementById('btn-terminos');
+    const closeBtnTerminos = modalTerminos ? modalTerminos.querySelector('.close-button') : null;
+    const acceptBtnTerminos = document.getElementById('aceptar-terminos-btn');
+    const terminosCheckbox = document.getElementById('acepto-terminos-checkbox');
 
-  // Close modal
-  function closeModal() {
-    afiliadosModal.style.display = 'none';
-    afiliadosModal.setAttribute('aria-hidden', 'true');
-  }
+    if (modalTerminos && openBtnTerminos && closeBtnTerminos && acceptBtnTerminos && terminosCheckbox) {
+        // --- Show modal on first visit ---
+        if (!localStorage.getItem('terminosAceptados')) {
+            modalTerminos.style.display = 'block';
+        }
 
-  // Event listeners
-  if (afiliadosBtn && afiliadosModal && modalCloseBtn) {
-    afiliadosBtn.addEventListener('click', openModal);
-    modalCloseBtn.addEventListener('click', closeModal);
+        // --- Event Listeners ---
+        openBtnTerminos.addEventListener('click', () => {
+            console.log("Open button for Terminos modal clicked.");
+            modalTerminos.style.display = 'block';
+        });
 
-    // Close modal on outside click
-    afiliadosModal.addEventListener('click', (e) => {
-      if (e.target === afiliadosModal) {
-        closeModal();
-      }
-    });
+        closeBtnTerminos.addEventListener('click', () => {
+            modalTerminos.style.display = 'none';
+        });
 
-    // Close modal on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && afiliadosModal.style.display === 'flex') {
-        closeModal();
-      }
-    });
-  }
+        terminosCheckbox.addEventListener('change', () => {
+            acceptBtnTerminos.disabled = !terminosCheckbox.checked;
+        });
+
+        acceptBtnTerminos.addEventListener('click', () => {
+            if (terminosCheckbox.checked) {
+                localStorage.setItem('terminosAceptados', 'true');
+                modalTerminos.style.display = 'none';
+            }
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modalTerminos) {
+                console.log("Clicked outside the Terminos modal.");
+                // Do not close the modal on outside click if terms have not been accepted
+                if (localStorage.getItem('terminosAceptados')) {
+                    modalTerminos.style.display = 'none';
+                }
+            }
+        });
+    } else {
+        console.error('A critical element for the Terminos modal is missing.');
+    }
 });

@@ -23,7 +23,7 @@
     <main class="main-content">
       <!-- Logo -->
       <div class="logo-container">
-        <img src="assets/imagenes/logolider1.png  " alt="Logo Asociación Cooperativa Líder de Seguros" />
+        <img src="assets/imagenes/logolider1.png" alt="Logo Asociación Cooperativa Líder de Seguros" />
       </div>
 
       <!-- Botones principales -->
@@ -34,12 +34,24 @@
         <a class="main-btn" href="#"><img class="btn-icon" src="assets/imagenes/siniestro.png" alt="Ícono Reportar Siniestro" /> Reportar Siniestro</a>
         <a class="main-btn" href="tel:02125643136"><img class="btn-icon" src="assets/imagenes/sedeprincipal.png" alt="Ícono Sede Principal" /> Sede Principal</a>
         
+        <button class="main-btn" id="btn-documentos">
+            <img class="btn-icon" src="assets/imagenes/misdocumentos.png" alt="Ícono Gestión de Documentos" /> Mis Documentos
+        </button>
+        
         <div class="horizontal-btns">
           <a class="floating-btn quote-btn" href="https://wa.me/584120856528"><img class="btn-icon" src="assets/imagenes/poliza.png" alt="Ícono Cotiza tu Póliza" /> Cotiza tu Póliza</a>
           <a class="main-btn" href="https://wa.link/s49rwn"><img class="btn-icon" src="assets/imagenes/abogado.png" alt="Ícono Defensor del Asegurado" /> Defensor del Asegurado</a>
           <a class="floating-btn promo-btn" href="#"><img class="btn-icon" src="assets/imagenes/promociones.png" alt="Ícono Promociones" /> Promociones</a>
         </div>
-        <a class="main-btn" href="#"><img class="btn-icon" src="assets/imagenes/terminos.png" alt="Ícono Términos y Condiciones" /> Términos y Condiciones</a>
+        
+        <button class="main-btn" id="btn-terminos">
+            <img class="btn-icon" src="assets/imagenes/terminos.png" alt="Ícono Términos y Condiciones" /> Términos y Condiciones
+        </button>
+        
+        <div class="additional-buttons">
+            <a class="additional-btn" href="#"><img class="btn-icon" src="assets/imagenes/aceite.png" alt="Ícono Próximo cambio de aceite" /> Próximo cambio de aceite</a>
+            <a class="additional-btn" href="#"><img class="btn-icon" src="assets/imagenes/kitdetiempo.png" alt="Ícono Próximo cambio de kit de tiempo" /> Próximo cambio de kit de tiempo</a>
+        </div>
       </div>
     </main>
     <!-- Stats Section -->
@@ -100,5 +112,79 @@
       </div>
     </footer>
   </div>
+
+  <!-- Modal de Gestión de Documentos -->
+  <div id="modal-documentos" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Mis Documentos</h2>
+      <div class="modal-body">
+        <p><strong><i class="fas fa-lock"></i> Seguridad:</strong> Tus documentos están protegidos y solo se almacenan en tu dispositivo. Nadie más tendrá acceso.</p>
+        <p><strong><i class="fas fa-info-circle"></i> Beneficio:</strong> Aquí puedes respaldar fotos o archivos importantes (cédula, licencia, póliza, carnet, etc). En caso de emergencia o si no tienes tus documentos físicos, podrás acceder a ellos rápidamente desde tu teléfono.</p>
+        <div class="upload-section">
+          <p>Sube hasta 5 documentos (PDF, JPG, PNG):</p>
+          <label for="file-upload" class="custom-file-upload">
+            Elegir archivos
+          </label>
+          <input id="file-upload" type="file" multiple/>
+          <span id="file-name">Sin archivos seleccionados</span>
+          <small>Puedes tomar una foto o elegir un archivo. Máx. 5 documentos.</small>
+        </div>
+        <button class="modal-button">Guardar documentos</button>
+        <div class="saved-documents">
+          <h3>Tus documentos guardados</h3>
+          <p>No hay documentos guardados.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Términos y Condiciones -->
+  <div id="modal-terminos" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Términos y Condiciones</h2>
+      <div class="modal-body-terminos">
+        <h4>ACUERDOS Y CONDICIONES DE USO “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA”</h4>
+        <p><strong>1. ACUERDOS</strong></p>
+        <p>Los presentes acuerdos regulan el acceso o uso que usted haga, como persona, en Venezuela, Puestos a disposición por el servicio “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA”. Mediante su acceso y uso de los Servicios usted acuerda vincularse por estas Condiciones, que establecen un acuerdo entre usted y el servicio “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA”. Si usted no acepta estos acuerdos, no podrá acceder o usar los Servicios. Estos acuerdos sustituyen expresamente los acuerdos o compromisos previos con usted. “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” podrá poner fin de inmediato a estos acuerdos o cualquiera de los Servicios respecto de usted o, en general, dejar de ofrecer o denegar el acceso a los Servicios o cualquier parte de ellos, en cualquier momento y por cualquier motivo. Se podrán aplicar condiciones suplementarias a determinados Servicios, y dichas condiciones suplementarias se le comunicarán en relación con los Servicios aplicables. Las condiciones suplementarias se establecen además de las Condiciones, y se considerarán una parte de estas, para los fines de los Servicios aplicables. Las condiciones suplementarias prevalecerán sobre las Condiciones en el caso de conflicto con respecto a los Servicios aplicables. ” COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” podrá modificar las Condiciones relativas a los Servicios cuando lo considere oportuno. Las modificaciones serán efectivas después de la publicación por parte de “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” de dichas Condiciones actualizadas en esta ubicación o las políticas modificadas o condiciones suplementarias sobre el Servicio aplicable. Su acceso o uso continuado de los Servicios después de dicha publicación constituye su consentimiento a vincularse por las Condiciones y sus modificaciones.</p>
+        <p><strong>2. LOS SERVICIOS</strong></p>
+        <p>Los Servicios constituyen una plataforma de tecnología que permite a los usuarios a utilizar la aplicación móvil de “organizar y planear logísticas independientes, conforme a un acuerdo con “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA”.A no ser que “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” lo acepte mediante un acuerdo separado por escrito con usted, los Servicios se ponen a disposición solo para su uso personal, no comercial. Usted reconoce que “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” no presta servicio de logística, ni logística a través de un terceros contratistas independientes, que no están empleados por “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” ni por ninguna de sus afiliados.</p>
+        <p><strong>LICENCIA.</strong></p>
+        <p>Sujeto al cumplimiento de estas Condiciones, “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” le otorga una licencia limitada, no exclusiva, no sublicenciable, revocable, no transferible para: (i) el acceso y uso de las Aplicaciones en su dispositivo personal solo en relación con su uso de los Servicios; y (ii) el acceso y uso de cualquier contenido, información y material relacionado que pueda ponerse a disposición a través de los Servicios, en cada caso solo para su uso personal, no comercial.</p>
+        <p><strong>LIMITACIONES.</strong></p>
+        <p>Usted no podrá: (i) retirar cualquier nota de derechos de autor, marca registrada u otra nota de propiedad de cualquier parte de los Servicios; (ii) reproducir, modificar, preparar obras derivadas sobre los Servicios, distribuir, licenciar, arrendar, revender, transferir, exhibir públicamente, presentar públicamente, transmitir, retransmitir o explotar de otra forma los Servicios, excepto como se permita expresamente por “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA”; (iii) descompilar, realizar ingeniería inversa o desmontar los Servicios, excepto como se permita por la ley aplicable; (iv) enlazar, reflejar o enmarcar cualquier parte de los Servicios; (v) causar o lanzar cualquier programa o script con el objeto de extraer, indexar, analizar o de otro modo realizar prospección de datos de cualquier parte de los Servicios o sobrecargar o bloquear indebidamente la operación y/o funcionalidad de cualquier aspecto de los Servicios; o (vi) intentar obtener un acceso no autorizado o dañar cualquier aspecto de los Servicios o sus sistemas o redes relacionados.</p>
+        <p><strong>PRESTACIÓN DE LOS SERVICIOS.</strong></p>
+        <p>Usted reconoce que partes de los Servicios podrán ponerse a disposición bajo varias marcas u opciones de pedidos de “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” asociadas con la tecnología o los servicios logísticos, incluidas las marcas de pedidos de las plataformas (varias marcas). Asimismo usted reconoce que los Servicios podrán ponerse a disposición bajo dichas marcas u opciones de pedidos por o en relación con: (i) ciertas subsidiarias o afiliados “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA”; o (ii) Terceros proveedores independientes o Servicios y contenido de Terceros. Los Servicios “No” podrán ponerse a disposición o ser accesible en relación con servicios y contenido de terceros (incluida la publicidad) que “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA”. Usted reconoce que podrán ser de aplicación diferentes condiciones y políticas de privacidad al uso que haga de dichos servicios y contenido de terceros. “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” no respalda dichos servicios y contenido de terceros y en ningún caso “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” será responsable de cualquier producto o servicio de dichos terceros proveedores.</p>
+        <p><strong>TITULARIDAD.</strong></p>
+        <p>Los Servicios y todos los derechos relativos a estos son y permanecerán de la propiedad de “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA”. Ninguna de estas Condiciones ni su uso de los Servicios le transfieren u otorgan ningún derecho: (i) sobre o en relación con los Servicios, excepto en cuanto a la licencia limitada otorgada anteriormente; o bien (ii) a utilizar o mencionar en cualquier modo a los nombres de empresa, logotipos, nombres de producto y servicio, marcas comerciales o marcas de servicio de “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” o de sus licenciantes.</p>
+        <p><strong>3. SU USO DE LOS SERVICIOS</strong></p>
+        <p><strong>Cuentas de usuario.</strong></p>
+        <p>Con el fin de usar la mayor parte de los aspectos de los Servicios, usted deberá descargar la aplicación y mantenerla activa. Para obtener una Cuenta debe tener como mínimo 18 años, o tener la mayoría de edad legal en su jurisdicción (si es distinta a los 18 años). El registro de la cuenta le requiere que comunique a “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” determinada información personal, como su nombre, dirección, número de teléfono móvil,. Usted se compromete a mantener la información en su Cuenta de forma exacta, completa y actualizada. Si no mantiene la información de Cuenta de forma exacta, completa y actualizada, podrá resultar en su imposibilidad para acceder y utilizar los Servicios o en la resolución por parte de “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” de estas Condiciones celebradas con usted. Usted es responsable de toda la actividad que ocurre en su Cuenta y se compromete a mantener en todo momento de forma segura.</p>
+        <p><strong>Requisitos y conducta del usuario.</strong></p>
+        <p>El Servicio no está disponible para el uso de personas menores de 18 años. Usted no podrá autorizar a terceros a utilizar su Cuenta, asimismo no podrá permitir a personas menores de 18 años que reciban servicios tecnologicos, a menos que aquellos sean acompañados por usted. No podrá ceder o transferir de otro modo su Cuenta a cualquier otra persona o entidad. Usted acuerda cumplir con todas las leyes aplicables al utilizar los Servicios y solo podrá utilizar los Servicios con fines legítimos . En el uso de los Servicios, no causará estorbos, molestias, incomodidades o daños a la propiedad, tanto al Tercero proveedor como a cualquier otra parte.</p>
+        <p><strong>Acceso a la red y dispositivos.</strong></p>
+        <p>Usted es responsable de obtener el acceso a la red de datos necesario para utilizar los Servicios. Podrán aplicarse las tarifas y tasas de datos y mensajes de su red móvil si usted accede o utiliza los Servicios desde un dispositivo inalámbrico y usted será responsable de dichas tarifas y tasas. Usted es responsable de adquirir y actualizar el hardware compatible o los dispositivos necesarios para acceder y utilizar los Servicios y Aplicaciones y cualquier actualización de estos. “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” no garantiza que los Servicios, o cualquier parte de estos, funcionen en cualquier hardware o dispositivo particular. Además, los Servicios podrán ser objeto de disfunciones o retrasos inherentes al uso de Internet y de las comunicaciones electrónicas.</p>
+        <p><strong>4. Pago</strong></p>
+        <p>.” COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” , en cualquier momento y a su sola discreción, se reserva el derecho de establecer, eliminar y/o revisar los Cargos para alguno o todos los servicios o bienes obtenidos a través del uso de los Servicios. Esta estructura de pago está destinada para compensar plenamente al Tercero proveedor por los servicios o bienes proporcionados.</p>
+        <p><strong>5. Renuncias; Limitación de responsabilidad.</strong></p>
+        <p><strong>RENUNCIA.</strong></p>
+        <p>” COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” renuncia a toda declaración y garantía, expresa, implícita o estatutaria, no expresamente establecida en estas condiciones, incluidas las garantías implícitas de comerciabilidad, idoneidad para un fin particular y no violación. además, “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” no hace declaración ni presta garantía alguna relativa a la fiabilidad, puntualidad, calidad, idoneidad o disponibilidad de los servicios o cualquiera de los servicios o bienes solicitados a través del uso de los servicios, o que los servicios no serán interrumpidos o estarán libres de errores. “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” no garantiza la calidad, idoneidad, seguridad o habilidad de los terceros proveedores. Usted acuerda que todo riesgo derivado de su uso de los servicios y cualquier servicio o bien solicitado en relación con aquellos será únicamente suyo, en la máxima medida permitida por la ley aplicable.</p>
+        <p><strong>Limitación de responsabilidad.</strong></p>
+        <p>” COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” no será responsable de daños indirectos, incidentales, especiales, ejemplares, punitivos o emergentes, incluidos el lucro cesante, la pérdida de datos, la lesión personal o el daño a la propiedad, ni de perjuicios relativos, o en relación con, o de otro modo derivados de cualquier uso de los servicios, incluso aunque “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” haya sido advertido de la posibilidad de dichos daños. “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” no será responsable de cualquier daño, responsabilidad o pérdida que deriven de: (i) su uso o dependencia de los servicios o su incapacidad para acceder o utilizar los servicios; o (ii) cualquier transacción o relación entre usted y cualquier tercero proveedor, aunque “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” hubiera sido advertido de la posibilidad de dichos daños. “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” no será responsable del retraso o de la falta de ejecución resultante de causas que vayan más allá del control razonable de “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” . Usted reconoce que los terceros proveedores de tecnología que presten servicios de acceso solicitados puede que no dispuncan de la licencia o del permiso profesional. Acepta que “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” no tiene responsabilidad alguna hacia usted en relación con cualquier servicio , bienes o logístico prestado a usted por terceros proveedores que no sea como se ha establecido expresamente en estas condiciones.</p>
+        <p><strong>6. Otras disposiciones</strong></p>
+        <p><strong>Notificaciones.</strong></p>
+        <p>” COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” podrá notificar por medio de una notificación general en los Servicios, mediante un correo electrónico enviado a su dirección electrónica en su Cuenta o por comunicación escrita enviada a su dirección, según lo dispuesto en su Cuenta.</p>
+        <p><strong>Disposiciones generales.</strong></p>
+        <p>No podrá ceder ni transferir estas Condiciones, en todo o en parte, sin el consentimiento previo por escrito de “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” . Usted da su aprobación a “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” para ceder o transferir estas Condiciones, en todo o en parte, incluido a: (i) una subsidiaria o un afiliado; (ii) un adquirente del capital, del negocio o de los activos de “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” ; No existe entre usted, “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” o cualquier Tercer proveedor una empresa conjunta o relación de socios, empleo o agencia como resultado del acuerdo entre usted y “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA” o del uso de los Servicios. Si cualquier disposición de estas Condiciones se considerara ilegal, nula o inexigible, ya sea en su totalidad o en parte, de conformidad con cualquier legislación, dicha disposición o parte de esta se considerará que no forma parte de estas Condiciones, aunque la legalidad, validez y exigibilidad del resto de las disposiciones de estas Condiciones no se verá afectada. En ese caso, las partes deberán reemplazar dicha disposición ilegal, nula o inexigible, en todo o en parte por una disposición legal, válida y exigible que tenga, en la medida de lo posible, un efecto similar al que tenía la disposición ilegal, nula o inexigible, dados los contenidos y el propósito de estas Condiciones. Estas Condiciones constituyen el acuerdo íntegro y el entendimiento entre las partes en relación con el objeto y sustituye y reemplaza a todos los acuerdos anteriores o contemporáneos en relación con dicho objeto. En estas Condiciones, las palabras “incluido/a/os/as” e “incluye/n” significan “incluido, de forma meramente enunciativa”</p>
+        <div class="terminos-check">
+          <input type="checkbox" id="acepto-terminos-checkbox">
+          <label for="acepto-terminos-checkbox">He leído y acepto los términos y condiciones</label>
+        </div>
+        <button class="modal-button" id="aceptar-terminos-btn" disabled>Aceptar</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
