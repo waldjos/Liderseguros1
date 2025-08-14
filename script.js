@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+
     console.log("Script loaded. DOM is ready.");
 
     // --- Modal de Gestión de Documentos ---
@@ -73,4 +74,41 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.error('A critical element for the Terminos modal is missing.');
     }
+
+        // --- Modal de Cambio de Aceite ---
+        const modalCambioAceite = document.getElementById('modal-cambio-aceite');
+        const openBtnCambioAceite = document.getElementById('btn-cambio-aceite');
+        const closeBtnCambioAceite = document.getElementById('close-cambio-aceite');
+        const formCambioAceite = document.getElementById('form-cambio-aceite');
+        if (modalCambioAceite && openBtnCambioAceite && closeBtnCambioAceite) {
+            openBtnCambioAceite.addEventListener('click', () => {
+                modalCambioAceite.classList.add('active');
+            });
+            closeBtnCambioAceite.addEventListener('click', () => {
+                modalCambioAceite.classList.remove('active');
+            });
+            window.addEventListener('click', (e) => {
+                if (e.target === modalCambioAceite) {
+                    modalCambioAceite.classList.remove('active');
+                }
+            });
+            // Calcular automáticamente el próximo cambio
+            if (formCambioAceite) {
+                const kmActualInput = formCambioAceite.querySelector('input[name="km-actual"]');
+                const frecuenciaInputs = formCambioAceite.querySelectorAll('input[name="frecuencia"]');
+                const kmProximoInput = formCambioAceite.querySelector('input[name="km-proximo"]');
+                function calcularProximoCambio() {
+                    const kmActual = parseInt(kmActualInput.value) || 0;
+                    let frecuencia = 5000;
+                    frecuenciaInputs.forEach(radio => { if (radio.checked) frecuencia = parseInt(radio.value); });
+                    if (kmActual > 0) {
+                        kmProximoInput.value = kmActual + frecuencia;
+                    } else {
+                        kmProximoInput.value = '';
+                    }
+                }
+                kmActualInput.addEventListener('input', calcularProximoCambio);
+                frecuenciaInputs.forEach(radio => radio.addEventListener('change', calcularProximoCambio));
+            }
+        }
 });

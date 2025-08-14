@@ -28,15 +28,13 @@
 
       <!-- Botones principales -->
       <div class="buttons-container">
-        <a class="main-btn" href="#"><img class="btn-icon" src="assets/imagenes/codigo.png" alt="Ícono Código 010" /> Código 010</a>
-        <a class="main-btn" href="https://liderdeseguros.com/nfc/A09Z44D"><img class="btn-icon" src="assets/imagenes/descargar.png" alt="Ícono Descargar Póliza" /> Descargar Póliza</a>
-        <a class="main-btn" href="https://wa.link/5ru2c6"><img class="btn-icon" src="assets/imagenes/renovar.png" alt="Ícono Renovar Póliza" /> Renovar Póliza</a>
-        <a class="main-btn" href="#"><img class="btn-icon" src="assets/imagenes/siniestro.png" alt="Ícono Reportar Siniestro" /> Reportar Siniestro</a>
-        <a class="main-btn" href="tel:02125643136"><img class="btn-icon" src="assets/imagenes/sedeprincipal.png" alt="Ícono Sede Principal" /> Sede Principal</a>
-        
-        <button class="main-btn" id="btn-documentos">
-            <img class="btn-icon" src="assets/imagenes/misdocumentos.png" alt="Ícono Gestión de Documentos" /> Mis Documentos
-        </button>
+  <a class="main-btn" href="#"><img class="btn-icon" src="assets/imagenes/codigo.png" alt="Ícono Código 010" /> Código 010</a>
+  <a class="main-btn" href="https://liderdeseguros.com/nfc/"><img class="btn-icon" src="assets/imagenes/descargar.png" alt="Ícono Descargar Póliza" /> Descargar Póliza</a>
+  <a class="main-btn" href="https://wa.link/y7csm3"><img class="btn-icon" src="assets/imagenes/renovar.png" alt="Ícono Renovar Póliza" /> Renovar Póliza</a>
+  <a class="main-btn" href="#"><img class="btn-icon" src="assets/imagenes/siniestro.png" alt="Ícono Reportar Siniestro" /> Reportar Siniestro</a>
+  <a class="main-btn" href="tel:02125643136"><img class="btn-icon" src="assets/imagenes/sedeprincipal.png" alt="Ícono Sede Principal" /> Sede Principal</a>
+  <button class="additional-btn" id="btn-documentos"><img class="btn-icon" src="assets/imagenes/misdocumentos.png" alt="Ícono Gestión de Documentos" /> Mis Documentos</button>
+  <button class="additional-btn" id="btn-cambio-aceite"><img class="btn-icon" src="assets/imagenes/aceite.png" alt="Ícono Próximo cambio de aceite" /> Próximo cambio de aceite</button>
         
         <div class="horizontal-btns">
           <a class="floating-btn quote-btn" href="https://wa.me/584120856528"><img class="btn-icon" src="assets/imagenes/poliza.png" alt="Ícono Cotiza tu Póliza" /> Cotiza tu Póliza</a>
@@ -49,8 +47,8 @@
         </button>
         
         <div class="additional-buttons">
-            <a class="additional-btn" href="#"><img class="btn-icon" src="assets/imagenes/aceite.png" alt="Ícono Próximo cambio de aceite" /> Próximo cambio de aceite</a>
-            <a class="additional-btn" href="#"><img class="btn-icon" src="assets/imagenes/kitdetiempo.png" alt="Ícono Próximo cambio de kit de tiempo" /> Próximo cambio de kit de tiempo</a>
+
+
         </div>
       </div>
     </main>
@@ -186,5 +184,46 @@
     </div>
   </div>
   <script src="script.js"></script>
+</div>
+
+
+</div>
+
+<!-- Modal Cambio de Aceite -->
+<div id="modal-cambio-aceite" class="modal">
+  <div class="modal-content modal-aceite">
+    <span class="close-button" id="close-cambio-aceite">&times;</span>
+    <h2>Gestión de Cambio de Aceite</h2>
+    <form id="form-cambio-aceite">
+      <label>Marca del vehículo:
+        <input type="text" name="marca-vehiculo" placeholder="Ej: Toyota, Ford, Chevrolet" required />
+      </label>
+      <label>Marca de aceite:
+        <input type="text" name="marca-aceite" placeholder="Ej: Mobil 1, Castrol, Shell" required />
+      </label>
+      <label>Tipo de aceite:
+        <input type="text" name="tipo-aceite" placeholder="Ej: 5W-30, 10W-40, Sintético" required />
+      </label>
+      <label>Fecha del cambio:
+        <input type="date" name="fecha-cambio" required />
+      </label>
+      <label>¿Cada cuánto cambias el aceite?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="frecuencia" value="5000" checked /> 5.000 km</label>
+        <label><input type="radio" name="frecuencia" value="7000" /> 7.000 km</label>
+      </div>
+      <label>Kilometraje actual:
+        <input type="number" name="km-actual" placeholder="Ej: 45000" required />
+      </label>
+      <label>Kilometraje del próximo cambio:
+        <input type="text" name="km-proximo" readonly placeholder="Se calculará automáticamente" />
+      </label>
+      <label>Correo electrónico:
+        <input type="email" name="email" placeholder="tu@email.com" required />
+      </label>
+      <button type="submit" class="modal-button">Enviar información</button>
+    </form>
+  </div>
+</div>
 </body>
 </html>
