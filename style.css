@@ -1,3 +1,21 @@
+/* Mostrar cualquier modal con la clase active */
+#modal-documentos,
+#modal-terminos {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 20, 50, 0.85);
+  justify-content: center;
+  align-items: center;
+}
+#modal-documentos.active,
+#modal-terminos.active {
+  display: flex !important;
+}
 /* Modal Cambio de Aceite - Personalización igual a Mis Documentos */
 #modal-cambio-aceite .modal-content {
   background: linear-gradient(135deg, #0a2342 80%, #1e3c72 100%);
