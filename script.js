@@ -17,19 +17,53 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Modal informativo genérico
+    const infoModal = document.getElementById('modal-info');
+    const infoModalClose = infoModal ? infoModal.querySelector('#close-modal-info') : null;
+    const infoModalTitle = infoModal ? infoModal.querySelector('#modal-info-title') : null;
+    const infoModalMessage = infoModal ? infoModal.querySelector('#modal-info-message') : null;
+
+    function abrirModalInfo(mensaje, titulo = 'Información') {
+        if (!infoModal || !infoModalTitle || !infoModalMessage) {
+            alert(mensaje);
+            return;
+        }
+        infoModalTitle.textContent = titulo;
+        infoModalMessage.textContent = mensaje;
+        infoModal.classList.add('active');
+    }
+
+    if (infoModal && infoModalClose) {
+        infoModalClose.addEventListener('click', () => infoModal.classList.remove('active'));
+        window.addEventListener('click', (event) => {
+            if (event.target === infoModal) {
+                infoModal.classList.remove('active');
+            }
+        });
+    }
+
     // Guardar archivos en localStorage (solo nombres y base64, no rutas)
     if (guardarBtn && fileInput && savedDocsDiv) {
         guardarBtn.addEventListener('click', async (e) => {
             e.preventDefault();
-            if (!fileInput.files.length) return alert('Selecciona al menos un archivo.');
+            if (!fileInput.files.length) {
+                abrirModalInfo('Selecciona al menos un archivo para guardar en Mis Documentos.');
+                return;
+            }
             let docs = JSON.parse(localStorage.getItem('misDocumentos') || '[]');
             if (docs.length + fileInput.files.length > 5) {
-                alert('Solo puedes guardar hasta 5 documentos en total.');
+                abrirModalInfo('Solo puedes guardar hasta 5 documentos en total. Elimina alguno si deseas subir nuevos archivos.');
                 return;
             }
             for (let file of fileInput.files) {
                 if (!['application/pdf', 'image/jpeg', 'image/png'].includes(file.type)) {
-                    alert('Solo se permiten archivos PDF, JPG o PNG.');
+                    abrirModalInfo('Solo se permiten archivos PDF, JPG o PNG.', 'Tipo de archivo no permitido');
+                    continue;
+                }
+                // Límite de 2 MB por archivo para evitar problemas con localStorage
+                const maxSizeBytes = 2 * 1024 * 1024;
+                if (file.size > maxSizeBytes) {
+                    abrirModalInfo(`El archivo "${file.name}" supera los 2 MB permitidos. Por favor selecciona un archivo más liviano.`, 'Archivo demasiado grande');
                     continue;
                 }
                 const base64 = await toBase64(file);
@@ -39,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mostrarDocumentos();
             fileInput.value = '';
             fileNameSpan.textContent = 'Sin archivos seleccionados';
+            abrirModalInfo('Tus documentos se han guardado correctamente en este dispositivo.', 'Documentos guardados');
         });
     }
 
@@ -219,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnReportarSiniestro = document.getElementById('btn-reportar-siniestro');
 
     function informarFuncionalidadEnDesarrollo(mensaje) {
-        alert(mensaje);
+        abrirModalInfo(mensaje, 'Funcionalidad en desarrollo');
     }
 
     if (btnCodigo010) {
