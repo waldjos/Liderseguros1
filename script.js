@@ -212,4 +212,34 @@ document.addEventListener('DOMContentLoaded', () => {
         kmActualInput.addEventListener('input', calcularProximoCambio);
         frecuenciaInputs.forEach(radio => radio.addEventListener('change', calcularProximoCambio));
     }
+
+    // Información temporal para botones cuya funcionalidad aún no está disponible
+    const btnCodigo010 = document.getElementById('btn-codigo-010');
+    const btnDescargarPoliza = document.getElementById('btn-descargar-poliza');
+    const btnReportarSiniestro = document.getElementById('btn-reportar-siniestro');
+
+    function informarFuncionalidadEnDesarrollo(mensaje) {
+        alert(mensaje);
+    }
+
+    if (btnCodigo010) {
+        btnCodigo010.addEventListener('click', (e) => {
+            e.preventDefault();
+            informarFuncionalidadEnDesarrollo('La funcionalidad asociada al Código 010 se encuentra en definición con la cooperativa y aún no está disponible desde este llavero digital.');
+        });
+    }
+
+    if (btnDescargarPoliza) {
+        btnDescargarPoliza.addEventListener('click', (e) => {
+            e.preventDefault();
+            informarFuncionalidadEnDesarrollo('La descarga de póliza en línea aún no está disponible. Por favor contacte a su asesor o a la cooperativa para recibir su póliza.');
+        });
+    }
+
+    if (btnReportarSiniestro) {
+        btnReportarSiniestro.addEventListener('click', (e) => {
+            e.preventDefault();
+            informarFuncionalidadEnDesarrollo('El canal digital para reportar siniestros está en desarrollo. Mientras tanto, por favor comuníquese directamente con la cooperativa para gestionar su siniestro.');
+        });
+    }
 });
