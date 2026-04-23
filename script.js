@@ -266,20 +266,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (btnDescargarPoliza) {
-        btnDescargarPoliza.addEventListener('click', (e) => {
-            e.preventDefault();
-            informarFuncionalidadEnDesarrollo('La descarga de póliza en línea aún no está disponible. Por favor contacte a su asesor o a la cooperativa para recibir su póliza.');
-        });
-    }
+    // Descargar póliza ahora abre enlace real desde index.html (sin bloqueo JS)
 
     if (btnReportarSiniestro) {
         // Ya redirige directamente al enlace configurado en index.html
     }
 
-    if (btnDefensoria) {
-        btnDefensoria.addEventListener('click', (e) => {
-            e.preventDefault();
-        });
-    }
+    // Defensoría se abre por setupModal desde el botón en index.html (sin bloqueo JS)
 });
