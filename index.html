@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#001f3f" />
   <title>Asociación Cooperativa Líder de Seguros para Vehículos R.L.</title>
+  <link rel="manifest" href="manifest.webmanifest" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
@@ -43,6 +45,10 @@
         
         <button class="main-btn" id="btn-terminos">
             <img class="btn-icon" src="assets/imagenes/terminos.png" alt="Ícono Términos y Condiciones" /> Términos y Condiciones
+        </button>
+
+        <button class="main-btn" id="btn-instalar-app">
+          <img class="btn-icon" src="assets/imagenes/descargar.png" alt="Ícono Descargar App" /> Descargar App Líder
         </button>
         
         <div class="additional-buttons">
@@ -225,6 +231,21 @@
         <p><i class="fas fa-clock"></i> Lunes a viernes de 8:00 a.m. a 4:00 p.m.</p>
         <p><i class="fas fa-envelope"></i> <a href="mailto:defensoriadelaseguradolideseg@gmail.com">defensoriadelaseguradolideseg@gmail.com</a></p>
         <p><i class="fas fa-globe"></i> <a href="https://liderdeseguros.com" target="_blank" rel="noopener noreferrer">Liderdeseguros.com</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Instalar App -->
+  <div id="modal-instalar-app" class="modal">
+    <div class="modal-content">
+      <span class="close-button" id="close-modal-instalar-app">&times;</span>
+      <h2><i class="fas fa-mobile-alt"></i> Instalar App Líder</h2>
+      <div class="modal-body">
+        <p><strong>Instala esta página como app</strong> para tener acceso rápido desde tu dispositivo.</p>
+        <p><i class="fab fa-android"></i> <strong>Android (Chrome):</strong> Pulsa el botón <strong>Instalar ahora</strong> y acepta la instalación.</p>
+        <p><i class="fab fa-apple"></i> <strong>iPhone (Safari):</strong> Pulsa <strong>Compartir</strong> y luego <strong>Agregar a pantalla de inicio</strong>.</p>
+        <p><i class="fas fa-laptop"></i> <strong>PC (Chrome/Edge):</strong> Busca el ícono de instalación en la barra de direcciones.</p>
+        <button class="modal-button" id="btn-instalar-ahora">Instalar ahora</button>
       </div>
     </div>
   </div>

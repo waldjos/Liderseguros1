@@ -1,0 +1,24 @@
+{
+  "name": "Líder Seguros",
+  "short_name": "Líder",
+  "description": "Asociación Cooperativa Líder de Seguros para Vehículos R.L.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#001f3f",
+  "theme_color": "#001f3f",
+  "icons": [
+    {
+      "src": "assets/imagenes/logolider1.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/imagenes/logolider1.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

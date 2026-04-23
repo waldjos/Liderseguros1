@@ -1,3 +1,22 @@
+let deferredInstallPrompt = null;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+});
+
+window.addEventListener('appinstalled', () => {
+    deferredInstallPrompt = null;
+});
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js').catch((error) => {
+            console.error('Error al registrar service worker:', error);
+        });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // --- Gestión de Documentos Local ---
     const fileInput = document.getElementById('file-upload');
@@ -149,6 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupModal('modal-documentos', 'btn-documentos', '.close-button');
     setupModal('modal-cambio-aceite', 'btn-cambio-aceite', '.close-button');
     setupModal('modal-defensoria', 'btn-defensoria', '.close-button');
+    setupModal('modal-instalar-app', 'btn-instalar-app', '.close-button');
 
     // Modal de Términos y Condiciones (con lógica especial)
     // Variables para el modal de Términos y Condiciones (declaradas una sola vez)
@@ -254,6 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnDescargarPoliza = document.getElementById('btn-descargar-poliza');
     const btnReportarSiniestro = document.getElementById('btn-reportar-siniestro');
     const btnDefensoria = document.getElementById('btn-defensoria');
+    const btnInstalarAhora = document.getElementById('btn-instalar-ahora');
 
     function informarFuncionalidadEnDesarrollo(mensaje) {
         abrirModalInfo(mensaje, 'Funcionalidad en desarrollo');
@@ -273,4 +294,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Defensoría se abre por setupModal desde el botón en index.html (sin bloqueo JS)
+
+    if (btnInstalarAhora) {
+        btnInstalarAhora.addEventListener('click', async () => {
+            if (!deferredInstallPrompt) {
+                abrirModalInfo('Si no ves el mensaje de instalación automática, usa el menú del navegador y selecciona "Agregar a pantalla de inicio".', 'Instalación manual');
+                return;
+            }
+
+            deferredInstallPrompt.prompt();
+            try {
+                await deferredInstallPrompt.userChoice;
+            } catch (error) {
+                console.error('No se completó la instalación PWA:', error);
+            } finally {
+                deferredInstallPrompt = null;
+            }
+        });
+    }
 });
