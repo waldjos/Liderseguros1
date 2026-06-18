@@ -117,12 +117,12 @@ button {
 
 .hero-panel {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(300px, 1fr);
   gap: 2rem;
   align-items: center;
-  background: var(--surface);
-  border-radius: 28px;
-  padding: 2.25rem;
+  background: var(--white);
+  border-radius: 40px;
+  padding: 2.5rem;
   box-shadow: var(--shadow);
   overflow: hidden;
 }
@@ -170,6 +170,59 @@ button {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+}
+
+.hero-actions .button {
+  min-width: 150px;
+}
+
+.hero-figure {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
+}
+
+.hero-figure-card {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  min-height: 360px;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(11, 59, 145, 0.12);
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(245,247,250,0.96));
+}
+
+.hero-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-figure-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(255,255,255,0.9), transparent 40%), radial-gradient(circle at bottom right, rgba(247,148,29,0.18), transparent 26%);
+  pointer-events: none;
+}
+
+.hero-banner-note {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: center;
+  background: rgba(11, 59, 145, 0.04);
+  border-radius: 20px;
+  padding: 1rem 1.2rem;
+  border: 1px solid rgba(11, 59, 145, 0.08);
+}
+
+.hero-banner-note .note-pill {
+  background: rgba(247, 148, 29, 0.12);
+  color: var(--accent);
 }
 
 .button {
