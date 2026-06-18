@@ -3,128 +3,247 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="theme-color" content="#001f3f" />
+  <meta name="theme-color" content="#0B3B91" />
   <title>Asociación Cooperativa Líder de Seguros para Vehículos R.L.</title>
   <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
   <div class="page-wrapper">
-    <!-- Contenedor de partículas -->
-    <div class="particle-container">
-      <span class="particle p1"></span>
-      <span class="particle p2"></span>
-      <span class="particle p3"></span>
-      <span class="particle p4"></span>
-      <span class="particle p5"></span>
-      <span class="particle p6"></span>
-    </div>
+    <header class="app-header">
+      <div class="header-inner">
+        <div class="brand-group">
+          <img src="assets/imagenes/logonuevo.png" alt="Líder de Seguros" class="brand-logo" />
+        </div>
+        <button class="menu-toggle" aria-label="Abrir menú">
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="icon icon-menu"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </header>
 
-    <!-- Main content -->
     <main class="main-content">
-      <section class="hero-section">
+      <section class="hero-panel">
         <div class="hero-copy">
-          <h1>Protección que te acompaña</h1>
-          <p>La Asociación Cooperativa Líder de Seguros para Vehículos, R.L. es una entidad autorizada y regulada por la SUDEASEG en Venezuela para emitir pólizas de Responsabilidad Civil de Vehículos (RCV).</p>
+          <span class="eyebrow">Asociación Cooperativa</span>
+          <h1>Protegemos <span class="highlight">tu camino</span></h1>
+          <p>Seguros de vehículos diseñados para ti y tu familia, con la cobertura que necesitas y el servicio más rápido en toda Venezuela.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://wa.me/message/L5WYMYGWUOIQK1" id="btn-cotizar">
+              <span class="button-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              Cotiza
+            </a>
+            <a class="button button-secondary" id="btn-reportar-siniestro" href="https://wa.me/message/VASHLSML6T7AO1">
+              <span class="button-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4M12 17h.01M21 12c0 4.9706-4.0294 9-9 9s-9-4.0294-9-9 4.0294-9 9-9 9 4.0294 9 9Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              Siniestro
+            </a>
+          </div>
+          <div class="hero-banner-note">
+            <span class="note-pill">Autorizada por SUDEASEG</span>
+            <span>Responsabilidad Civil de Vehículos (RCV)</span>
+          </div>
+        </div>
+
+        <div class="hero-figure">
+          <div class="hero-shield"></div>
+          <div class="hero-illustration" aria-hidden="true">
+            <svg viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg" role="img" class="illustration-svg">
+              <g fill="none" fill-rule="evenodd">
+                <path d="M280 0c66 0 120 54 120 120s-54 120-120 120S160 186 160 120 214 0 280 0Z" fill="#E6F0FF" opacity="0.7"/>
+                <path d="M330 180c0 55-45 100-100 100s-100-45-100-100 45-100 100-100 100 45 100 100Z" fill="#fff" opacity="0.8"/>
+                <path d="M400 110c0 52-42 95-95 95s-95-43-95-95 42-95 95-95 95 43 95 95Z" fill="#0B3B91" opacity="0.12"/>
+                <path d="M145 260h270c35 0 60 20 60 45v35H85v-35c0-25 25-45 60-45Z" fill="#fff" stroke="#DDE7F2" stroke-width="12"/>
+                <path d="M152 272h256c22 0 40 12 40 28v18H112v-18c0-16 18-28 40-28Z" fill="#F5F7FA"/>
+                <path d="M174 254c0-24 20-44 44-44h160c24 0 44 20 44 44v18H174v-18Z" fill="#E6F0FF"/>
+                <path d="M286 132c24 0 42 19 42 42s-18 42-42 42-42-19-42-42 18-42 42-42Z" fill="#0B3B91" opacity="0.18"/>
+                <path d="M366 192c14 0 26 11 26 25v14H166v-14c0-14 12-25 26-25h174Z" fill="#0B3B91" opacity="0.08"/>
+                <path d="M168 280h224v36H168z" fill="#0B3B91" opacity="0.08"/>
+                <path d="M172 176c14 0 26 12 26 26v34H146v-34c0-14 12-26 26-26h0Z" fill="#0B3B91" opacity="0.08"/>
+                <path d="M384 176c14 0 26 12 26 26v34h-52v-34c0-14 12-26 26-26h0Z" fill="#0B3B91" opacity="0.08"/>
+                <path d="M252 176a30 30 0 1 0 60 0 30 30 0 0 0-60 0Z" fill="#0B3B91"/>
+                <path d="M226 126a20 20 0 1 0 40 0 20 20 0 0 0-40 0Z" fill="#0B3B91"/>
+                <path d="M322 126a20 20 0 1 0 40 0 20 20 0 0 0-40 0Z" fill="#0B3B91" opacity="0.6"/>
+                <path d="M240 112h120v12H240z" fill="#0B3B91" opacity="0.2"/>
+                <path d="M205 330c8 12 25 18 56 18s48-6 56-18" stroke="#0B3B91" stroke-width="10" stroke-linecap="round"/>
+              </g>
+            </svg>
+          </div>
         </div>
       </section>
 
-      <div class="logo-container">
-        <img src="assets/imagenes/logonuevo.png" alt="Logo Asociación Cooperativa Líder de Seguros para Vehículos R.L." />
-      </div>
-
-      <!-- Botones principales -->
-      <div class="buttons-container">
-        <a class="main-btn" id="btn-descargar-poliza" href="https://liderdeseguros.com/nfc" target="_blank" rel="noopener noreferrer"><img class="btn-icon" src="assets/imagenes/descargar.png" alt="Ícono Descargar Póliza" /> Descargar Póliza</a>
-        <a class="main-btn" href="https://wa.me/message/5XEBLPUFMWYJG1"><img class="btn-icon" src="assets/imagenes/renovar.png" alt="Ícono Renovar Póliza" /> Renovar Póliza</a>
-        <a class="main-btn" id="btn-reportar-siniestro" href="https://wa.me/message/VASHLSML6T7AO1"><img class="btn-icon" src="assets/imagenes/siniestro.png" alt="Ícono Reportar Siniestro" /> Reportar Siniestro</a>
-        <a class="main-btn" href="tel:02125643136"><img class="btn-icon" src="assets/imagenes/sedeprincipal.png" alt="Ícono Sede Principal" /> Sede Principal</a>
-  <button class="additional-btn" id="btn-documentos"><img class="btn-icon" src="assets/imagenes/misdocumentos.png" alt="Ícono Gestión de Documentos" /> Mis Documentos</button>
-  <button class="additional-btn" id="btn-cambio-aceite"><img class="btn-icon" src="assets/imagenes/aceite.png" alt="Ícono Próximo cambio de aceite" /> Próximo cambio de aceite</button>
-        
-        <div class="horizontal-btns">
-          <a class="floating-btn quote-btn" href="https://wa.me/message/L5WYMYGWUOIQK1"><img class="btn-icon" src="assets/imagenes/poliza.png" alt="Ícono Cotiza tu Póliza" /> Cotiza tu Póliza</a>
+      <section class="quick-access-section">
+        <div class="section-heading">
+          <div>
+            <p class="section-label">Accesos rápidos</p>
+            <h2>Todo lo que necesitas al instante</h2>
+          </div>
+          <div class="slider-actions">
+            <button class="icon-button" id="quickPrev" aria-label="Anterior acceso rápido">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6 9 12l6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="icon-button" id="quickNext" aria-label="Siguiente acceso rápido">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
         </div>
-        
-        <button class="main-btn" id="btn-terminos">
-            <img class="btn-icon" src="assets/imagenes/terminos.png" alt="Ícono Términos y Condiciones" /> Términos y Condiciones
-        </button>
-
-        <button class="main-btn" id="btn-instalar-app">
-          <img class="btn-icon" src="assets/imagenes/descargar.png" alt="Ícono Descargar App" /> Descargar App Líder
-        </button>
-        
-        <div class="additional-buttons">
+        <div class="quick-access-slider" id="quickAccessSlider">
+          <a class="quick-card" href="https://liderdeseguros.com/nfc" target="_blank" rel="noopener noreferrer">
+            <div class="quick-icon quick-icon-primary">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M9 9l3 3 3-3M6 18h12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>Descargar póliza</h3>
+          </a>
+          <a class="quick-card" href="https://wa.me/message/5XEBLPUFMWYJG1" target="_blank" rel="noopener noreferrer">
+            <div class="quick-icon quick-icon-secondary">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Renovar póliza</h3>
+          </a>
+          <button class="quick-card" id="btn-documentos" type="button">
+            <div class="quick-icon quick-icon-success">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h8M8 12h8M8 18h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Mis documentos</h3>
+          </button>
+          <button class="quick-card" id="btn-cambio-aceite" type="button">
+            <div class="quick-icon quick-icon-accent">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v6m0 0c-2.21 0-4 1.79-4 4v5h8v-5c0-2.21-1.79-4-4-4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>Cambio de aceite</h3>
+          </button>
         </div>
-      </div>
+      </section>
 
       <section class="services-section">
-        <h2>Nuestros seguros y servicios</h2>
+        <div class="section-heading inline">
+          <div>
+            <p class="section-label">Nuestros seguros y servicios</p>
+            <h2>Protección completa para tu vehículo</h2>
+          </div>
+        </div>
         <div class="services-grid">
           <article class="service-card">
-            <img src="assets/imagenes/poliza.png" alt="Responsabilidad Civil Vehicular" />
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8-8-3.582-8-8Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12h8M8 16h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
             <h3>Responsabilidad Civil Vehicular</h3>
             <p>Cumple con la ley y protege a terceros.</p>
           </article>
           <article class="service-card">
-            <img src="assets/imagenes/misdocumentos.png" alt="Gestión de Documentos" />
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16c0-4 2-6 3-6s3 2 3 6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16c0-5 3-7 4-7s4 2 4 7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Asistencia Vial 24/7</h3>
+            <p>Estamos contigo ante cualquier emergencia.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 12h6M9 16h6M13 6h-2a2 2 0 0 0-2 2v2h6V8a2 2 0 0 0-2-2Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 8h14v10H5z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+            </div>
             <h3>Gestión de Documentos</h3>
             <p>Trámites rápidos y sencillos para tu tranquilidad.</p>
           </article>
           <article class="service-card">
-            <img src="assets/imagenes/promociones.png" alt="Promociones Especiales" />
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M5 16h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 8h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 4h16v4H4z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+            </div>
             <h3>Promociones Especiales</h3>
             <p>Beneficios exclusivos y planes preferenciales.</p>
           </article>
-          <button class="service-card service-card-button" id="btn-defensoria">
-            <img src="assets/imagenes/abogado.png" alt="Defensoría del Asegurado" />
-            <div>
-              <h3>Defensoría del Asegurado</h3>
-              <p>Asesoría dedicada para proteger tus derechos.</p>
+        </div>
+      </section>
+
+      <section class="testimonials-section">
+        <div class="section-heading inline">
+          <div>
+            <p class="section-label">Testimonios</p>
+            <h2>Clientes satisfechos con nuestro servicio</h2>
+          </div>
+          <div class="slider-actions">
+            <button class="icon-button" id="testimonialPrev" aria-label="Testimonio anterior">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6 9 12l6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="icon-button" id="testimonialNext" aria-label="Testimonio siguiente">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="testimonials-carousel">
+          <article class="testimonial-card active" data-index="0">
+            <div class="testimonial-mark">“</div>
+            <p>Excelente servicio y atención. Respondieron rápido cuando los necesité y me acompañaron en todo el proceso. Recomendados 100%.</p>
+            <div class="testimonial-meta">
+              <div>
+                <span class="rating">★★★★★</span>
+                <p>Carlos M. · Caracas</p>
+              </div>
             </div>
-          </button>
+          </article>
+          <article class="testimonial-card" data-index="1">
+            <div class="testimonial-mark">“</div>
+            <p>La atención fue muy profesional y el equipo resolvió mi trámite en minutos. Me sentí seguro durante todo el proceso.</p>
+            <div class="testimonial-meta">
+              <div>
+                <span class="rating">★★★★★</span>
+                <p>María G. · Valencia</p>
+              </div>
+            </div>
+          </article>
+          <article class="testimonial-card" data-index="2">
+            <div class="testimonial-mark">“</div>
+            <p>La plataforma es muy fácil de usar, y la asesoría del equipo fue impecable. Vuelvo siempre por la rapidez y confianza.</p>
+            <div class="testimonial-meta">
+              <div>
+                <span class="rating">★★★★★</span>
+                <p>Ricardo T. · Caracas</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="contact-section">
+        <div class="contact-card">
+          <div class="contact-details">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c3.866 0 7 3.134 7 7 0 5.25-7 13-7 13S5 14.25 5 9c0-3.866 3.134-7 7-7Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="9" r="2.5" fill="currentColor"/></svg>
+            </div>
+            <div>
+              <p class="contact-label">Sucursal principal</p>
+              <p>San Antonio de los Altos</p>
+            </div>
+          </div>
+          <a class="button button-primary contact-button" href="tel:04242367811">
+            <span class="button-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.08 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12 1.05.37 2.08.75 3.06a2 2 0 0 1-.45 2.11l-1.27 1.27a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.98.38 2.01.63 3.06.75A2 2 0 0 1 22 16.92Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            0424 2367811
+          </a>
         </div>
       </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer-new">
-      <div class="footer-content">
-        <div class="footer-about">
-          <img src="assets/imagenes/logonuevo.png" alt="Logo Asociación Cooperativa Líder de Seguros para Vehículos R.L." class="footer-logo" />
-          <p>
-            Somos una cooperativa aseguradora que ofrece el servicio de cobertura de Responsabilidad Civil Vehicular (R.C.V) reconocida en el mercado venezolano.<br/>
-            Asociación Cooperativa Líder de Seguros para Vehículos R.L. RIF: J-31105090-6
-          </p>
-          <div class="footer-socials">
-            <a href="https://www.facebook.com/lidersegurosdevenezuela/?ref=_xav_ig_profile_page_web#" aria-label="Facebook"><img src="assets/imagenes/facebook.png" alt="Facebook" /></a>
-            <a href="https://www.instagram.com/liderdesegurosparavehiculos?igsh=MWJwNWJxMHp2aDJicQ%3D%3D" aria-label="Instagram"><img src="assets/imagenes/instagram.png" alt="Instagram" /></a>
-            <a href="https://api.whatsapp.com/message/GSBW3NAO375MD1?autoload=1&app_absent=0" aria-label="Whatsapp"><img src="assets/imagenes/whatsapp.png" alt="Instagram" /></a>
-          </div>
-        </div>
-        <div class="footer-links">
-          <h3>Enlaces</h3>
-          <ul>
-            <li><span title="Sitio web en actualización">¿Quiénes Somos?</span></li>
-            <li><span title="Sitio web en actualización">Misión</span></li>
-            <li><span title="Sitio web en actualización">Visión</span></li>
-            <li><span title="Sitio web en actualización">Contacto</span></li>
-          </ul>
-        </div>
-        <div class="footer-contact">
-          <h3>Contacto</h3>
-          <p><i class="fas fa-map-marker-alt"></i>Sucursal Principal: Caracas, Distrito Capital.</p>
-          <p><i class="fas fa-map-marker-alt"></i>Sucursal 1: Carretera Panamericana Centro Comercial La Casona 2, Edo. Miranda.</p>
-          <p><i class="fas fa-map-marker-alt"></i>Sucursal 2: Maracay, Edo. Aragua.</p>
-          <p><i class="fas fa-map-marker-alt"></i>Sucursal 3: Valencia, Edo. Carabobo.</p>
-          <p><i class="fas fa-envelope"></i> lidersegurosdevenezuela@gmail.com</p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>Copyright ©2025 Asociación Cooperativa Líder de Seguros para Vehículos R.L.</p>
-      </div>
-    </footer>
+    <div class="footer-cta">
+      <a class="button button-primary footer-cta-button" href="https://wa.me/message/L5WYMYGWUOIQK1">
+        <span class="button-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5Zm0 17.5 10-5V17L12 22l-10-5v-2.5l10 5Z" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+        </span>
+        Cotizar ahora
+      </a>
+      <a class="button button-success footer-cta-button" href="https://wa.me/message/GSBW3NAO375MD1?autoload=1&app_absent=0">
+        <span class="button-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.5a11.4 11.4 0 0 0-19.7 8.1c0 2 0.5 4 1.4 5.7L2 22l3.9-1a11.4 11.4 0 0 0 5.6 1.5h.1c6.3 0 11.5-5.2 11.5-11.6 0-3.1-1.2-6.1-3.4-8.2Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M17.5 14.5c-.2 0-1.1 0-1.7-.6-.7-.7-1.3-1.2-2-1.6-.6-.3-.9-.4-1.4.1-0.5.5-1.7 1.7-2.1 2.1-.3.3-.6.4-1 .2-0.4-.2-1.5-.6-2.8-1.7-1-1-1.7-2.2-1.9-2.7-.2-.4 0-.7.2-.9.2-.2.4-.6.6-.9.2-.2.3-.3.5-.3.1 0 .2 0 .3 0 .1 0 .3 0 .5 0 .2 0 .5 0 .7 0 .3 0 .7.1 1 .3.2.1.4.2.6.3.2.1.2.2.2.3 0 .1 0 .3 0 .5 0 .2 0 .4-.1.5-.1.2-.4.5-.4.6 0 .1 0 .2.1.3.2.4 1.1 2.2 2.4 3.5 1.5 1.5 2.7 2.1 3.1 2.3.4.2.7.2 1.1.1.3-.1 1.1-.4 1.3-.5.2-.1.3-.2.4-.3.1-.1.2-.3.1-.5 0-.2 0-.4-.1-.5-.1-.2-.5-.4-.9-.7-.4-.2-.7-.4-.9-.5-.2-.1-.4-.2-.5-.2-.1 0-.1 0-.1 0Z" fill="currentColor"/></svg>
+        </span>
+        WhatsApp
+      </a>
+    </div>
   </div>
 
   <!-- Modal de Gestión de Documentos -->
@@ -280,6 +399,7 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.420.0/dist/lucide.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

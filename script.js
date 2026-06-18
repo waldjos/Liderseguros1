@@ -312,4 +312,50 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    if (window.lucide) {
+        lucide.createIcons();
+    }
+
+    const quickSlider = document.getElementById('quickAccessSlider');
+    const quickPrev = document.getElementById('quickPrev');
+    const quickNext = document.getElementById('quickNext');
+
+    if (quickSlider && quickPrev && quickNext) {
+        const card = quickSlider.querySelector('.quick-card');
+        const cardWidth = card ? card.getBoundingClientRect().width + 16 : 260;
+        quickPrev.addEventListener('click', () => {
+            quickSlider.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+        });
+        quickNext.addEventListener('click', () => {
+            quickSlider.scrollBy({ left: cardWidth, behavior: 'smooth' });
+        });
+    }
+
+    const testimonials = Array.from(document.querySelectorAll('.testimonial-card'));
+    let testimonialIndex = testimonials.findIndex(card => card.classList.contains('active'));
+    if (testimonialIndex < 0) testimonialIndex = 0;
+
+    const testimonialPrev = document.getElementById('testimonialPrev');
+    const testimonialNext = document.getElementById('testimonialNext');
+
+    function showTestimonial(index) {
+        if (!testimonials.length) return;
+        testimonials.forEach((card, cardIndex) => {
+            card.classList.toggle('active', cardIndex === index);
+        });
+        testimonialIndex = index;
+    }
+
+    if (testimonialPrev) {
+        testimonialPrev.addEventListener('click', () => {
+            showTestimonial((testimonialIndex - 1 + testimonials.length) % testimonials.length);
+        });
+    }
+
+    if (testimonialNext) {
+        testimonialNext.addEventListener('click', () => {
+            showTestimonial((testimonialIndex + 1) % testimonials.length);
+        });
+    }
 });
