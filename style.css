@@ -451,6 +451,25 @@ button {
   background: var(--accent-soft);
 }
 
+.quick-card-icon,
+.service-icon-img img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.service-icon-img {
+  width: 64px;
+  height: 64px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(11,59,145,0.06);
+  border-radius: 18px;
+}
+
 .slider-actions {
   display: flex;
   align-items: center;
