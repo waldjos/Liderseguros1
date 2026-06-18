@@ -32,7 +32,7 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: 'Poppins', sans-serif;
-  background: var(--bg);
+  background: linear-gradient(180deg, #E8EEFF 0%, #F5F7FA 70%);
   color: var(--text);
 }
 
@@ -62,7 +62,7 @@ button {
 .page-wrapper {
   position: relative;
   min-height: 100vh;
-  padding-bottom: 140px;
+  padding-bottom: 220px;
 }
 
 .app-header {
@@ -313,31 +313,51 @@ button {
   gap: 1.5rem;
 }
 
-.quick-access-slider {
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  padding-bottom: 0.25rem;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
+.quick-access-panel {
+  background: var(--white);
+  border-radius: 28px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(17, 40, 85, 0.08);
 }
 
-.quick-access-slider::-webkit-scrollbar {
-  display: none;
+.quick-access-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+@media (min-width: 900px) {
+  .quick-access-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 .quick-card {
-  flex: 0 0 240px;
-  min-width: 240px;
   background: var(--white);
   border-radius: 24px;
   padding: 1.5rem;
   box-shadow: var(--shadow-soft);
   transition: transform var(--transition), box-shadow var(--transition);
-  scroll-snap-align: start;
   display: grid;
+  align-items: center;
+  justify-items: center;
   gap: 1rem;
-  text-align: left;
+  text-align: center;
+  min-height: 140px;
+}
+
+.quick-access-action {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 1rem 1.2rem;
+  justify-self: center;
+}
+
+.button-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 1.8px solid rgba(11, 59, 145, 0.16);
 }
 
 .quick-card:hover,
@@ -567,13 +587,27 @@ button {
   gap: 0.75rem;
   justify-content: center;
   align-items: center;
-  padding: 0.95rem 1rem 1.1rem;
-  background: var(--bg);
-  border-top: 1px solid rgba(17, 40, 85, 0.08);
+  padding: 1rem 1rem 1.2rem;
+  background: #0B3B91;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 -12px 40px rgba(11, 59, 145, 0.16);
 }
 
 .footer-cta-button {
   flex: 1;
+  min-height: 56px;
+  color: var(--white);
+  box-shadow: none;
+}
+
+.footer-cta .button-primary {
+  background: #143c85;
+  color: var(--white);
+}
+
+.footer-cta .button-success {
+  background: var(--success);
+  color: var(--white);
 }
 
 @media (max-width: 1040px) {
