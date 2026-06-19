@@ -137,7 +137,62 @@ document.addEventListener('DOMContentLoaded', () => {
         openBtnDocumentos.addEventListener('click', mostrarDocumentos);
     }
 
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    const menuBtnDocumentos = document.getElementById('menuBtnDocumentos');
+    const menuBtnCambioAceite = document.getElementById('menuBtnCambioAceite');
+    const menuBtnDefensoria = document.getElementById('menuBtnDefensoria');
 
+    function closeMobileNav() {
+        if (mobileNav && menuToggle) {
+            mobileNav.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+        }
+    }
+
+    function toggleMobileNav() {
+        if (!mobileNav || !menuToggle) return;
+        const isOpen = mobileNav.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+    }
+
+    if (menuToggle) {
+        menuToggle.addEventListener('click', (event) => {
+            event.stopPropagation();
+            toggleMobileNav();
+        });
+    }
+
+    if (menuBtnDocumentos) {
+        menuBtnDocumentos.addEventListener('click', () => {
+            closeMobileNav();
+            document.getElementById('btn-documentos')?.click();
+        });
+    }
+    if (menuBtnCambioAceite) {
+        menuBtnCambioAceite.addEventListener('click', () => {
+            closeMobileNav();
+            document.getElementById('btn-cambio-aceite')?.click();
+        });
+    }
+    if (menuBtnDefensoria) {
+        menuBtnDefensoria.addEventListener('click', () => {
+            closeMobileNav();
+            document.getElementById('btn-defensoria')?.click();
+        });
+    }
+
+    window.addEventListener('click', (event) => {
+        if (mobileNav && mobileNav.classList.contains('open') && !event.target.closest('#mobileNav') && !event.target.closest('#menuToggle')) {
+            closeMobileNav();
+        }
+    });
+
+    window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            closeMobileNav();
+        }
+    });
 
     console.log("Script loaded. DOM is ready.");
 

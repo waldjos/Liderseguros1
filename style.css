@@ -106,6 +106,53 @@ button {
   transform: scale(1.02);
 }
 
+.mobile-nav {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--white);
+  border-bottom-left-radius: 28px;
+  border-bottom-right-radius: 28px;
+  box-shadow: 0 22px 60px rgba(17, 40, 85, 0.12);
+  padding: 1rem 1.25rem 1.25rem;
+  z-index: 21;
+}
+
+.mobile-nav.open {
+  display: block;
+}
+
+.mobile-nav-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.mobile-nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.95rem 1rem;
+  border-radius: 18px;
+  background: rgba(11, 59, 145, 0.06);
+  color: var(--text);
+  font-weight: 600;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link:focus-visible {
+  background: rgba(11, 59, 145, 0.12);
+}
+
+@media (min-width: 900px) {
+  .mobile-nav {
+    display: none !important;
+  }
+}
+
 .main-content {
   max-width: var(--max-width);
   margin: 0 auto;
