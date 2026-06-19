@@ -881,12 +881,116 @@ button {
 
 .modal-content {
   margin: 4rem auto;
-  max-width: 600px;
+  max-width: 640px;
   background: var(--white);
   border-radius: 26px;
   padding: 2rem;
   box-shadow: 0 24px 60px rgba(17, 40, 85, 0.16);
   position: relative;
+}
+
+.modal-content.modal-aceite {
+  max-width: 760px;
+}
+
+.modal-aceite h2 {
+  margin-top: 0;
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+}
+
+.modal-aceite p {
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.modal-aceite form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.modal-aceite label {
+  display: grid;
+  gap: 0.55rem;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.modal-aceite label:last-of-type {
+  grid-column: 1 / -1;
+}
+
+.modal-aceite input[type="text"],
+.modal-aceite input[type="email"],
+.modal-aceite input[type="number"],
+.modal-aceite input[type="date"] {
+  width: 100%;
+  padding: 1rem 1rem;
+  border-radius: 16px;
+  border: 1px solid rgba(17, 40, 85, 0.12);
+  background: #f8f9fc;
+  color: var(--text);
+  font-size: 0.95rem;
+  transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+}
+
+.modal-aceite input[type="text"]:focus,
+.modal-aceite input[type="email"]:focus,
+.modal-aceite input[type="number"]:focus,
+.modal-aceite input[type="date"]:focus {
+  outline: none;
+  border-color: rgba(11, 59, 145, 0.4);
+  box-shadow: 0 0 0 4px rgba(11, 59, 145, 0.08);
+  background: #ffffff;
+}
+
+.modal-aceite .radio-group {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+  background: rgba(11, 59, 145, 0.05);
+  border: 1px solid rgba(11, 59, 145, 0.12);
+  border-radius: 18px;
+  padding: 0.85rem;
+  grid-column: 1 / -1;
+}
+
+.modal-aceite .radio-group label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--white);
+  border-radius: 14px;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(17, 40, 85, 0.12);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.modal-aceite .radio-group input {
+  width: auto;
+  accent-color: var(--accent);
+}
+
+.modal-aceite input[readonly] {
+  background: rgba(11, 59, 145, 0.04);
+}
+
+.modal-aceite button.modal-button {
+  grid-column: 1 / -1;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 720px) {
+  .modal-aceite form {
+    grid-template-columns: 1fr;
+  }
+  .modal-aceite label:last-of-type {
+    grid-column: auto;
+  }
 }
 
 .close-button {
