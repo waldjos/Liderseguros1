@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0B3B91" />
+  <title>Asociación Cooperativa Líder de Seguros para Vehículos R.L.</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <template id="__bundler_thumbnail">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="#0B2E7A"/>
+      <path d="M22 34c8-2 12 4 18 4s10-6 18-4v22c-8-2-12 4-18 4s-10-6-18-4Z" fill="#F7941D"/>
+      <text x="50" y="82" font-family="Poppins,sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">LÍDER</text>
+    </svg>
+  </template>
+  <div class="page-wrapper">
+    <!-- ===== HEADER ===== -->
+    <header class="app-header">
+      <div class="header-inner">
+        <a class="brand-group" href="index.html">
+          <img src="assets/logo-header.png" alt="Líder de Seguros para Vehículos R.L." class="brand-logo" />
+        </a>
+        <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" id="menuToggle">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <nav class="mobile-nav" id="mobileNav" aria-label="Navegación móvil">
+        <div class="mobile-nav-list">
+          <a class="mobile-nav-link" href="https://wa.me/message/L5WYMYGWUOIQK1" target="_blank" rel="noopener noreferrer">Cotiza</a>
+          <a class="mobile-nav-link" href="https://wa.me/message/VASHLSML6T7AO1" target="_blank" rel="noopener noreferrer">Siniestro</a>
+          <button class="mobile-nav-link" type="button" id="menuBtnDocumentos">Mis documentos</button>
+          <button class="mobile-nav-link" type="button" id="menuBtnCambioAceite">Cambio de aceite</button>
+          <button class="mobile-nav-link" type="button" id="menuBtnDefensoria">Defensoría</button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="main-content">
+      <!-- ===== HERO ===== -->
+      <section class="hero-panel">
+        <div class="hero-copy">
+          <h1>Protección<br /><span class="highlight">que te acompaña</span></h1>
+          <p>La Asociación Cooperativa Líder de Seguros para Vehículos, R.L. es una entidad autorizada y regulada por la SUDEASEG en Venezuela para emitir pólizas de Responsabilidad Civil de Vehículos (RCV)</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://wa.me/message/L5WYMYGWUOIQK1" id="btn-cotizar">
+              Cotiza
+              <span class="button-icon-circle">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </a>
+            <a class="button button-secondary" id="btn-reportar-siniestro" href="https://wa.me/message/VASHLSML6T7AO1">
+              <span class="button-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 9v4M12 17h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              Siniestro
+            </a>
+          </div>
+        </div>
+        <div class="hero-figure">
+          <img src="assets/imagenprincipal.png" alt="Familia protegida con su vehículo" class="hero-photo" />
+        </div>
+        <span class="hero-swoosh" aria-hidden="true"></span>
+      </section>
+
+      <!-- ===== ACCESOS RÁPIDOS ===== -->
+      <section class="quick-access-section">
+        <div class="quick-access-panel">
+          <div class="quick-access-grid" id="quickAccessSlider">
+            <a class="quick-card" href="https://liderdeseguros.com/nfc" target="_blank" rel="noopener noreferrer">
+              <img src="assets/descargarpoliza.png" alt="" class="quick-card-icon" />
+              <h3>Descargar<br />Póliza</h3>
+            </a>
+            <a class="quick-card" href="https://wa.me/message/5XEBLPUFMWYJG1" target="_blank" rel="noopener noreferrer">
+              <img src="assets/renovar.png" alt="" class="quick-card-icon" />
+              <h3>Renovar<br />Póliza</h3>
+            </a>
+            <button class="quick-card" id="btn-documentos" type="button">
+              <img src="assets/misdoc.png" alt="" class="quick-card-icon" />
+              <h3>Mis<br />Documentos</h3>
+            </button>
+            <button class="quick-card" id="btn-cambio-aceite" type="button">
+              <img src="assets/cambiodeaceite.png" alt="" class="quick-card-icon" />
+              <h3>Cambio<br />de aceite</h3>
+            </button>
+          </div>
+          <button class="scroll-hint scroll-hint-left" id="quickPrev" type="button" aria-label="Ver más accesos">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6 9 12l6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ===== SEGUROS Y SERVICIOS ===== -->
+      <section class="services-section">
+        <h2 class="section-title">Nuestros seguros y servicios</h2>
+        <div class="services-wrap">
+          <div class="services-grid" id="servicesSlider">
+            <article class="service-card">
+              <div class="service-icon"><img src="assets/responsabilidadcivilvehiculo.png" alt="" /></div>
+              <h3>Responsabilidad Civil Vehicular</h3>
+              <p>Cumple con la ley y protege a terceros.</p>
+            </article>
+            <article class="service-card">
+              <div class="service-icon"><img src="assets/grua.png" alt="" /></div>
+              <h3>Asistencia Vial 24/7</h3>
+              <p>Estamos contigo ante cualquier emergencia.</p>
+            </article>
+            <article class="service-card">
+              <div class="service-icon"><img src="assets/gestion.png" alt="" /></div>
+              <h3>Gestión de Documentos</h3>
+              <p>Trámites rápidos y sencillos para tu tranquilidad.</p>
+            </article>
+            <article class="service-card">
+              <div class="service-icon"><img src="assets/promociones.png" alt="" /></div>
+              <h3>Promociones Especiales</h3>
+              <p>Beneficios exclusivos y planes preferenciales.</p>
+            </article>
+          </div>
+          <button class="scroll-hint scroll-hint-right" id="servicesNext" type="button" aria-label="Ver más servicios">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ===== TESTIMONIOS ===== -->
+      <section class="testimonials-section">
+        <div class="testimonials-carousel">
+          <article class="testimonial-card active" data-index="0">
+            <div class="testimonial-mark">&ldquo;</div>
+            <p>Excelente servicio y atención. Respondieron rápido cuando los necesité y me acompañaron en todo el proceso. Recomendados 100%.</p>
+            <div class="rating">★★★★★</div>
+            <div class="testimonial-meta">
+              <p><strong>Carlos M.</strong> &nbsp;Caracas</p>
+              <div class="slider-actions">
+                <button class="icon-button" id="testimonialPrev" aria-label="Testimonio anterior">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6 9 12l6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <button class="icon-button" id="testimonialNext" aria-label="Testimonio siguiente">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+            </div>
+          </article>
+          <article class="testimonial-card" data-index="1">
+            <div class="testimonial-mark">&ldquo;</div>
+            <p>La atención fue muy profesional y el equipo resolvió mi trámite en minutos. Me sentí seguro durante todo el proceso.</p>
+            <div class="rating">★★★★★</div>
+            <div class="testimonial-meta">
+              <p><strong>María G.</strong> &nbsp;Valencia</p>
+              <div class="slider-actions">
+                <button class="icon-button" aria-label="Testimonio anterior" onclick="document.getElementById('testimonialPrev').click()">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6 9 12l6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <button class="icon-button" aria-label="Testimonio siguiente" onclick="document.getElementById('testimonialNext').click()">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+            </div>
+          </article>
+          <article class="testimonial-card" data-index="2">
+            <div class="testimonial-mark">&ldquo;</div>
+            <p>La plataforma es muy fácil de usar, y la asesoría del equipo fue impecable. Vuelvo siempre por la rapidez y confianza.</p>
+            <div class="rating">★★★★★</div>
+            <div class="testimonial-meta">
+              <p><strong>Ricardo T.</strong> &nbsp;Caracas</p>
+              <div class="slider-actions">
+                <button class="icon-button" aria-label="Testimonio anterior" onclick="document.getElementById('testimonialPrev').click()">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6 9 12l6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <button class="icon-button" aria-label="Testimonio siguiente" onclick="document.getElementById('testimonialNext').click()">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===== CONTACTO ===== -->
+      <section class="contact-section">
+        <div class="contact-card">
+          <div class="contact-details">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c3.866 0 7 3.134 7 7 0 5.25-7 13-7 13S5 14.25 5 9c0-3.866 3.134-7 7-7Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="9" r="2.5" fill="var(--accent)"/></svg>
+            </div>
+            <a class="contact-location" href="https://maps.app.goo.gl/9tPJA7SooyVFCHik6" target="_blank" rel="noopener">San Antonio de los Altos</a>
+          </div>
+          <a class="button button-primary contact-button" href="tel:04242367811">
+            <span class="button-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.08 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12 1.05.37 2.08.75 3.06a2 2 0 0 1-.45 2.11l-1.27 1.27a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.98.38 2.01.63 3.06.75A2 2 0 0 1 22 16.92Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            0424 2367811
+          </a>
+        </div>
+      </section>
+
+      <!-- ===== REDES SOCIALES ===== -->
+      <section class="social-section">
+        <h2 class="section-title">Síguenos</h2>
+        <div class="social-links">
+          <a class="social-link" href="https://www.instagram.com/liderdesegurosparavehiculos" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor"/></svg>
+          </a>
+          <a class="social-link" href="https://www.facebook.com/share/17dpkNRWjf/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.7-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12Z" fill="currentColor"/></svg>
+          </a>
+          <a class="social-link" href="https://www.tiktok.com/@liderdeseguros.saa" target="_blank" rel="noopener" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 3c.3 2 1.6 3.6 3.5 3.9v2.6c-1.3 0-2.5-.4-3.6-1.1v6.2a5.7 5.7 0 1 1-5.7-5.7c.3 0 .6 0 .9.1v2.7a2.9 2.9 0 1 0 2 2.8V3h2.9Z" fill="currentColor"/></svg>
+          </a>
+          <a class="social-link" href="https://share.google/rMLQCBKGbQlGnsG0x" target="_blank" rel="noopener" aria-label="Google">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12v3.6h5.1c-.2 1.3-1.6 3.9-5.1 3.9-3.1 0-5.6-2.6-5.6-5.7S8.9 8.1 12 8.1c1.8 0 3 .8 3.6 1.4l2.5-2.4C16.5 5.5 14.5 4.6 12 4.6 7 4.6 3 8.6 3 13.5s4 8.9 9 8.9c5.2 0 8.6-3.6 8.6-8.8 0-.6-.1-1-.2-1.6H12Z" fill="currentColor"/></svg>
+          </a>
+        </div>
+      </section>
+
+      <!-- ===== CRÉDITO ===== -->
+      <p class="site-credit">Hecho por <a href="https://herasi.dev" target="_blank" rel="noopener">@herasi.dev</a> y ZIVI Dynamic C.A.</p>
+    </main>
+
+    <!-- ===== FOOTER CTA FIJO ===== -->
+    <div class="footer-cta">
+      <a class="button button-primary footer-cta-button" href="https://wa.me/message/L5WYMYGWUOIQK1">
+        <span class="button-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        Cotizar ahora
+      </a>
+      <a class="button button-success footer-cta-button" href="https://wa.me/message/GSBW3NAO375MD1?autoload=1&app_absent=0">
+        <span class="button-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.5a11.4 11.4 0 0 0-19.7 8.1c0 2 .5 4 1.4 5.7L2 22l3.9-1a11.4 11.4 0 0 0 5.6 1.5h.1c6.3 0 11.5-5.2 11.5-11.6 0-3.1-1.2-6.1-3.4-8.2Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M17.5 14.5c-.2 0-1.1 0-1.7-.6-.7-.7-1.3-1.2-2-1.6-.6-.3-.9-.4-1.4.1-.5.5-1.7 1.7-2.1 2.1-.3.3-.6.4-1 .2-.4-.2-1.5-.6-2.8-1.7-1-1-1.7-2.2-1.9-2.7-.2-.4 0-.7.2-.9.2-.2.4-.6.6-.9.2-.2.3-.3.5-.3h.5c.2 0 .5 0 .7.5.2.6.8 1.9.9 2 .1.2.1.3 0 .5-.4.8-.9.7-.5 1.4.9 1.5 1.8 2 3.1 2.7.3.2.5.1.7-.1.2-.2.8-.9 1-1.2.2-.3.4-.2.7-.1.3.1 1.7.8 2 1 .3.1.4.2.5.3.1.3.1.9-.2 1.6Z" fill="currentColor"/></svg>
+        </span>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <!-- Modal de Gestión de Documentos -->
+  <div id="modal-documentos" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Mis Documentos</h2>
+      <div class="modal-body">
+        <p><strong><i class="fas fa-lock"></i> Seguridad:</strong> Tus documentos están protegidos y solo se almacenan en tu dispositivo. Nadie más tendrá acceso.</p>
+        <p><strong><i class="fas fa-info-circle"></i> Beneficio:</strong> Aquí puedes respaldar fotos o archivos importantes (cédula, licencia, póliza, carnet, etc). En caso de emergencia o si no tienes tus documentos físicos, podrás acceder a ellos rápidamente desde tu teléfono.</p>
+        <div class="upload-section">
+          <p>Sube hasta 5 documentos (PDF, JPG, PNG):</p>
+          <label for="file-upload" class="custom-file-upload">Elegir archivos</label>
+          <input id="file-upload" type="file" multiple accept=".pdf,image/jpeg,image/png" />
+          <span id="file-name">Sin archivos seleccionados</span>
+          <small>Puedes tomar una foto o elegir un archivo. Máx. 5 documentos.</small>
+        </div>
+        <button class="modal-button" id="guardar-documentos-btn">Guardar documentos</button>
+        <div class="saved-documents">
+          <h3>Tus documentos guardados</h3>
+          <p>No hay documentos guardados.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Términos y Condiciones -->
+  <div id="modal-terminos" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Términos y Condiciones</h2>
+      <div class="modal-body-terminos">
+        <h4>ACUERDOS Y CONDICIONES DE USO “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA”</h4>
+        <p><strong>1. ACUERDOS</strong></p>
+        <p>Los presentes acuerdos regulan el acceso o uso que usted haga, como persona, en Venezuela, Puestos a disposición por el servicio “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA”. Mediante su acceso y uso de los Servicios usted acuerda vincularse por estas Condiciones, que establecen un acuerdo entre usted y el servicio “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA”. Si usted no acepta estos acuerdos, no podrá acceder o usar los Servicios. Estos acuerdos sustituyen expresamente los acuerdos o compromisos previos con usted.</p>
+        <p><strong>2. LOS SERVICIOS</strong></p>
+        <p>Los Servicios constituyen una plataforma de tecnología que permite a los usuarios utilizar la aplicación móvil conforme a un acuerdo con “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA”. Los Servicios se ponen a disposición solo para su uso personal, no comercial.</p>
+        <p><strong>3. SU USO DE LOS SERVICIOS</strong></p>
+        <p>Con el fin de usar la mayor parte de los aspectos de los Servicios, usted deberá descargar la aplicación y mantenerla activa. Usted es responsable de toda la actividad que ocurre en su Cuenta y se compromete a mantenerla de forma segura en todo momento.</p>
+        <p><strong>4. PAGO</strong></p>
+        <p>“COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA”, en cualquier momento y a su sola discreción, se reserva el derecho de establecer, eliminar y/o revisar los Cargos para alguno o todos los servicios o bienes obtenidos a través del uso de los Servicios.</p>
+        <p><strong>5. RENUNCIAS; LIMITACIÓN DE RESPONSABILIDAD</strong></p>
+        <p>Usted acuerda que todo riesgo derivado de su uso de los servicios y cualquier servicio o bien solicitado en relación con aquellos será únicamente suyo, en la máxima medida permitida por la ley aplicable.</p>
+        <div class="terminos-check">
+          <input type="checkbox" id="acepto-terminos-checkbox" />
+          <label for="acepto-terminos-checkbox">He leído y acepto los términos y condiciones</label>
+        </div>
+        <button class="modal-button" id="aceptar-terminos-btn" disabled>Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Cambio de Aceite -->
+  <div id="modal-cambio-aceite" class="modal">
+    <div class="modal-content modal-aceite">
+      <span class="close-button" id="close-cambio-aceite">&times;</span>
+      <h2>Gestión de Cambio de Aceite</h2>
+      <p>Registra los datos de tu vehículo, el último cambio de aceite y tu correo electrónico. Te mostraremos el kilometraje estimado para tu próximo cambio, para que puedas planificarlo con anticipación.</p>
+      <form id="form-cambio-aceite">
+        <label>Marca del vehículo:
+          <input type="text" name="marca-vehiculo" placeholder="Ej: Toyota, Ford, Chevrolet" required />
+        </label>
+        <label>Marca de aceite:
+          <input type="text" name="marca-aceite" placeholder="Ej: Mobil 1, Castrol, Shell" required />
+        </label>
+        <label>Tipo de aceite:
+          <input type="text" name="tipo-aceite" placeholder="Ej: 5W-30, 10W-40, Sintético" required />
+        </label>
+        <label>Fecha del cambio:
+          <input type="date" name="fecha-cambio" required />
+        </label>
+        <label>¿Cada cuánto cambias el aceite?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="frecuencia" value="5000" checked /> 5.000 km</label>
+          <label><input type="radio" name="frecuencia" value="7000" /> 7.000 km</label>
+        </div>
+        <label>Kilometraje actual:
+          <input type="number" name="km-actual" placeholder="Ej: 45000" required />
+        </label>
+        <label>Kilometraje del próximo cambio:
+          <input type="text" name="km-proximo" readonly placeholder="Se calculará automáticamente" />
+        </label>
+        <label>Correo electrónico:
+          <input type="email" name="email" placeholder="tu@email.com" required />
+        </label>
+        <button type="submit" class="modal-button">Enviar información</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal informativo genérico -->
+  <div id="modal-info" class="modal">
+    <div class="modal-content">
+      <span class="close-button" id="close-modal-info">&times;</span>
+      <h2 id="modal-info-title">Información</h2>
+      <div class="modal-body">
+        <p id="modal-info-message"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Defensoría del Asegurado -->
+  <div id="modal-defensoria" class="modal">
+    <div class="modal-content">
+      <span class="close-button" id="close-modal-defensoria">&times;</span>
+      <h2><i class="fas fa-balance-scale"></i> Defensoría del Asegurado</h2>
+      <div class="modal-body">
+        <p><strong>¿Necesitas asesoría o apoyo?</strong> Puedes contactar a la Defensoría del Asegurado por cualquiera de estos medios:</p>
+        <p><i class="fas fa-map-marker-alt"></i> Avenida Urdaneta, Edificio Iberia, Piso 3, Ofc. E., Frente a la Torre Universal, Caracas.</p>
+        <p><i class="fas fa-phone"></i> <a href="tel:02125646727">0212-564.67.27</a></p>
+        <p><i class="fas fa-clock"></i> Lunes a viernes de 8:00 a.m. a 4:00 p.m.</p>
+        <p><i class="fas fa-envelope"></i> <a href="mailto:defensoriadelaseguradolideseg@gmail.com">defensoriadelaseguradolideseg@gmail.com</a></p>
+        <p><i class="fas fa-globe"></i> <a href="https://liderdeseguros.com" target="_blank" rel="noopener noreferrer">Liderdeseguros.com</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Instalar App -->
+  <div id="modal-instalar-app" class="modal">
+    <div class="modal-content">
+      <span class="close-button" id="close-modal-instalar-app">&times;</span>
+      <h2><i class="fas fa-mobile-alt"></i> Instalar App Líder</h2>
+      <div class="modal-body">
+        <p><strong>Instala esta página como app</strong> para tener acceso rápido desde tu dispositivo.</p>
+        <p><i class="fab fa-android"></i> <strong>Android (Chrome):</strong> Pulsa el botón <strong>Instalar ahora</strong> y acepta la instalación.</p>
+        <p><i class="fab fa-apple"></i> <strong>iPhone (Safari):</strong> Pulsa <strong>Compartir</strong> y luego <strong>Agregar a pantalla de inicio</strong>.</p>
+        <p><i class="fas fa-laptop"></i> <strong>PC (Chrome/Edge):</strong> Busca el ícono de instalación en la barra de direcciones.</p>
+        <button class="modal-button" id="btn-instalar-ahora">Instalar ahora</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
