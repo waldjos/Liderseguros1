@@ -152,8 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (menuBtnCambioAceite) menuBtnCambioAceite.addEventListener('click', () => { closeMobileNav(); document.getElementById('btn-cambio-aceite')?.click(); });
   if (menuBtnDefensoria) menuBtnDefensoria.addEventListener('click', () => {
     closeMobileNav();
-    const modalDefensoria = document.getElementById('modal-defensoria');
-    if (modalDefensoria) modalDefensoria.classList.add('active');
+    window.location.href = 'tel:02125646727';
   });
 
   window.addEventListener('click', (event) => {
