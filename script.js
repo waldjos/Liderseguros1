@@ -280,24 +280,29 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       try {
-        const emailjs = window.emailjs;
-        if (window.EMAILJS_DEBUG) {
-          console.info('EmailJS config:', window.EMAILJS_CONFIG);
-        }
-        if (!emailjs || !window.EMAILJS_CONFIG?.publicKey || !window.EMAILJS_CONFIG.serviceId || !window.EMAILJS_CONFIG.templateId) {
-          throw new Error('EmailJS no está configurado. Completa publicKey, serviceId y templateId.');
-        }
+        const formSubmitEndpoint = window.EMAILJS_CONFIG?.formSubmitEndpoint || '/api/send-aceite';
+        const primaryRecipient = 'contacto@liderdeseguros.com';
+        const ccRecipient = safeRecipient && safeRecipient !== primaryRecipient ? safeRecipient : '';
+        const formSubmitPayload = {
+          recipient: primaryRecipient,
+          cc: ccRecipient,
+          subject: 'Solicitud de cambio de aceite - Líder Seguros',
+          fromName: 'Solicitud de cambio de aceite',
+          message: emailBody
+        };
 
-        emailjs.init(window.EMAILJS_CONFIG.publicKey);
-        await emailjs.send(
-          window.EMAILJS_CONFIG.serviceId,
-          window.EMAILJS_CONFIG.templateId,
-          templateParams,
-          window.EMAILJS_CONFIG.publicKey
-        );
+        const response = await fetch(formSubmitEndpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formSubmitPayload)
+        });
+
+        if (!response.ok) {
+          throw new Error(`FormSubmit respondió con estado ${response.status}`);
+        }
 
         document.getElementById('modal-cambio-aceite')?.classList.remove('active');
-        abrirModalInfo('Tu solicitud fue enviada correctamente a la bandeja indicada.', 'Información registrada');
+        abrirModalInfo('Tu solicitud fue enviada correctamente. Revisá tu correo y la bandeja de contacto de Líder Seguros.', 'Información registrada');
         formCambioAceite.reset();
       } catch (error) {
         console.error('Error al enviar el formulario de cambio de aceite:', error);
@@ -312,21 +317,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const rawError = details.join(' | ') || 'Error desconocido';
         const friendlyMessage = rawError.includes('Content cannot be longer') || rawError.includes('límite permitido')
           ? 'El contenido del formulario es demasiado largo para enviarlo automáticamente. Intenta con datos más cortos o contacta por WhatsApp.'
-          : rawError.includes('origin') || rawError.includes('forbidden') || rawError.includes('domain')
-            ? 'El dominio de la web no está autorizado en EmailJS. Agrega tu dominio en la sección Domains de tu cuenta de EmailJS y vuelve a intentarlo.'
-            : rawError.includes('template') || rawError.includes('parameter') || rawError.includes('The template ID') || rawError.includes('not found') || rawError.includes('public key')
-              ? 'EmailJS no pudo completar el envío. Se preparó un correo para que lo envíes desde tu cliente de correo.'
-              : `No se pudo enviar el formulario automáticamente. Detalle: ${rawError}`;
+          : rawError.includes('FormSubmit') || rawError.includes('fetch')
+            ? 'No se pudo entregar el correo desde la web. Se preparó un mensaje para que lo envíes desde tu cliente de correo.'
+            : `No se pudo enviar el formulario automáticamente. Detalle: ${rawError}`;
 
-        if (rawError.includes('template') || rawError.includes('The template ID') || rawError.includes('not found') || rawError.includes('public key') || rawError.includes('domain') || rawError.includes('forbidden') || rawError.includes('origin')) {
-          abrirCorreoFallback();
-          document.getElementById('modal-cambio-aceite')?.classList.remove('active');
-          abrirModalInfo(`Se preparó un correo para enviarlo desde tu cliente de correo hacia ${safeRecipient || 'contacto@liderdeseguros.com'}.`, 'Información registrada');
-          formCambioAceite.reset();
-          return;
-        }
-
-        abrirModalInfo(friendlyMessage, 'Error al enviar');
+        abrirCorreoFallback();
+        document.getElementById('modal-cambio-aceite')?.classList.remove('active');
+        abrirModalInfo(`Se preparó un correo para enviarlo desde tu cliente de correo hacia ${primaryRecipient}.`, 'Información registrada');
       }
     });
   }
