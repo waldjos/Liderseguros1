@@ -1,4 +1,4 @@
-const CACHE_NAME = 'liderseguros-cache-v2';
+const CACHE_NAME = 'liderseguros-cache-v3';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -36,6 +36,20 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .then((networkResponse) => {
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', responseClone));
+          return networkResponse;
+        })
+        .catch(() => caches.match('./index.html'))
+    );
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) return cachedResponse;
