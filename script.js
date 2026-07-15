@@ -253,6 +253,32 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error('El contenido del formulario supera el límite permitido para el envío.');
       }
 
+      const emailBody = [
+        `Marca del vehículo: ${templateParams.marca_vehiculo || 'No indicado'}`,
+        `Marca de aceite: ${templateParams.marca_aceite || 'No indicado'}`,
+        `Tipo de aceite: ${templateParams.tipo_aceite || 'No indicado'}`,
+        `Fecha del cambio: ${templateParams.fecha_cambio || 'No indicado'}`,
+        `Frecuencia: ${templateParams.frecuencia || 'No indicado'}`,
+        `Kilometraje actual: ${templateParams.km_actual || 'No indicado'}`,
+        `Kilometraje próximo cambio: ${templateParams.km_proximo || 'No indicado'}`,
+        `Correo electrónico: ${templateParams.email || 'No indicado'}`
+      ].join('\n');
+
+      function abrirCorreoFallback() {
+        const recipient = safeRecipient || 'contacto@liderdeseguros.com';
+        const subject = 'Solicitud de cambio de aceite - Líder Seguros';
+        const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+
+        if (navigator.clipboard?.writeText) {
+          navigator.clipboard.writeText(emailBody).catch(() => {});
+        }
+
+        const mailWindow = window.open(mailtoUrl, '_blank', 'noopener,noreferrer');
+        if (!mailWindow) {
+          window.location.href = mailtoUrl;
+        }
+      }
+
       try {
         const emailjs = window.emailjs;
         if (window.EMAILJS_DEBUG) {
@@ -288,9 +314,18 @@ document.addEventListener('DOMContentLoaded', () => {
           ? 'El contenido del formulario es demasiado largo para enviarlo automáticamente. Intenta con datos más cortos o contacta por WhatsApp.'
           : rawError.includes('origin') || rawError.includes('forbidden') || rawError.includes('domain')
             ? 'El dominio de la web no está autorizado en EmailJS. Agrega tu dominio en la sección Domains de tu cuenta de EmailJS y vuelve a intentarlo.'
-            : rawError.includes('template') || rawError.includes('parameter')
-              ? 'La plantilla de EmailJS no está recibiendo los campos esperados. Revisa los nombres de las variables en la plantilla.'
+            : rawError.includes('template') || rawError.includes('parameter') || rawError.includes('The template ID') || rawError.includes('not found') || rawError.includes('public key')
+              ? 'EmailJS no pudo completar el envío. Se preparó un correo para que lo envíes desde tu cliente de correo.'
               : `No se pudo enviar el formulario automáticamente. Detalle: ${rawError}`;
+
+        if (rawError.includes('template') || rawError.includes('The template ID') || rawError.includes('not found') || rawError.includes('public key') || rawError.includes('domain') || rawError.includes('forbidden') || rawError.includes('origin')) {
+          abrirCorreoFallback();
+          document.getElementById('modal-cambio-aceite')?.classList.remove('active');
+          abrirModalInfo(`Se preparó un correo para enviarlo desde tu cliente de correo hacia ${safeRecipient || 'contacto@liderdeseguros.com'}.`, 'Información registrada');
+          formCambioAceite.reset();
+          return;
+        }
+
         abrirModalInfo(friendlyMessage, 'Error al enviar');
       }
     });
