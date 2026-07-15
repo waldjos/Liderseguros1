@@ -150,7 +150,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if (menuBtnDocumentos) menuBtnDocumentos.addEventListener('click', () => { closeMobileNav(); document.getElementById('btn-documentos')?.click(); });
   if (menuBtnCambioAceite) menuBtnCambioAceite.addEventListener('click', () => { closeMobileNav(); document.getElementById('btn-cambio-aceite')?.click(); });
-  if (menuBtnDefensoria) menuBtnDefensoria.addEventListener('click', () => { closeMobileNav(); document.getElementById('btn-defensoria')?.click(); });
+  if (menuBtnDefensoria) menuBtnDefensoria.addEventListener('click', () => {
+    closeMobileNav();
+    const modalDefensoria = document.getElementById('modal-defensoria');
+    if (modalDefensoria) modalDefensoria.classList.add('active');
+  });
 
   window.addEventListener('click', (event) => {
     if (mobileNav && mobileNav.classList.contains('open') && !event.target.closest('#mobileNav') && !event.target.closest('#menuToggle')) {
