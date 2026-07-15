@@ -210,6 +210,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const kmActualInput = formCambioAceite.querySelector('input[name="km-actual"]');
     const frecuenciaInputs = formCambioAceite.querySelectorAll('input[name="frecuencia"]');
     const kmProximoInput = formCambioAceite.querySelector('input[name="km-proximo"]');
+
+    function sanitizeEmailValue(value, maxLength = 500) {
+      return String(value ?? '')
+        .replace(/<[^>]*>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .slice(0, maxLength);
+    }
+
     function calcularProximoCambio() {
       const kmActual = parseInt(kmActualInput.value) || 0;
       let frecuencia = 5000;
@@ -218,11 +227,72 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     kmActualInput.addEventListener('input', calcularProximoCambio);
     frecuenciaInputs.forEach(radio => radio.addEventListener('change', calcularProximoCambio));
-    formCambioAceite.addEventListener('submit', (e) => {
+    formCambioAceite.addEventListener('submit', async (e) => {
       e.preventDefault();
-      document.getElementById('modal-cambio-aceite')?.classList.remove('active');
-      abrirModalInfo('Recibimos los datos de tu cambio de aceite. Te recordaremos tu próximo cambio con anticipación.', 'Información registrada');
-      formCambioAceite.reset();
+
+      const formData = new FormData(formCambioAceite);
+      const data = Object.fromEntries(formData.entries());
+      const recipient = (data.email || '').toString().trim();
+
+      const safeRecipient = sanitizeEmailValue(recipient || 'contacto@liderdeseguros.com', 250);
+      const templateParams = {
+        to_email: safeRecipient,
+        recipient_email: safeRecipient,
+        marca_vehiculo: sanitizeEmailValue(data['marca-vehiculo'], 120),
+        marca_aceite: sanitizeEmailValue(data['marca-aceite'], 120),
+        tipo_aceite: sanitizeEmailValue(data['tipo-aceite'], 120),
+        fecha_cambio: sanitizeEmailValue(data['fecha-cambio'], 80),
+        frecuencia: sanitizeEmailValue(data.frecuencia === '7000' ? '7.000 km' : '5.000 km', 80),
+        km_actual: sanitizeEmailValue(data['km-actual'], 80),
+        km_proximo: sanitizeEmailValue(data['km-proximo'], 80),
+        email: safeRecipient
+      };
+
+      const payloadSize = new Blob([JSON.stringify(templateParams)]).size;
+      if (payloadSize > 50000) {
+        throw new Error('El contenido del formulario supera el límite permitido para el envío.');
+      }
+
+      try {
+        const emailjs = window.emailjs;
+        if (window.EMAILJS_DEBUG) {
+          console.info('EmailJS config:', window.EMAILJS_CONFIG);
+        }
+        if (!emailjs || !window.EMAILJS_CONFIG?.publicKey || !window.EMAILJS_CONFIG.serviceId || !window.EMAILJS_CONFIG.templateId) {
+          throw new Error('EmailJS no está configurado. Completa publicKey, serviceId y templateId.');
+        }
+
+        emailjs.init(window.EMAILJS_CONFIG.publicKey);
+        await emailjs.send(
+          window.EMAILJS_CONFIG.serviceId,
+          window.EMAILJS_CONFIG.templateId,
+          templateParams,
+          window.EMAILJS_CONFIG.publicKey
+        );
+
+        document.getElementById('modal-cambio-aceite')?.classList.remove('active');
+        abrirModalInfo('Tu solicitud fue enviada correctamente a la bandeja indicada.', 'Información registrada');
+        formCambioAceite.reset();
+      } catch (error) {
+        console.error('Error al enviar el formulario de cambio de aceite:', error);
+        const details = [
+          error?.message,
+          error?.text,
+          error?.status,
+          error?.response?.data?.message,
+          error?.response?.data?.error,
+          error?.response?.statusText
+        ].filter(Boolean);
+        const rawError = details.join(' | ') || 'Error desconocido';
+        const friendlyMessage = rawError.includes('Content cannot be longer') || rawError.includes('límite permitido')
+          ? 'El contenido del formulario es demasiado largo para enviarlo automáticamente. Intenta con datos más cortos o contacta por WhatsApp.'
+          : rawError.includes('origin') || rawError.includes('forbidden') || rawError.includes('domain')
+            ? 'El dominio de la web no está autorizado en EmailJS. Agrega tu dominio en la sección Domains de tu cuenta de EmailJS y vuelve a intentarlo.'
+            : rawError.includes('template') || rawError.includes('parameter')
+              ? 'La plantilla de EmailJS no está recibiendo los campos esperados. Revisa los nombres de las variables en la plantilla.'
+              : `No se pudo enviar el formulario automáticamente. Detalle: ${rawError}`;
+        abrirModalInfo(friendlyMessage, 'Error al enviar');
+      }
     });
   }
 
