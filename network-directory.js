@@ -2,7 +2,7 @@
 
 (() => {
   const DATA_URL = 'data/agencies-demo.json';
-  const MAP_URL = 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Venezuela_con_estados.svg';
+  const MAP_URL = 'assets/venezuela-states-map.svg';
   const CATEGORY_ORDER = ['Agencia', 'Canal adscrito', 'Corredor aliado', 'Concesionario aliado', 'Taller aliado'];
 
   const STATES = [
@@ -13,14 +13,30 @@
   ];
 
   const STATE_POSITIONS = {
-    'Zulia': [13, 33, 'ZU'], 'Falcón': [28, 16, 'FA'], 'Lara': [31, 29, 'LA'],
-    'Yaracuy': [39, 28, 'YA'], 'Carabobo': [44, 33, 'CA'], 'Aragua': [50, 35, 'AR'],
-    'La Guaira': [51, 26, 'LG'], 'Distrito Capital': [54, 30, 'DC'], 'Miranda': [58, 36, 'MI'],
-    'Nueva Esparta': [68, 20, 'NE'], 'Sucre': [76, 31, 'SU'], 'Monagas': [72, 42, 'MO'],
-    'Anzoátegui': [64, 44, 'AN'], 'Delta Amacuro': [84, 43, 'DA'], 'Bolívar': [70, 65, 'BO'],
-    'Amazonas': [53, 79, 'AM'], 'Apure': [36, 65, 'AP'], 'Barinas': [32, 54, 'BA'],
-    'Táchira': [19, 56, 'TA'], 'Mérida': [25, 47, 'ME'], 'Trujillo': [27, 38, 'TR'],
-    'Portuguesa': [38, 45, 'PO'], 'Cojedes': [44, 46, 'CO'], 'Guárico': [53, 51, 'GU']
+    Zulia: [14, 37, 'ZU'],
+    Falcón: [23, 18, 'FA'],
+    Lara: [29, 32, 'LA'],
+    Yaracuy: [37, 29, 'YA'],
+    Carabobo: [42, 32, 'CA'],
+    Aragua: [48, 34, 'AR'],
+    'La Guaira': [50, 23, 'LG'],
+    'Distrito Capital': [53, 27, 'DC'],
+    Miranda: [58, 34, 'MI'],
+    'Nueva Esparta': [80, 14, 'NE'],
+    Sucre: [80, 31, 'SU'],
+    Monagas: [74, 42, 'MO'],
+    Anzoátegui: [65, 42, 'AN'],
+    'Delta Amacuro': [88, 43, 'DA'],
+    Bolívar: [71, 65, 'BO'],
+    Amazonas: [53, 78, 'AM'],
+    Apure: [34, 64, 'AP'],
+    Barinas: [31, 52, 'BA'],
+    Táchira: [18, 58, 'TA'],
+    Mérida: [24, 48, 'ME'],
+    Trujillo: [28, 40, 'TR'],
+    Portuguesa: [36, 46, 'PO'],
+    Cojedes: [43, 47, 'CO'],
+    Guárico: [53, 51, 'GU']
   };
 
   const state = {
@@ -29,8 +45,7 @@
     selectedCategory: 'all',
     search: '',
     sort: 'recommended',
-    userLocation: null,
-    loaded: false
+    userLocation: null
   };
 
   let elements = {};
@@ -55,7 +70,11 @@
   }
 
   function normalizeText(value) {
-    return String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+    return String(value || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
   }
 
   function getDistanceKm(latitude1, longitude1, latitude2, longitude2) {
@@ -64,7 +83,9 @@
     const deltaLatitude = toRadians(latitude2 - latitude1);
     const deltaLongitude = toRadians(longitude2 - longitude1);
     const a = Math.sin(deltaLatitude / 2) ** 2
-      + Math.cos(toRadians(latitude1)) * Math.cos(toRadians(latitude2)) * Math.sin(deltaLongitude / 2) ** 2;
+      + Math.cos(toRadians(latitude1))
+      * Math.cos(toRadians(latitude2))
+      * Math.sin(deltaLongitude / 2) ** 2;
     return earthRadius * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   }
 
@@ -81,24 +102,29 @@
     }, {});
   }
 
+  function categoryRank(category) {
+    const index = CATEGORY_ORDER.indexOf(category);
+    return index === -1 ? 999 : index;
+  }
+
   function populateFilters() {
-    const stateOptions = ['<option value="all">Todos los estados</option>']
-      .concat(STATES.map((name) => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`));
-    elements.stateSelect.innerHTML = stateOptions.join('');
+    elements.stateSelect.innerHTML = ['<option value="all">Todos los estados</option>']
+      .concat(STATES.map((name) => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`))
+      .join('');
 
     const categories = [...new Set(state.agencies.map((agency) => agency.category).filter(Boolean))]
-      .sort((a, b) => CATEGORY_ORDER.indexOf(a) - CATEGORY_ORDER.indexOf(b));
+      .sort((a, b) => categoryRank(a) - categoryRank(b));
+
     elements.categorySelect.innerHTML = '<option value="all">Todos los tipos</option>'
       + categories.map((category) => `<option value="${escapeHtml(category)}">${escapeHtml(category)}</option>`).join('');
   }
 
   function renderMap() {
     const counts = agenciesByStateCount();
-    elements.mapImage.src = MAP_URL;
-    elements.mapImage.addEventListener('error', () => {
-      elements.mapImage.style.display = 'none';
-      elements.mapShell.classList.add('map-fallback');
-    }, { once: true });
+    const orderedStates = [
+      ...STATES.filter((name) => counts[name]),
+      ...STATES.filter((name) => !counts[name])
+    ];
 
     elements.hotspots.innerHTML = STATES.map((name) => {
       const [x, y, shortName] = STATE_POSITIONS[name] || [50, 50, name.slice(0, 2).toUpperCase()];
@@ -106,14 +132,18 @@
       const classes = ['network-state-hotspot'];
       if (count) classes.push('has-data');
       if (state.selectedState === name) classes.push('is-selected');
-      return `<button type="button" class="${classes.join(' ')}" data-network-state="${escapeHtml(name)}" style="left:${x}%;top:${y}%" title="${escapeHtml(name)}${count ? ` · ${count} punto(s)` : ' · Sin registros de prueba'}" aria-label="Seleccionar ${escapeHtml(name)}">
-        ${escapeHtml(shortName)}${count ? `<span class="network-state-count">${count}</span>` : ''}
+
+      return `<button type="button" class="${classes.join(' ')}" data-network-state="${escapeHtml(name)}"
+        style="left:${x}%;top:${y}%" title="${escapeHtml(name)}${count ? ` · ${count} punto(s)` : ' · Sin registros de prueba'}"
+        aria-label="Seleccionar ${escapeHtml(name)}">
+        <span class="network-state-code">${escapeHtml(shortName)}</span>
+        ${count ? `<span class="network-state-count">${count}</span>` : ''}
       </button>`;
     }).join('');
 
     elements.stateChips.innerHTML = [
       `<button type="button" class="network-state-chip ${state.selectedState === 'all' ? 'is-selected' : ''}" data-network-state="all">Toda Venezuela</button>`,
-      ...STATES.map((name) => {
+      ...orderedStates.map((name) => {
         const count = counts[name] || 0;
         const classes = ['network-state-chip'];
         if (count) classes.push('has-data');
@@ -125,10 +155,16 @@
 
   function getFilteredAgencies() {
     const query = normalizeText(state.search);
+
     const agencies = state.agencies
       .map((agency, index) => {
         const distance = state.userLocation
-          ? getDistanceKm(state.userLocation.latitude, state.userLocation.longitude, Number(agency.latitude), Number(agency.longitude))
+          ? getDistanceKm(
+            state.userLocation.latitude,
+            state.userLocation.longitude,
+            Number(agency.latitude),
+            Number(agency.longitude)
+          )
           : null;
         return { ...agency, _sourceIndex: index, _distance: distance };
       })
@@ -137,8 +173,13 @@
       .filter((agency) => {
         if (!query) return true;
         const haystack = normalizeText([
-          agency.name, agency.category, agency.state, agency.municipality, agency.city,
-          agency.address, ...(agency.services || [])
+          agency.name,
+          agency.category,
+          agency.state,
+          agency.municipality,
+          agency.city,
+          agency.address,
+          ...(agency.services || [])
         ].join(' '));
         return haystack.includes(query);
       });
@@ -148,18 +189,31 @@
       if (state.sort === 'name') return a.name.localeCompare(b.name, 'es');
       return a._sourceIndex - b._sourceIndex;
     });
+
     return agencies;
   }
 
   function socialLink(platform, url) {
     const safe = safeUrl(url);
     if (!safe) return '';
+
     const icons = {
-      instagram: 'fa-brands fa-instagram', facebook: 'fa-brands fa-facebook-f',
-      tiktok: 'fa-brands fa-tiktok', website: 'fa-solid fa-globe'
+      instagram: 'fa-brands fa-instagram',
+      facebook: 'fa-brands fa-facebook-f',
+      tiktok: 'fa-brands fa-tiktok',
+      website: 'fa-solid fa-globe'
     };
-    const labels = { instagram: 'Instagram', facebook: 'Facebook', tiktok: 'TikTok', website: 'Sitio web' };
-    return `<a class="agency-social" href="${escapeHtml(safe)}" target="_blank" rel="noopener noreferrer" aria-label="${labels[platform] || platform}" title="${labels[platform] || platform}"><i class="${icons[platform] || 'fa-solid fa-link'}"></i></a>`;
+    const labels = {
+      instagram: 'Instagram',
+      facebook: 'Facebook',
+      tiktok: 'TikTok',
+      website: 'Sitio web'
+    };
+
+    return `<a class="agency-social" href="${escapeHtml(safe)}" target="_blank" rel="noopener noreferrer"
+      aria-label="${labels[platform] || platform}" title="${labels[platform] || platform}">
+      <i class="${icons[platform] || 'fa-solid fa-link'}"></i>
+    </a>`;
   }
 
   function agencyCard(agency) {
@@ -171,8 +225,16 @@
     const logo = logoUrl
       ? `<div class="agency-logo" style="--agency-color:${logoColor}"><img src="${escapeHtml(logoUrl)}" alt="Logo de ${escapeHtml(agency.name)}" loading="lazy" /></div>`
       : `<div class="agency-logo" style="--agency-color:${logoColor}" aria-label="Logo demostrativo">${escapeHtml(agency.logoText || agency.name.slice(0, 3).toUpperCase())}</div>`;
-    const services = (agency.services || []).slice(0, 4).map((service) => `<span class="agency-service">${escapeHtml(service)}</span>`).join('');
-    const socials = Object.entries(agency.socials || {}).map(([platform, url]) => socialLink(platform, url)).join('');
+
+    const services = (agency.services || [])
+      .slice(0, 4)
+      .map((service) => `<span class="agency-service">${escapeHtml(service)}</span>`)
+      .join('');
+
+    const socials = Object.entries(agency.socials || {})
+      .map(([platform, url]) => socialLink(platform, url))
+      .join('');
+
     const distance = Number.isFinite(agency._distance)
       ? `<span class="agency-distance"><i class="fa-solid fa-location-arrow"></i> A ${escapeHtml(formatDistance(agency._distance))}</span>`
       : '';
@@ -204,8 +266,13 @@
     elements.resultCount.textContent = `${agencies.length} punto${agencies.length === 1 ? '' : 's'} de atención`;
 
     const selectedLabel = state.selectedState === 'all' ? 'Toda Venezuela' : state.selectedState;
-    const stateTotal = state.agencies.filter((agency) => state.selectedState === 'all' || agency.state === state.selectedState).length;
-    elements.summary.innerHTML = `<div><strong>${escapeHtml(selectedLabel)}</strong><span>${stateTotal ? 'Selecciona un perfil para contactar o llegar.' : 'Aún no hay registros de prueba en este estado.'}</span></div><span class="network-map-summary-badge">${stateTotal}</span>`;
+    const stateTotal = state.agencies.filter(
+      (agency) => state.selectedState === 'all' || agency.state === state.selectedState
+    ).length;
+
+    elements.summary.innerHTML = `<div><strong>${escapeHtml(selectedLabel)}</strong><span>${
+      stateTotal ? 'Selecciona un perfil para contactar o llegar.' : 'Aún no hay registros de prueba en este estado.'
+    }</span></div><span class="network-map-summary-badge">${stateTotal}</span>`;
 
     if (!agencies.length) {
       elements.results.innerHTML = '<div class="network-empty"><i class="fa-solid fa-map-location-dot"></i><strong>No encontramos puntos con estos filtros.</strong><p>Prueba otro estado, tipo de negocio o término de búsqueda.</p></div>';
@@ -214,40 +281,43 @@
     }
 
     const categories = [...new Set(agencies.map((agency) => agency.category))]
-      .sort((a, b) => {
-        const indexA = CATEGORY_ORDER.indexOf(a);
-        const indexB = CATEGORY_ORDER.indexOf(b);
-        return (indexA === -1 ? 999 : indexA) - (indexB === -1 ? 999 : indexB);
-      });
+      .sort((a, b) => categoryRank(a) - categoryRank(b));
 
     elements.results.innerHTML = categories.map((category) => {
       const categoryAgencies = agencies.filter((agency) => agency.category === category);
       return `<section class="network-group"><h3 class="network-group-title">${escapeHtml(category)} <span>${categoryAgencies.length}</span></h3>${categoryAgencies.map(agencyCard).join('')}</section>`;
     }).join('');
+
     renderMap();
   }
 
-  function setSelectedState(value) {
+  function setSelectedState(value, shouldScroll = true) {
     state.selectedState = STATES.includes(value) ? value : 'all';
     elements.stateSelect.value = state.selectedState;
     renderResults();
-    if (window.innerWidth < 861) {
-      elements.resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    if (shouldScroll && window.innerWidth < 861) {
+      window.setTimeout(() => {
+        elements.resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 80);
     }
   }
 
   function shareAgency(agencyId) {
     const agency = state.agencies.find((item) => item.id === agencyId);
     if (!agency) return;
+
     const shareData = {
       title: agency.name,
       text: `${agency.name} · ${agency.category} · ${agency.city}, ${agency.state}`,
       url: agency.maps || window.location.href
     };
+
     if (navigator.share) {
       navigator.share(shareData).catch(() => {});
       return;
     }
+
     navigator.clipboard?.writeText(`${shareData.text}\n${shareData.url}`)
       .then(() => window.alert('La información del punto de atención fue copiada.'))
       .catch(() => window.alert(`${shareData.text}\n${shareData.url}`));
@@ -296,20 +366,26 @@
       state.search = event.target.value;
       renderResults();
     });
+
     elements.stateSelect.addEventListener('change', (event) => setSelectedState(event.target.value));
+
     elements.categorySelect.addEventListener('change', (event) => {
       state.selectedCategory = event.target.value;
       renderResults();
     });
+
     elements.sortSelect.addEventListener('change', (event) => {
       state.sort = event.target.value;
       if (state.sort === 'distance' && !state.userLocation) requestLocation();
       else renderResults();
     });
+
     elements.locationButton.addEventListener('click', requestLocation);
+
     elements.modal.addEventListener('click', (event) => {
       const stateButton = event.target.closest('[data-network-state]');
       if (stateButton) setSelectedState(stateButton.dataset.networkState);
+
       const shareButton = event.target.closest('[data-share-agency]');
       if (shareButton) shareAgency(shareButton.dataset.shareAgency);
     });
@@ -322,12 +398,13 @@
 
   async function loadData() {
     elements.results.innerHTML = '<div class="network-loading"><i class="fa-solid fa-spinner fa-spin"></i> Preparando la red de atención…</div>';
+
     try {
       const response = await fetch(DATA_URL, { cache: 'no-store' });
       if (!response.ok) throw new Error(`No se pudo cargar el directorio (${response.status}).`);
+
       const payload = await response.json();
       state.agencies = Array.isArray(payload.agencies) ? payload.agencies : [];
-      state.loaded = true;
       populateFilters();
       renderResults();
     } catch (error) {
@@ -339,6 +416,7 @@
   function initialize() {
     const modal = document.getElementById('modal-red-atencion');
     if (!modal) return;
+
     elements = {
       modal,
       search: document.getElementById('networkSearch'),
@@ -356,6 +434,16 @@
       resultCount: document.getElementById('networkResultCount'),
       resultsPanel: document.getElementById('networkResultsPanel')
     };
+
+    elements.mapImage.src = MAP_URL;
+    elements.mapImage.addEventListener('load', () => elements.mapShell.classList.add('map-ready'), { once: true });
+    elements.mapImage.addEventListener('error', () => elements.mapShell.classList.add('map-error'), { once: true });
+
+    const sourceNote = modal.querySelector('.network-source-note');
+    if (sourceNote) {
+      sourceNote.textContent = 'Mapa ilustrativo de referencia. Selecciona los marcadores o el listado de estados.';
+    }
+
     bindEvents();
     loadData();
   }

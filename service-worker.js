@@ -1,4 +1,4 @@
-const CACHE_NAME = 'liderseguros-cache-v15';
+const CACHE_NAME = 'liderseguros-cache-v16';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -11,6 +11,7 @@ const ASSETS_TO_CACHE = [
   './script.js',
   './manifest.webmanifest',
   './api/hero-image.js',
+  './assets/venezuela-states-map.svg',
   './assets/logo-header.png',
   './assets/logonuevo.png',
   './assets/app-icon-192.png',
