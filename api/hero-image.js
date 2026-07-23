@@ -2,39 +2,20 @@ const crypto = require('crypto');
 const part0 = require('./hero-image-data/part-0');
 const part1 = require('./hero-image-data/part-1');
 
-const hash = (value) => crypto.createHash('sha256').update(value).digest('hex');
-const segmentHashes = (value, count = 8) => {
-  const size = Math.ceil(value.length / count);
-  const result = [];
-  for (let index = 0; index < value.length; index += size) result.push(hash(value.slice(index, index + size)));
-  return result;
-};
-const encodedImage = part0 + part1;
-const image = Buffer.from(encodedImage, 'base64');
-const imageHash = hash(image);
+const correctedPart1 = part1.replace('Fcy33386D7l', 'Fcy83386D7l');
+const image = Buffer.from(part0 + correctedPart1, 'base64');
+const imageHash = crypto.createHash('sha256').update(image).digest('hex');
+const EXPECTED_LENGTH = 14812;
+const EXPECTED_HASH = '34ea6ecd6eee82f6a78e513a0c0fd4b18b8d97f0cfd67967c3bcd30388ab9614';
+
+if (image.length !== EXPECTED_LENGTH || imageHash !== EXPECTED_HASH) {
+  throw new Error('El recurso visual del hero no superó la verificación de integridad.');
+}
 
 module.exports = function handler(req, res) {
-  if (req.query?.raw === '1') {
-    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-    res.setHeader('Cache-Control', 'no-store');
-    res.status(200).send(encodedImage);
-    return;
-  }
-
   if (req.query?.meta === '1') {
     res.setHeader('Cache-Control', 'no-store');
-    res.status(200).json({
-      ok: image.length === 14812 && imageHash === '34ea6ecd6eee82f6a78e513a0c0fd4b18b8d97f0cfd67967c3bcd30388ab9614',
-      length: image.length,
-      sha256: imageHash,
-      encodedLength: encodedImage.length,
-      part0Length: part0.length,
-      part1Length: part1.length,
-      part0Sha256: hash(part0),
-      part1Sha256: hash(part1),
-      part0Segments: segmentHashes(part0),
-      part1Segments: segmentHashes(part1)
-    });
+    res.status(200).json({ ok: true, length: image.length, sha256: imageHash });
     return;
   }
 
