@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - agent/national-network-directory
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: read
