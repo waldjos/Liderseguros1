@@ -1,14 +1,16 @@
-
 /* Interactive national map enhancement */
 (() => {
+  'use strict';
+
   const LEAFLET_CSS_URL = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
   const LEAFLET_SCRIPT_URLS = [
     'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
     'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js'
   ];
   const TILE_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-  const VENEZUELA_BOUNDS = [[0.45, -73.75], [12.65, -59.55]];
   const DATA_URL = 'data/agencies-demo.json';
+  const VENEZUELA_BOUNDS = [[0.55, -73.75], [12.55, -59.55]];
+  const VENEZUELA_CENTER = [7.15, -66.55];
 
   const STATE_META = {
     Amazonas: { code: 'AM', lat: 3.75, lng: -65.55, zoom: 6 },
@@ -44,7 +46,10 @@
     agencyLayer: null,
     userLayer: null,
     agencyMarkers: new Map(),
-    ready: false
+    ready: false,
+    initializing: false,
+    lastWidth: 0,
+    resizeObserver: null
   };
 
   let elements = {};
@@ -74,6 +79,152 @@
     } catch {
       return '';
     }
+  }
+
+  function ensureLayoutFixStyles() {
+    if (document.getElementById('networkMobileLayoutFix')) return;
+    const style = document.createElement('style');
+    style.id = 'networkMobileLayoutFix';
+    style.textContent = `
+      .network-modal,
+      .network-modal-content,
+      .network-body,
+      .network-toolbar,
+      .network-layout,
+      .network-map-card,
+      .network-results-panel,
+      .network-results-list,
+      .network-group,
+      .agency-card,
+      .agency-main,
+      .agency-actions,
+      .agency-socials {
+        box-sizing: border-box;
+        min-width: 0;
+        max-width: 100%;
+      }
+
+      .network-modal,
+      .network-modal-content,
+      .network-body,
+      .network-layout,
+      .network-results-panel {
+        width: 100%;
+        overflow-x: hidden;
+      }
+
+      .network-results-list,
+      .network-group {
+        width: 100%;
+      }
+
+      .network-results-list > *,
+      .network-group > * {
+        min-width: 0;
+        max-width: 100%;
+      }
+
+      .agency-card {
+        width: 100%;
+        overflow: hidden;
+        grid-template-columns: 54px minmax(0, 1fr) !important;
+      }
+
+      .agency-main,
+      .agency-heading,
+      .agency-heading > div,
+      .agency-location-line,
+      .agency-hours,
+      .agency-services,
+      .agency-actions,
+      .agency-socials {
+        min-width: 0;
+        max-width: 100%;
+      }
+
+      .agency-heading h4,
+      .agency-location-line span,
+      .agency-hours span,
+      .agency-service {
+        min-width: 0;
+        max-width: 100%;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      .agency-actions {
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      }
+
+      .agency-action {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        padding-inline: .45rem;
+        white-space: normal !important;
+        overflow-wrap: anywhere;
+        text-align: center;
+        line-height: 1.2;
+      }
+
+      .agency-socials {
+        flex-wrap: wrap;
+      }
+
+      .network-map-popup {
+        min-width: 0 !important;
+        width: min(220px, 70vw);
+        max-width: 100%;
+      }
+
+      .network-map-reset {
+        width: 36px;
+        height: 36px;
+        display: grid;
+        place-items: center;
+        border: 0;
+        border-radius: 11px;
+        background: #fff;
+        color: #0b2e7a;
+        box-shadow: 0 8px 22px rgba(17, 40, 85, .2);
+        cursor: pointer;
+      }
+
+      @media (max-width: 520px) {
+        .network-body {
+          padding-left: .62rem !important;
+          padding-right: .62rem !important;
+        }
+
+        .network-results-panel,
+        .network-map-card {
+          padding: .68rem !important;
+        }
+
+        .agency-card {
+          grid-template-columns: 46px minmax(0, 1fr) !important;
+          gap: .58rem !important;
+          padding: .68rem !important;
+        }
+
+        .agency-logo {
+          width: 46px !important;
+          height: 46px !important;
+        }
+
+        .agency-actions {
+          gap: .38rem !important;
+        }
+
+        .agency-action {
+          min-height: 42px;
+          font-size: .58rem !important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
   }
 
   function ensureLeafletCss() {
@@ -119,6 +270,17 @@
       }
     }
     throw new Error('No fue posible cargar Leaflet.');
+  }
+
+  function isModalVisible() {
+    if (!elements.modal) return false;
+    const style = window.getComputedStyle(elements.modal);
+    const rect = elements.modal.getBoundingClientRect();
+    return style.display !== 'none'
+      && style.visibility !== 'hidden'
+      && Number(style.opacity || 1) !== 0
+      && rect.width > 10
+      && rect.height > 10;
   }
 
   function stateCounts() {
@@ -191,10 +353,6 @@
     if (!elements.stateSelect) return;
     elements.stateSelect.value = name;
     elements.stateSelect.dispatchEvent(new Event('change', { bubbles: true }));
-    window.setTimeout(() => {
-      renderMapMarkers();
-      focusSelection();
-    }, 80);
   }
 
   function renderStateMarkers() {
@@ -236,7 +394,7 @@
         keyboard: true,
         zIndexOffset: 1200
       });
-      marker.bindPopup(agencyPopup(agency), { maxWidth: 275, closeButton: true });
+      marker.bindPopup(agencyPopup(agency), { maxWidth: 250, closeButton: true });
       marker.addTo(mapState.agencyLayer);
       mapState.agencyMarkers.set(agency.id, marker);
     });
@@ -247,12 +405,26 @@
     renderAgencyMarkers();
   }
 
-  function focusSelection() {
-    if (!mapState.ready || !mapState.map) return;
+  function showVenezuela(animate = false) {
+    if (!mapState.ready || !mapState.map || !isModalVisible()) return;
+    mapState.map.invalidateSize({ animate: false });
+    mapState.map.fitBounds(window.L.latLngBounds(VENEZUELA_BOUNDS), {
+      padding: [10, 10],
+      animate,
+      maxZoom: 5.75
+    });
+    const center = mapState.map.getCenter();
+    if (!Number.isFinite(center.lat) || !Number.isFinite(center.lng)) {
+      mapState.map.setView(VENEZUELA_CENTER, 5.25, { animate: false });
+    }
+  }
+
+  function focusSelection(animate = true) {
+    if (!mapState.ready || !mapState.map || !isModalVisible()) return;
     const selectedState = elements.stateSelect?.value || 'all';
 
     if (selectedState === 'all') {
-      mapState.map.fitBounds(VENEZUELA_BOUNDS, { padding: [16, 16], animate: true });
+      showVenezuela(animate);
       return;
     }
 
@@ -261,21 +433,27 @@
       .map((agency) => [Number(agency.latitude), Number(agency.longitude)])
       .filter(([lat, lng]) => Number.isFinite(lat) && Number.isFinite(lng));
 
+    mapState.map.invalidateSize({ animate: false });
     if (agencies.length > 1) {
-      mapState.map.fitBounds(window.L.latLngBounds(agencies), { padding: [50, 50], maxZoom: 11, animate: true });
+      mapState.map.fitBounds(window.L.latLngBounds(agencies), {
+        padding: [42, 42],
+        maxZoom: 10.5,
+        animate
+      });
       return;
     }
     if (agencies.length === 1) {
-      mapState.map.setView(agencies[0], 11, { animate: true });
+      mapState.map.setView(agencies[0], 10.75, { animate });
       return;
     }
 
     const meta = STATE_META[selectedState];
-    if (meta) mapState.map.setView([meta.lat, meta.lng], meta.zoom, { animate: true });
+    if (meta) mapState.map.setView([meta.lat, meta.lng], meta.zoom, { animate });
   }
 
   function focusAgency(agencyId) {
-    const card = document.querySelector(`[data-agency-id="${CSS.escape(agencyId)}"]`);
+    const escapedId = window.CSS?.escape ? window.CSS.escape(agencyId) : agencyId.replace(/["\\]/g, '\\$&');
+    const card = document.querySelector(`[data-agency-id="${escapedId}"]`);
     if (card) {
       document.querySelectorAll('.agency-card.is-map-highlighted').forEach((item) => item.classList.remove('is-map-highlighted'));
       card.classList.add('is-map-highlighted');
@@ -285,18 +463,21 @@
 
     const marker = mapState.agencyMarkers.get(agencyId);
     if (marker && mapState.ready) {
-      mapState.map.setView(marker.getLatLng(), Math.max(mapState.map.getZoom(), 12), { animate: true });
+      mapState.map.invalidateSize({ animate: false });
+      mapState.map.setView(marker.getLatLng(), Math.max(mapState.map.getZoom(), 11.5), { animate: true });
       marker.openPopup();
     }
   }
 
-  function refreshMap() {
-    if (!mapState.ready) return;
-    window.setTimeout(() => {
-      mapState.map.invalidateSize({ animate: false });
-      renderMapMarkers();
-      focusSelection();
-    }, 180);
+  function stabilizeMap(resetView = false) {
+    if (!mapState.ready || !mapState.map || !isModalVisible()) return;
+    [0, 80, 220, 520].forEach((delay, index) => {
+      window.setTimeout(() => {
+        if (!isModalVisible()) return;
+        mapState.map.invalidateSize({ animate: false });
+        if (resetView && index === 3) focusSelection(false);
+      }, delay);
+    });
   }
 
   function addUserLocation() {
@@ -315,25 +496,62 @@
         title: 'Tu ubicación aproximada',
         zIndexOffset: 1500
       }).bindTooltip('Tu ubicación aproximada', { direction: 'top' }).addTo(mapState.userLayer);
+      mapState.map.invalidateSize({ animate: false });
       mapState.map.setView(coordinates, 11, { animate: true });
     }, () => {}, { enableHighAccuracy: false, timeout: 12000, maximumAge: 300000 });
+  }
+
+  function installResetControl() {
+    const reset = window.L.control({ position: 'topright' });
+    reset.onAdd = () => {
+      const button = window.L.DomUtil.create('button', 'network-map-reset');
+      button.type = 'button';
+      button.title = 'Ver toda Venezuela';
+      button.setAttribute('aria-label', 'Ver toda Venezuela');
+      button.innerHTML = '<i class="fa-solid fa-house"></i>';
+      window.L.DomEvent.disableClickPropagation(button);
+      window.L.DomEvent.on(button, 'click', (event) => {
+        window.L.DomEvent.preventDefault(event);
+        if (elements.stateSelect) {
+          elements.stateSelect.value = 'all';
+          elements.stateSelect.dispatchEvent(new Event('change', { bubbles: true }));
+        } else {
+          showVenezuela(true);
+        }
+      });
+      return button;
+    };
+    reset.addTo(mapState.map);
+  }
+
+  function observeMapSize() {
+    if (!window.ResizeObserver || mapState.resizeObserver) return;
+    mapState.resizeObserver = new ResizeObserver((entries) => {
+      const width = Math.round(entries[0]?.contentRect?.width || 0);
+      if (!width || Math.abs(width - mapState.lastWidth) < 2) return;
+      mapState.lastWidth = width;
+      if (mapState.ready && isModalVisible()) {
+        window.requestAnimationFrame(() => mapState.map.invalidateSize({ animate: false }));
+      }
+    });
+    mapState.resizeObserver.observe(elements.mapShell);
   }
 
   function bindEnhancementEvents() {
     elements.stateSelect?.addEventListener('change', () => window.setTimeout(() => {
       renderMapMarkers();
-      focusSelection();
-    }, 40));
-    elements.categorySelect?.addEventListener('change', () => window.setTimeout(renderAgencyMarkers, 40));
-    elements.search?.addEventListener('input', () => window.setTimeout(renderAgencyMarkers, 40));
-    elements.locationButton?.addEventListener('click', () => window.setTimeout(addUserLocation, 600));
+      focusSelection(true);
+    }, 100));
+    elements.categorySelect?.addEventListener('change', () => window.setTimeout(renderAgencyMarkers, 70));
+    elements.search?.addEventListener('input', () => window.setTimeout(renderAgencyMarkers, 70));
+    elements.locationButton?.addEventListener('click', () => window.setTimeout(addUserLocation, 650));
 
     elements.modal?.addEventListener('click', (event) => {
       const stateButton = event.target.closest('[data-network-state]');
       if (stateButton) window.setTimeout(() => {
         renderMapMarkers();
-        focusSelection();
-      }, 80);
+        focusSelection(true);
+      }, 120);
 
       const popupButton = event.target.closest('[data-network-map-agency]');
       if (popupButton) focusAgency(popupButton.dataset.networkMapAgency);
@@ -343,12 +561,21 @@
     });
 
     document.addEventListener('click', (event) => {
-      if (event.target.closest('[data-open-modal="modal-red-atencion"]')) refreshMap();
+      if (!event.target.closest('[data-open-modal="modal-red-atencion"]')) return;
+      window.setTimeout(openMapWhenVisible, 0);
+      window.setTimeout(openMapWhenVisible, 120);
+      window.setTimeout(openMapWhenVisible, 360);
+    }, true);
+
+    const observer = new MutationObserver(() => {
+      if (isModalVisible()) openMapWhenVisible();
     });
-    window.addEventListener('resize', refreshMap, { passive: true });
+    observer.observe(elements.modal, { attributes: true, attributeFilter: ['class', 'style', 'aria-hidden'] });
   }
 
   async function initMap() {
+    if (mapState.ready || mapState.initializing || !isModalVisible()) return;
+    mapState.initializing = true;
     elements.mapShell.innerHTML = '<div class="network-map-status"><i class="fa-solid fa-spinner fa-spin"></i><span>Cargando mapa interactivo de Venezuela…</span></div>';
 
     try {
@@ -360,14 +587,21 @@
       const payload = await dataResponse.json();
       mapState.agencies = Array.isArray(payload.agencies) ? payload.agencies : [];
 
+      if (!isModalVisible()) {
+        mapState.initializing = false;
+        return;
+      }
+
       elements.mapShell.innerHTML = '<div id="networkLeafletMap" class="network-leaflet-map" aria-label="Mapa interactivo de Venezuela con estados, agencias y canales"></div>';
       mapState.map = window.L.map('networkLeafletMap', {
         zoomControl: true,
         attributionControl: true,
+        zoomSnap: 0.25,
+        zoomDelta: 0.5,
         minZoom: 5,
         maxZoom: 18,
-        maxBounds: [[-1.5, -76.5], [14.5, -57.0]],
-        maxBoundsViscosity: 0.55,
+        maxBounds: [[0.0, -74.4], [13.1, -59.0]],
+        maxBoundsViscosity: 0.85,
         preferCanvas: true
       });
 
@@ -384,18 +618,30 @@
         return node;
       };
       legend.addTo(mapState.map);
+      installResetControl();
 
       mapState.stateLayer = window.L.layerGroup().addTo(mapState.map);
       mapState.agencyLayer = window.L.layerGroup().addTo(mapState.map);
       mapState.userLayer = window.L.layerGroup().addTo(mapState.map);
-      mapState.map.fitBounds(VENEZUELA_BOUNDS, { padding: [16, 16], animate: false });
       mapState.ready = true;
+      mapState.initializing = false;
       renderMapMarkers();
-      refreshMap();
+      observeMapSize();
+      stabilizeMap(true);
     } catch (error) {
+      mapState.initializing = false;
       console.error(error);
       elements.mapShell.innerHTML = '<div class="network-map-status network-map-status-error"><i class="fa-solid fa-map-location-dot"></i><span>No se pudo cargar el mapa interactivo. Revisa tu conexión e intenta nuevamente.</span></div>';
     }
+  }
+
+  function openMapWhenVisible() {
+    if (!isModalVisible()) return;
+    if (!mapState.ready) {
+      initMap();
+      return;
+    }
+    stabilizeMap(true);
   }
 
   function initializeEnhancement() {
@@ -412,13 +658,14 @@
       locationButton: document.getElementById('networkUseLocation')
     };
 
+    ensureLayoutFixStyles();
     const sourceNote = modal.querySelector('.network-source-note');
     if (sourceNote) {
       sourceNote.innerHTML = 'Mapa interactivo con cartografía de <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>. Los perfiles mostrados continúan siendo demostrativos.';
     }
 
     bindEnhancementEvents();
-    initMap();
+    if (isModalVisible()) openMapWhenVisible();
   }
 
   document.addEventListener('DOMContentLoaded', () => window.setTimeout(initializeEnhancement, 0));
