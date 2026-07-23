@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" role="img" aria-labelledby="title desc">
+  <title id="title">Mapa ilustrativo de Venezuela por estados</title>
+  <desc id="desc">Silueta estilizada de Venezuela con divisiones internas para ubicar agencias y canales.</desc>
+  <defs>
+    <linearGradient id="land" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f9fcff"/>
+      <stop offset="1" stop-color="#dceaff"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef7ff"/>
+      <stop offset="1" stop-color="#e2effd"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#0b2e7a" flood-opacity=".13"/>
+    </filter>
+    <clipPath id="mainlandClip">
+      <path d="M83 257L98 208L125 170L166 153L206 124L264 116L303 132L341 112L392 107L434 83L487 86L532 107L581 103L625 122L677 122L724 144L751 174L797 181L828 214L819 248L790 277L781 318L753 352L739 397L704 428L660 450L620 488L568 506L525 528L475 517L429 534L381 520L337 524L294 501L249 486L216 454L179 433L151 395L128 361L109 325L84 295Z"/>
+    </clipPath>
+  </defs>
+  <rect width="900" height="620" rx="42" fill="url(#sea)"/>
+  <g opacity=".55">
+    <circle cx="710" cy="118" r="84" fill="#fff"/>
+    <circle cx="164" cy="490" r="92" fill="#fff"/>
+    <path d="M38 90H862M38 150H862M38 210H862M38 270H862M38 330H862M38 390H862M38 450H862M38 510H862" stroke="#cfe0f6" stroke-width="1"/>
+    <path d="M90 38V582M170 38V582M250 38V582M330 38V582M410 38V582M490 38V582M570 38V582M650 38V582M730 38V582M810 38V582" stroke="#cfe0f6" stroke-width="1"/>
+  </g>
+  <g filter="url(#shadow)">
+    <path d="M83 257L98 208L125 170L166 153L206 124L264 116L303 132L341 112L392 107L434 83L487 86L532 107L581 103L625 122L677 122L724 144L751 174L797 181L828 214L819 248L790 277L781 318L753 352L739 397L704 428L660 450L620 488L568 506L525 528L475 517L429 534L381 520L337 524L294 501L249 486L216 454L179 433L151 395L128 361L109 325L84 295Z" fill="url(#land)" stroke="#0b2e7a" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M177 151L164 122L184 96L223 91L248 111L233 133Z" fill="url(#land)" stroke="#0b2e7a" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M690 89L711 76L732 84L724 101L701 106Z" fill="url(#land)" stroke="#0b2e7a" stroke-width="5"/>
+    <path d="M743 98L759 87L777 93L769 108L750 112Z" fill="url(#land)" stroke="#0b2e7a" stroke-width="5"/>
+  </g>
+  <g clip-path="url(#mainlandClip)" fill="none" stroke="#9db5d7" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M132 173L160 235L132 301"/>
+    <path d="M160 235L225 218L264 153"/>
+    <path d="M225 218L229 292L180 344"/>
+    <path d="M229 292L295 298L319 238L264 153"/>
+    <path d="M295 298L349 326L392 286L378 215L319 238"/>
+    <path d="M378 215L431 197L462 145L392 107"/>
+    <path d="M431 197L481 232L526 191L532 107"/>
+    <path d="M481 232L493 304L438 349L392 286"/>
+    <path d="M493 304L555 320L599 270L526 191"/>
+    <path d="M555 320L620 342L658 291L599 270"/>
+    <path d="M658 291L723 304L790 277"/>
+    <path d="M620 342L613 411L660 450"/>
+    <path d="M555 320L548 405L613 411"/>
+    <path d="M493 304L489 403L548 405"/>
+    <path d="M438 349L422 432L489 403"/>
+    <path d="M349 326L363 414L422 432"/>
+    <path d="M295 298L286 392L363 414"/>
+    <path d="M229 292L224 377L286 392"/>
+    <path d="M180 344L224 377L216 454"/>
+    <path d="M286 392L294 501"/>
+    <path d="M363 414L381 520"/>
+    <path d="M422 432L429 534"/>
+    <path d="M489 403L475 517"/>
+    <path d="M548 405L568 506"/>
+    <path d="M613 411L620 488"/>
+    <path d="M723 304L739 397"/>
+    <path d="M658 291L677 122"/>
+    <path d="M599 270L625 122"/>
+    <path d="M526 191L581 103"/>
+    <path d="M462 145L487 86"/>
+  </g>
+  <path d="M103 224C120 215 139 218 152 233C139 253 119 260 98 250Z" fill="#0b2e7a" opacity=".12"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="452" y="572" font-size="18" font-weight="700" fill="#46658f">VENEZUELA</text>
+    <text x="452" y="595" font-size="12" fill="#7088aa">Mapa ilustrativo por estados</text>
+  </g>
+</svg>
