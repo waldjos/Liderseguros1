@@ -3,6 +3,7 @@
   "routes": [
     { "src": "^/$", "dest": "/api/page.js" },
     { "src": "^/index\\.html$", "dest": "/api/page.js" },
+    { "src": "^/network-directory\\.css$", "dest": "/api/network-directory-style.js" },
     { "handle": "filesystem" },
     { "src": "^/api/(.*)$", "dest": "/api/$1" }
   ]
