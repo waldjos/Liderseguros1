@@ -187,7 +187,7 @@ function injectNetworkDirectory(html) {
     );
   }
 
-  if (!result.includes('modal-red-atencion')) {
+  if (!result.includes('id="modal-red-atencion"')) {
     result = result.replace(
       '  <div id="modal-documentos"',
       `${NETWORK_MODAL_MARKUP}\n\n  <div id="modal-documentos"`
