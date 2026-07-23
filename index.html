@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0B3B91" />
+  <meta name="description" content="Portal del asegurado de Líder de Seguros para Vehículos." />
   <title>Asociación Cooperativa Líder de Seguros para Vehículos R.L.</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,8 +21,8 @@
       <text x="50" y="82" font-family="Poppins,sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">LÍDER</text>
     </svg>
   </template>
+
   <div class="page-wrapper">
-    <!-- ===== HEADER ===== -->
     <header class="app-header">
       <div class="header-inner">
         <a class="brand-group" href="index.html">
@@ -35,19 +36,24 @@
         <div class="mobile-nav-list">
           <a class="mobile-nav-link" href="https://wa.me/message/L5WYMYGWUOIQK1" target="_blank" rel="noopener noreferrer">Cotiza</a>
           <a class="mobile-nav-link" href="https://wa.me/message/VASHLSML6T7AO1" target="_blank" rel="noopener noreferrer">Siniestro</a>
-          <a class="mobile-nav-link" href="tel:02125646727" id="menuBtnDefensoria">Defensor del Asegurado</a>
           <button class="mobile-nav-link" type="button" id="menuBtnDocumentos">Mis documentos</button>
-          <button class="mobile-nav-link" type="button" id="menuBtnCambioAceite">Cambio de aceite</button>
+          <button class="mobile-nav-link" type="button" id="menuBtnVehiculo">Mi vehículo</button>
+          <button class="mobile-nav-link nav-with-badge" type="button" id="menuBtnNotificaciones">
+            Notificaciones <span class="notification-badge is-hidden" id="menuNotificationBadge">0</span>
+          </button>
+          <button class="mobile-nav-link" type="button" id="menuBtnTerminos">Términos y condiciones</button>
+          <button class="mobile-nav-link" type="button" id="menuBtnInstalar">Instalar aplicación</button>
+          <a class="mobile-nav-link" href="tel:02125646727" id="menuBtnDefensoria">Defensor del Asegurado</a>
         </div>
       </nav>
     </header>
 
     <main class="main-content">
-      <!-- ===== HERO ===== -->
       <section class="hero-panel">
         <div class="hero-copy">
+          <p class="eyebrow">Portal del asegurado</p>
           <h1>Protección<br /><span class="highlight">que te acompaña</span></h1>
-          <p>La Asociación Cooperativa Líder de Seguros para Vehículos, R.L. es una entidad autorizada y regulada por la SUDEASEG en Venezuela para emitir pólizas de Responsabilidad Civil de Vehículos (RCV)</p>
+          <p>Consulta tus servicios, conserva tus documentos y controla el mantenimiento de tu vehículo desde un solo lugar.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="https://wa.me/message/L5WYMYGWUOIQK1" id="btn-cotizar">
               Cotiza
@@ -56,9 +62,7 @@
               </span>
             </a>
             <a class="button button-secondary" id="btn-reportar-siniestro" href="https://wa.me/message/VASHLSML6T7AO1">
-              <span class="button-icon">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 9v4M12 17h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
+              <span class="button-icon"><i class="fa-solid fa-triangle-exclamation"></i></span>
               Siniestro
             </a>
           </div>
@@ -69,8 +73,7 @@
         <span class="hero-swoosh" aria-hidden="true"></span>
       </section>
 
-      <!-- ===== ACCESOS RÁPIDOS ===== -->
-      <section class="quick-access-section">
+      <section class="quick-access-section" aria-label="Accesos rápidos">
         <div class="quick-access-panel">
           <div class="quick-access-grid" id="quickAccessSlider">
             <a class="quick-card" href="https://liderdeseguros.com/nfc" target="_blank" rel="noopener noreferrer">
@@ -85,18 +88,43 @@
               <img src="assets/misdoc.png" alt="" class="quick-card-icon" />
               <h3>Mis<br />Documentos</h3>
             </button>
-            <button class="quick-card" id="btn-cambio-aceite" type="button">
+            <button class="quick-card" id="btn-vehiculo" type="button">
               <img src="assets/cambiodeaceite.png" alt="" class="quick-card-icon" />
-              <h3>Cambio<br />de aceite</h3>
+              <h3>Mi<br />Vehículo</h3>
+            </button>
+            <button class="quick-card quick-card-notifications" id="btn-notificaciones" type="button">
+              <span class="quick-card-icon-fa"><i class="fa-solid fa-bell"></i></span>
+              <span class="notification-badge is-hidden" id="quickNotificationBadge">0</span>
+              <h3>Notifica-<br />ciones</h3>
             </button>
           </div>
-          <button class="scroll-hint scroll-hint-left" id="quickPrev" type="button" aria-label="Ver más accesos">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6 9 12l6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </section>
+
+      <section class="portal-overview" aria-labelledby="portalOverviewTitle">
+        <div class="section-heading-row">
+          <div>
+            <p class="eyebrow">Tu información</p>
+            <h2 class="section-title" id="portalOverviewTitle">Resumen del portal</h2>
+          </div>
+          <button class="text-button" type="button" id="refreshOverview"><i class="fa-solid fa-rotate"></i> Actualizar</button>
+        </div>
+        <div class="overview-grid">
+          <button class="overview-card" type="button" data-open-modal="modal-documentos">
+            <span class="overview-icon"><i class="fa-solid fa-folder-open"></i></span>
+            <span><strong id="overviewDocumentsCount">0</strong><small>documentos guardados</small></span>
+          </button>
+          <button class="overview-card" type="button" data-open-modal="modal-vehiculo">
+            <span class="overview-icon"><i class="fa-solid fa-car-side"></i></span>
+            <span><strong id="overviewVehicleStatus">Sin registrar</strong><small>vehículo principal</small></span>
+          </button>
+          <button class="overview-card" type="button" data-open-modal="modal-notificaciones">
+            <span class="overview-icon"><i class="fa-solid fa-bell"></i></span>
+            <span><strong id="overviewAlertsCount">0</strong><small>alertas pendientes</small></span>
           </button>
         </div>
       </section>
 
-      <!-- ===== SEGUROS Y SERVICIOS ===== -->
       <section class="services-section">
         <h2 class="section-title">Nuestros seguros y servicios</h2>
         <div class="services-wrap">
@@ -114,12 +142,12 @@
             <article class="service-card">
               <div class="service-icon"><img src="assets/gestion.png" alt="" /></div>
               <h3>Gestión de Documentos</h3>
-              <p>Trámites rápidos y sencillos para tu tranquilidad.</p>
+              <p>Conserva tus archivos y fechas importantes.</p>
             </article>
             <article class="service-card">
               <div class="service-icon"><img src="assets/promociones.png" alt="" /></div>
-              <h3>Promociones Especiales</h3>
-              <p>Beneficios exclusivos y planes preferenciales.</p>
+              <h3>Recordatorios Inteligentes</h3>
+              <p>Recibe alertas sobre póliza, documentos y mantenimiento.</p>
             </article>
           </div>
           <button class="scroll-hint scroll-hint-right" id="servicesNext" type="button" aria-label="Ver más servicios">
@@ -128,22 +156,17 @@
         </div>
       </section>
 
-      <!-- ===== TESTIMONIOS ===== -->
       <section class="testimonials-section">
         <div class="testimonials-carousel">
           <article class="testimonial-card active" data-index="0">
             <div class="testimonial-mark">&ldquo;</div>
-            <p>Excelente servicio y atención. Respondieron rápido cuando los necesité y me acompañaron en todo el proceso. Recomendados 100%.</p>
+            <p>Excelente servicio y atención. Respondieron rápido cuando los necesité y me acompañaron en todo el proceso.</p>
             <div class="rating">★★★★★</div>
             <div class="testimonial-meta">
               <p><strong>Carlos M.</strong> &nbsp;Caracas</p>
               <div class="slider-actions">
-                <button class="icon-button" id="testimonialPrev" aria-label="Testimonio anterior">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6 9 12l6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-                <button class="icon-button" id="testimonialNext" aria-label="Testimonio siguiente">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
+                <button class="icon-button" id="testimonialPrev" aria-label="Testimonio anterior"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="icon-button" id="testimonialNext" aria-label="Testimonio siguiente"><i class="fa-solid fa-chevron-right"></i></button>
               </div>
             </div>
           </article>
@@ -151,224 +174,265 @@
             <div class="testimonial-mark">&ldquo;</div>
             <p>La atención fue muy profesional y el equipo resolvió mi trámite en minutos. Me sentí seguro durante todo el proceso.</p>
             <div class="rating">★★★★★</div>
-            <div class="testimonial-meta">
-              <p><strong>María G.</strong> &nbsp;Valencia</p>
-              <div class="slider-actions">
-                <button class="icon-button" aria-label="Testimonio anterior" onclick="document.getElementById('testimonialPrev').click()">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6 9 12l6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-                <button class="icon-button" aria-label="Testimonio siguiente" onclick="document.getElementById('testimonialNext').click()">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-              </div>
-            </div>
+            <div class="testimonial-meta"><p><strong>María G.</strong> &nbsp;Valencia</p></div>
           </article>
           <article class="testimonial-card" data-index="2">
             <div class="testimonial-mark">&ldquo;</div>
-            <p>La plataforma es muy fácil de usar, y la asesoría del equipo fue impecable. Vuelvo siempre por la rapidez y confianza.</p>
+            <p>La plataforma es muy fácil de usar y la asesoría del equipo fue impecable.</p>
             <div class="rating">★★★★★</div>
-            <div class="testimonial-meta">
-              <p><strong>Ricardo T.</strong> &nbsp;Caracas</p>
-              <div class="slider-actions">
-                <button class="icon-button" aria-label="Testimonio anterior" onclick="document.getElementById('testimonialPrev').click()">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6 9 12l6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-                <button class="icon-button" aria-label="Testimonio siguiente" onclick="document.getElementById('testimonialNext').click()">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-              </div>
-            </div>
+            <div class="testimonial-meta"><p><strong>Ricardo T.</strong> &nbsp;Caracas</p></div>
           </article>
         </div>
       </section>
 
-      <!-- ===== CONTACTO ===== -->
       <section class="contact-section">
         <div class="contact-card">
           <div class="contact-details">
-            <div class="contact-icon">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c3.866 0 7 3.134 7 7 0 5.25-7 13-7 13S5 14.25 5 9c0-3.866 3.134-7 7-7Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="9" r="2.5" fill="var(--accent)"/></svg>
-            </div>
+            <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
             <a class="contact-location" href="https://maps.app.goo.gl/9tPJA7SooyVFCHik6" target="_blank" rel="noopener">San Antonio de los Altos</a>
           </div>
-          <a class="button button-primary contact-button" href="tel:04242367811">
-            <span class="button-icon">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.08 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12 1.05.37 2.08.75 3.06a2 2 0 0 1-.45 2.11l-1.27 1.27a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.98.38 2.01.63 3.06.75A2 2 0 0 1 22 16.92Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-            0424 2367811
-          </a>
+          <a class="button button-primary contact-button" href="tel:04242367811"><i class="fa-solid fa-phone"></i> 0424 2367811</a>
         </div>
       </section>
 
-      <!-- ===== REDES SOCIALES ===== -->
       <section class="social-section">
         <h2 class="section-title">Síguenos</h2>
         <div class="social-links">
-          <a class="social-link" href="https://www.instagram.com/liderdesegurosparavehiculos" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor"/></svg>
-          </a>
-          <a class="social-link" href="https://www.facebook.com/share/17dpkNRWjf/" target="_blank" rel="noopener" aria-label="Facebook">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.7-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12Z" fill="currentColor"/></svg>
-          </a>
-          <a class="social-link" href="https://www.tiktok.com/@liderdeseguros.saa" target="_blank" rel="noopener" aria-label="TikTok">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 3c.3 2 1.6 3.6 3.5 3.9v2.6c-1.3 0-2.5-.4-3.6-1.1v6.2a5.7 5.7 0 1 1-5.7-5.7c.3 0 .6 0 .9.1v2.7a2.9 2.9 0 1 0 2 2.8V3h2.9Z" fill="currentColor"/></svg>
-          </a>
-          <a class="social-link" href="https://share.google/rMLQCBKGbQlGnsG0x" target="_blank" rel="noopener" aria-label="Google">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12v3.6h5.1c-.2 1.3-1.6 3.9-5.1 3.9-3.1 0-5.6-2.6-5.6-5.7S8.9 8.1 12 8.1c1.8 0 3 .8 3.6 1.4l2.5-2.4C16.5 5.5 14.5 4.6 12 4.6 7 4.6 3 8.6 3 13.5s4 8.9 9 8.9c5.2 0 8.6-3.6 8.6-8.8 0-.6-.1-1-.2-1.6H12Z" fill="currentColor"/></svg>
-          </a>
+          <a class="social-link" href="https://www.instagram.com/liderdesegurosparavehiculos" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a class="social-link" href="https://www.facebook.com/share/17dpkNRWjf/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a class="social-link" href="https://www.tiktok.com/@liderdeseguros.saa" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a class="social-link" href="https://share.google/rMLQCBKGbQlGnsG0x" target="_blank" rel="noopener" aria-label="Google"><i class="fa-brands fa-google"></i></a>
         </div>
       </section>
 
-      <!-- ===== CRÉDITO ===== -->
-      <p class="site-credit">Hecho por <a href="https://herasi.dev" target="_blank" rel="noopener">@herasi.dev</a> y ZIVI Dynamic C.A.</p>
+      <p class="site-credit">Hecho por <a href="https://herasi.dev" target="_blank" rel="noopener">@herasi.dev</a> y ZIVI Dynamic C.A. · ©2026</p>
     </main>
 
-    <!-- ===== FOOTER CTA FIJO ===== -->
     <div class="footer-cta">
-      <a class="button button-primary footer-cta-button" href="https://wa.me/message/L5WYMYGWUOIQK1">
-        <span class="button-icon">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-        Cotizar ahora
-      </a>
-      <a class="button button-success footer-cta-button" href="https://wa.me/message/GSBW3NAO375MD1?autoload=1&app_absent=0">
-        <span class="button-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12.04 2.5A9.52 9.52 0 0 0 3.5 12.02c0 1.67.44 3.3 1.28 4.74L2.5 21.5l4.8-1.25a9.49 9.49 0 0 0 4.74 1.25h.01c5.25 0 9.52-4.27 9.52-9.52A9.52 9.52 0 0 0 12.04 2.5Z" fill="#25D366"/>
-            <path d="M16.64 14.3c-.24-.12-1.39-.68-1.61-.76-.22-.08-.38-.12-.54.12-.16.24-.63.76-.77.92-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.48-.4-.41-.54-.42l-.46-.01c-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.02 0 1.19.87 2.35 1 2.51.13.16 1.7 2.59 4.13 3.63.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.39-.57 1.58-1.12.19-.55.19-1.03.13-1.12-.06-.09-.22-.15-.46-.27Z" fill="#fff"/>
-          </svg>
-        </span>
-        WhatsApp
-      </a>
+      <a class="button button-primary footer-cta-button" href="https://wa.me/message/L5WYMYGWUOIQK1"><i class="fa-solid fa-shield-halved"></i> Cotizar ahora</a>
+      <a class="button button-success footer-cta-button" href="https://wa.me/message/GSBW3NAO375MD1?autoload=1&app_absent=0"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
     </div>
   </div>
 
-  <!-- Modal de Gestión de Documentos -->
-  <div id="modal-documentos" class="modal">
-    <div class="modal-content">
-      <span class="close-button">&times;</span>
-      <h2>Mis Documentos</h2>
-      <div class="modal-body">
-        <p><strong><i class="fas fa-lock"></i> Seguridad:</strong> Tus documentos están protegidos y solo se almacenan en tu dispositivo. Nadie más tendrá acceso.</p>
-        <p><strong><i class="fas fa-info-circle"></i> Beneficio:</strong> Aquí puedes respaldar fotos o archivos importantes (cédula, licencia, póliza, carnet, etc). En caso de emergencia o si no tienes tus documentos físicos, podrás acceder a ellos rápidamente desde tu teléfono.</p>
-        <div class="upload-section">
-          <p>Sube hasta 5 documentos (PDF, JPG, PNG):</p>
-          <label for="file-upload" class="custom-file-upload">Elegir archivos</label>
-          <input id="file-upload" type="file" multiple accept=".pdf,image/jpeg,image/png" />
-          <span id="file-name">Sin archivos seleccionados</span>
-          <small>Puedes tomar una foto o elegir un archivo. Máx. 5 documentos.</small>
+  <div id="modal-documentos" class="modal" role="dialog" aria-modal="true" aria-labelledby="documentsTitle">
+    <div class="modal-content modal-wide">
+      <button class="close-button" type="button" data-close-modal aria-label="Cerrar">&times;</button>
+      <div class="modal-heading">
+        <span class="modal-heading-icon"><i class="fa-solid fa-folder-shield"></i></span>
+        <div><p class="eyebrow">Bóveda local</p><h2 id="documentsTitle">Mis documentos</h2></div>
+      </div>
+      <div class="privacy-banner"><i class="fa-solid fa-lock"></i><span><strong>Privacidad local:</strong> los archivos se guardan únicamente en este dispositivo. Puedes exportar una copia de respaldo.</span></div>
+
+      <form id="documentForm" class="stack-form">
+        <div class="form-grid">
+          <label>Tipo de documento
+            <select name="documentType" required>
+              <option value="cedula">Cédula de identidad</option>
+              <option value="licencia">Licencia de conducir</option>
+              <option value="certificado-medico">Certificado médico</option>
+              <option value="poliza">Póliza</option>
+              <option value="vehiculo">Documento del vehículo</option>
+              <option value="otro">Otro documento</option>
+            </select>
+          </label>
+          <label>Nombre o descripción
+            <input type="text" name="documentLabel" maxlength="80" placeholder="Ej: Licencia de conducir" required />
+          </label>
+          <label>Fecha de vencimiento <span class="optional">(opcional)</span>
+            <input type="date" name="documentExpiry" />
+          </label>
+          <label>Archivo
+            <span class="file-picker"><i class="fa-solid fa-paperclip"></i><span id="documentFileName">Seleccionar PDF, JPG o PNG</span></span>
+            <input id="documentFile" type="file" accept=".pdf,image/jpeg,image/png" required />
+          </label>
         </div>
-        <button class="modal-button" id="guardar-documentos-btn">Guardar documentos</button>
-        <div class="saved-documents">
-          <h3>Tus documentos guardados</h3>
-          <p>No hay documentos guardados.</p>
+        <small class="form-help">Máximo 12 documentos y 8 MB por archivo. Evita almacenar información que no necesites.</small>
+        <button class="modal-button" type="submit"><i class="fa-solid fa-floppy-disk"></i> Guardar documento</button>
+      </form>
+
+      <div class="section-divider"></div>
+      <div class="section-heading-row compact">
+        <div><h3>Documentos guardados</h3><p id="documentsStorageHint">0 de 12 espacios utilizados</p></div>
+        <div class="inline-actions">
+          <button class="secondary-button" id="exportDocuments" type="button"><i class="fa-solid fa-file-export"></i> Exportar</button>
+          <label class="secondary-button file-action" for="importDocuments"><i class="fa-solid fa-file-import"></i> Importar</label>
+          <input id="importDocuments" type="file" accept="application/json,.json" />
         </div>
+      </div>
+      <div class="records-list" id="documentsList"><p class="empty-state">No hay documentos guardados.</p></div>
+
+      <div class="cloud-backup-card">
+        <span><i class="fa-solid fa-cloud-arrow-up"></i></span>
+        <div><strong>Respaldo autenticado en la nube</strong><p>La interfaz está preparada para una segunda fase con inicio de sesión y almacenamiento cifrado.</p></div>
+        <button type="button" disabled>Próximamente</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal de Términos y Condiciones -->
-  <div id="modal-terminos" class="modal">
+  <div id="modal-vehiculo" class="modal" role="dialog" aria-modal="true" aria-labelledby="vehicleTitle">
+    <div class="modal-content modal-wide">
+      <button class="close-button" type="button" data-close-modal aria-label="Cerrar">&times;</button>
+      <div class="modal-heading">
+        <span class="modal-heading-icon"><i class="fa-solid fa-car-side"></i></span>
+        <div><p class="eyebrow">Control y mantenimiento</p><h2 id="vehicleTitle">Mi vehículo</h2></div>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button class="tab-button active" type="button" data-tab="vehicle-summary">Resumen</button>
+        <button class="tab-button" type="button" data-tab="vehicle-maintenance">Mantenimiento</button>
+        <button class="tab-button" type="button" data-tab="vehicle-history">Historial</button>
+      </div>
+
+      <section class="tab-panel active" id="vehicle-summary">
+        <form id="vehicleForm" class="stack-form">
+          <div class="form-grid">
+            <label>Placa
+              <input type="text" name="plate" maxlength="12" placeholder="AB123CD" required />
+            </label>
+            <label>Marca
+              <input type="text" name="brand" maxlength="40" placeholder="Toyota" required />
+            </label>
+            <label>Modelo
+              <input type="text" name="model" maxlength="40" placeholder="Corolla" required />
+            </label>
+            <label>Año
+              <input type="number" name="year" min="1950" max="2035" placeholder="2022" />
+            </label>
+            <label>Kilometraje actual
+              <input type="number" name="currentKm" min="0" step="1" placeholder="45000" required />
+            </label>
+            <label>Vencimiento de póliza
+              <input type="date" name="policyExpiry" />
+            </label>
+            <label class="full-field">Correo para recordatorios <span class="optional">(opcional)</span>
+              <input type="email" name="email" maxlength="120" placeholder="tu@email.com" />
+            </label>
+          </div>
+          <button class="modal-button" type="submit"><i class="fa-solid fa-check"></i> Guardar vehículo</button>
+        </form>
+        <div class="vehicle-status-card" id="vehicleStatusCard">
+          <span class="vehicle-status-icon"><i class="fa-solid fa-car"></i></span>
+          <div><strong>Aún no has registrado un vehículo</strong><p>Completa el formulario para activar el historial y las alertas.</p></div>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="vehicle-maintenance">
+        <form id="maintenanceForm" class="stack-form">
+          <div class="form-grid">
+            <label>Tipo de mantenimiento
+              <select name="type" required>
+                <option value="Cambio de aceite">Cambio de aceite</option>
+                <option value="Filtro de aceite">Filtro de aceite</option>
+                <option value="Filtro de aire">Filtro de aire</option>
+                <option value="Frenos">Frenos</option>
+                <option value="Neumáticos">Neumáticos</option>
+                <option value="Refrigerante">Refrigerante</option>
+                <option value="Batería">Batería</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </label>
+            <label>Fecha realizada
+              <input type="date" name="date" required />
+            </label>
+            <label>Kilometraje realizado
+              <input type="number" name="km" min="0" step="1" required />
+            </label>
+            <label>Próximo kilometraje <span class="optional">(opcional)</span>
+              <input type="number" name="nextKm" min="0" step="1" placeholder="Se calculará +5.000 para aceite" />
+            </label>
+            <label>Próxima fecha <span class="optional">(opcional)</span>
+              <input type="date" name="nextDate" />
+            </label>
+            <label class="full-field">Notas <span class="optional">(opcional)</span>
+              <textarea name="notes" maxlength="300" rows="3" placeholder="Marca de aceite, repuestos, taller u observaciones"></textarea>
+            </label>
+          </div>
+          <label class="check-row"><input type="checkbox" name="sendEmail" /> Enviar el resumen al correo registrado</label>
+          <button class="modal-button" type="submit"><i class="fa-solid fa-screwdriver-wrench"></i> Registrar mantenimiento</button>
+        </form>
+      </section>
+
+      <section class="tab-panel" id="vehicle-history">
+        <div class="section-heading-row compact"><div><h3>Historial de mantenimiento</h3><p>Los registros se ordenan del más reciente al más antiguo.</p></div></div>
+        <div class="records-list" id="maintenanceList"><p class="empty-state">No hay mantenimientos registrados.</p></div>
+      </section>
+    </div>
+  </div>
+
+  <div id="modal-notificaciones" class="modal" role="dialog" aria-modal="true" aria-labelledby="notificationsTitle">
+    <div class="modal-content modal-wide">
+      <button class="close-button" type="button" data-close-modal aria-label="Cerrar">&times;</button>
+      <div class="modal-heading">
+        <span class="modal-heading-icon"><i class="fa-solid fa-bell"></i></span>
+        <div><p class="eyebrow">Recordatorios</p><h2 id="notificationsTitle">Notificaciones</h2></div>
+      </div>
+      <div class="notification-permission-card">
+        <div><strong>Activa las alertas del navegador</strong><p>Recibirás avisos cuando abras la app y exista una fecha o mantenimiento próximo.</p></div>
+        <button class="modal-button compact-button" type="button" id="enableNotifications"><i class="fa-solid fa-bell"></i> Activar</button>
+      </div>
+      <div class="notification-settings">
+        <label><input type="checkbox" data-notification-setting="policy" checked /> Póliza y renovación</label>
+        <label><input type="checkbox" data-notification-setting="documents" checked /> Documentos próximos a vencer</label>
+        <label><input type="checkbox" data-notification-setting="maintenance" checked /> Mantenimiento y kilometraje</label>
+      </div>
+      <div class="section-divider"></div>
+      <div class="section-heading-row compact"><div><h3>Alertas pendientes</h3><p id="notificationPermissionStatus">Permiso del navegador no solicitado.</p></div></div>
+      <div class="records-list" id="notificationsList"><p class="empty-state">No tienes alertas pendientes.</p></div>
+      <small class="form-help">Para recibir notificaciones aunque la aplicación esté completamente cerrada se requiere una segunda fase con servicio push y autenticación.</small>
+    </div>
+  </div>
+
+  <div id="modal-terminos" class="modal" role="dialog" aria-modal="true" aria-labelledby="termsTitle">
     <div class="modal-content">
-      <span class="close-button">&times;</span>
-      <h2>Términos y Condiciones</h2>
+      <button class="close-button" type="button" data-close-modal aria-label="Cerrar">&times;</button>
+      <h2 id="termsTitle">Términos y condiciones</h2>
       <div class="modal-body-terminos">
-        <h4>ACUERDOS Y CONDICIONES DE USO “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA”</h4>
-        <p><strong>1. ACUERDOS</strong></p>
-        <p>Los presentes acuerdos regulan el acceso o uso que usted haga, como persona, en Venezuela, Puestos a disposición por el servicio “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA”. Mediante su acceso y uso de los Servicios usted acuerda vincularse por estas Condiciones, que establecen un acuerdo entre usted y el servicio “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA”. Si usted no acepta estos acuerdos, no podrá acceder o usar los Servicios. Estos acuerdos sustituyen expresamente los acuerdos o compromisos previos con usted.</p>
-        <p><strong>2. LOS SERVICIOS</strong></p>
-        <p>Los Servicios constituyen una plataforma de tecnología que permite a los usuarios utilizar la aplicación móvil conforme a un acuerdo con “COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA”. Los Servicios se ponen a disposición solo para su uso personal, no comercial.</p>
-        <p><strong>3. SU USO DE LOS SERVICIOS</strong></p>
-        <p>Con el fin de usar la mayor parte de los aspectos de los Servicios, usted deberá descargar la aplicación y mantenerla activa. Usted es responsable de toda la actividad que ocurre en su Cuenta y se compromete a mantenerla de forma segura en todo momento.</p>
-        <p><strong>4. PAGO</strong></p>
-        <p>“COOPERATIVA LIDER DE SEGUROS PARA VEHICULOS , RESPONSABILIDAD LIMITADA”, en cualquier momento y a su sola discreción, se reserva el derecho de establecer, eliminar y/o revisar los Cargos para alguno o todos los servicios o bienes obtenidos a través del uso de los Servicios.</p>
-        <p><strong>5. RENUNCIAS; LIMITACIÓN DE RESPONSABILIDAD</strong></p>
-        <p>Usted acuerda que todo riesgo derivado de su uso de los servicios y cualquier servicio o bien solicitado en relación con aquellos será únicamente suyo, en la máxima medida permitida por la ley aplicable.</p>
+        <h4>ACUERDOS Y CONDICIONES DE USO</h4>
+        <p><strong>1. Uso del portal.</strong> El portal ofrece accesos informativos y herramientas personales para gestionar datos del vehículo, documentos y recordatorios.</p>
+        <p><strong>2. Almacenamiento local.</strong> La información registrada en los módulos de documentos y vehículo se conserva en el dispositivo del usuario. La Cooperativa no recibe esos archivos mientras no exista un servicio autenticado de respaldo.</p>
+        <p><strong>3. Responsabilidad del usuario.</strong> El usuario es responsable de mantener copias de seguridad, proteger el acceso a su dispositivo y verificar la vigencia de sus documentos, pólizas y mantenimientos.</p>
+        <p><strong>4. Canales oficiales.</strong> Las cotizaciones, renovaciones, reportes de siniestros y demás trámites formales se completan mediante los canales oficiales enlazados en el portal.</p>
+        <p><strong>5. Disponibilidad.</strong> Los recordatorios son una ayuda de planificación y no sustituyen las comunicaciones formales de la Cooperativa ni las obligaciones legales del asegurado.</p>
         <div class="terminos-check">
           <input type="checkbox" id="acepto-terminos-checkbox" />
           <label for="acepto-terminos-checkbox">He leído y acepto los términos y condiciones</label>
         </div>
-        <button class="modal-button" id="aceptar-terminos-btn" disabled>Aceptar</button>
+        <button class="modal-button" id="aceptar-terminos-btn" type="button" disabled>Aceptar</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal Cambio de Aceite -->
-  <div id="modal-cambio-aceite" class="modal">
-    <div class="modal-content modal-aceite">
-      <span class="close-button" id="close-cambio-aceite">&times;</span>
-      <h2>Gestión de Cambio de Aceite</h2>
-      <p>Registra los datos de tu vehículo, el último cambio de aceite y tu correo electrónico. Te mostraremos el kilometraje estimado para tu próximo cambio, para que puedas planificarlo con anticipación.</p>
-      <form id="form-cambio-aceite">
-        <label>Marca del vehículo:
-          <input type="text" name="marca-vehiculo" placeholder="Ej: Toyota, Ford, Chevrolet" required />
-        </label>
-        <label>Marca de aceite:
-          <input type="text" name="marca-aceite" placeholder="Ej: Mobil 1, Castrol, Shell" required />
-        </label>
-        <label>Tipo de aceite:
-          <input type="text" name="tipo-aceite" placeholder="Ej: 5W-30, 10W-40, Sintético" required />
-        </label>
-        <label>Fecha del cambio:
-          <input type="date" name="fecha-cambio" required />
-        </label>
-        <label>¿Cada cuánto cambias el aceite?</label>
-        <div class="radio-group">
-          <label><input type="radio" name="frecuencia" value="5000" checked /> 5.000 km</label>
-          <label><input type="radio" name="frecuencia" value="7000" /> 7.000 km</label>
-        </div>
-        <label>Kilometraje actual:
-          <input type="number" name="km-actual" placeholder="Ej: 45000" required />
-        </label>
-        <label>Kilometraje del próximo cambio:
-          <input type="text" name="km-proximo" readonly placeholder="Se calculará automáticamente" />
-        </label>
-        <label>Correo electrónico:
-          <input type="email" name="email" placeholder="tu@email.com" required />
-        </label>
-        <button type="submit" class="modal-button">Enviar información</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Modal informativo genérico -->
-  <div id="modal-info" class="modal">
-    <div class="modal-content">
-      <span class="close-button" id="close-modal-info">&times;</span>
+  <div id="modal-info" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-info-title">
+    <div class="modal-content modal-small">
+      <button class="close-button" type="button" data-close-modal aria-label="Cerrar">&times;</button>
       <h2 id="modal-info-title">Información</h2>
-      <div class="modal-body">
-        <p id="modal-info-message"></p>
-      </div>
+      <div class="modal-body"><p id="modal-info-message"></p></div>
     </div>
   </div>
 
-  <!-- Modal Defensoría del Asegurado -->
-  <div id="modal-defensoria" class="modal">
+  <div id="modal-defensoria" class="modal" role="dialog" aria-modal="true" aria-labelledby="defensoriaTitle">
     <div class="modal-content">
-      <span class="close-button" id="close-modal-defensoria">&times;</span>
-      <h2><i class="fas fa-balance-scale"></i> Defensoría del Asegurado</h2>
+      <button class="close-button" type="button" data-close-modal aria-label="Cerrar">&times;</button>
+      <h2 id="defensoriaTitle"><i class="fas fa-balance-scale"></i> Defensoría del Asegurado</h2>
       <div class="modal-body">
         <p><strong>¿Necesitas asesoría o apoyo?</strong> Puedes contactar a la Defensoría del Asegurado por cualquiera de estos medios:</p>
         <p><i class="fas fa-map-marker-alt"></i> Avenida Urdaneta, Edificio Iberia, Piso 3, Ofc. E., Frente a la Torre Universal, Caracas.</p>
         <p><i class="fas fa-phone"></i> <a href="tel:02125646727">0212-564.67.27</a></p>
         <p><i class="fas fa-clock"></i> Lunes a viernes de 8:00 a.m. a 4:00 p.m.</p>
         <p><i class="fas fa-envelope"></i> <a href="mailto:defensoriadelaseguradolideseg@gmail.com">defensoriadelaseguradolideseg@gmail.com</a></p>
-        <p><i class="fas fa-globe"></i> <a href="https://liderdeseguros.com" target="_blank" rel="noopener noreferrer">Liderdeseguros.com</a></p>
       </div>
     </div>
   </div>
 
-  <!-- Modal Instalar App -->
-  <div id="modal-instalar-app" class="modal">
+  <div id="modal-instalar-app" class="modal" role="dialog" aria-modal="true" aria-labelledby="installTitle">
     <div class="modal-content">
-      <span class="close-button" id="close-modal-instalar-app">&times;</span>
-      <h2><i class="fas fa-mobile-alt"></i> Instalar App Líder</h2>
+      <button class="close-button" type="button" data-close-modal aria-label="Cerrar">&times;</button>
+      <h2 id="installTitle"><i class="fas fa-mobile-alt"></i> Instalar App Líder</h2>
       <div class="modal-body">
         <p><strong>Instala esta página como app</strong> para tener acceso rápido desde tu dispositivo.</p>
-        <p><i class="fab fa-android"></i> <strong>Android (Chrome):</strong> Pulsa el botón <strong>Instalar ahora</strong> y acepta la instalación.</p>
-        <p><i class="fab fa-apple"></i> <strong>iPhone (Safari):</strong> Pulsa <strong>Compartir</strong> y luego <strong>Agregar a pantalla de inicio</strong>.</p>
-        <p><i class="fas fa-laptop"></i> <strong>PC (Chrome/Edge):</strong> Busca el ícono de instalación en la barra de direcciones.</p>
-        <button class="modal-button" id="btn-instalar-ahora">Instalar ahora</button>
+        <p><strong>Android:</strong> pulsa “Instalar ahora”.</p>
+        <p><strong>iPhone:</strong> usa Compartir y luego Agregar a pantalla de inicio.</p>
+        <button class="modal-button" id="btn-instalar-ahora" type="button">Instalar ahora</button>
       </div>
     </div>
   </div>
@@ -380,7 +444,7 @@
       serviceId: 'service_nhl6oc4',
       templateId: 'template_ggld17q'
     };
-    window.EMAILJS_DEBUG = true;
+    window.EMAILJS_DEBUG = false;
   </script>
   <script src="script.js"></script>
 </body>
