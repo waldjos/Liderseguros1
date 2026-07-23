@@ -80,6 +80,62 @@ const CONTACT_MARKUP = `
         </article>
       </section>`;
 
+const NETWORK_MENU_ENTRY = `          <button class="mobile-nav-link" type="button" id="menuBtnRedAtencion" data-open-modal="modal-red-atencion"><i class="fa-solid fa-map-location-dot"></i> Red de atención</button>`;
+
+const NETWORK_QUICK_ENTRY = `            <button class="quick-card" id="btn-red-atencion" type="button" data-open-modal="modal-red-atencion">
+              <span class="quick-card-icon-fa"><i class="fa-solid fa-building-shield"></i></span>
+              <h3>Red de<br />Atención</h3>
+            </button>`;
+
+const NETWORK_MODAL_MARKUP = `  <div id="modal-red-atencion" class="modal network-modal" role="dialog" aria-modal="true" aria-labelledby="networkDirectoryTitle">
+    <div class="modal-content network-modal-content">
+      <header class="network-header">
+        <div class="network-header-copy">
+          <span class="network-header-icon"><i class="fa-solid fa-map-location-dot"></i></span>
+          <div><h2 id="networkDirectoryTitle">Red nacional de atención</h2><p>Canales adscritos, agencias y aliados de Líder de Seguros</p></div>
+        </div>
+        <button class="close-button network-close" type="button" data-close-modal aria-label="Cerrar">&times;</button>
+      </header>
+
+      <div class="network-body">
+        <div class="network-demo-banner"><i class="fa-solid fa-flask"></i><span><strong>Versión demostrativa:</strong> estos perfiles son registros de prueba para validar el diseño y el funcionamiento. Serán sustituidos por la información oficial de la red nacional.</span></div>
+
+        <div class="network-toolbar">
+          <label class="network-field network-field-search"><i class="fa-solid fa-magnifying-glass"></i><input id="networkSearch" type="search" placeholder="Buscar agencia, ciudad o servicio" autocomplete="off" /></label>
+          <label class="network-field"><i class="fa-solid fa-map"></i><select id="networkStateSelect" aria-label="Filtrar por estado"><option value="all">Todos los estados</option></select></label>
+          <label class="network-field"><i class="fa-solid fa-layer-group"></i><select id="networkCategorySelect" aria-label="Filtrar por tipo"><option value="all">Todos los tipos</option></select></label>
+          <button class="network-location-button" id="networkUseLocation" type="button"><i class="fa-solid fa-location-crosshairs"></i> Usar mi ubicación</button>
+          <p class="network-location-status" id="networkLocationStatus">Puedes elegir un estado o permitir la ubicación para ordenar los puntos por cercanía.</p>
+        </div>
+
+        <div class="network-layout">
+          <section class="network-map-card" aria-labelledby="networkMapTitle">
+            <div class="network-map-heading"><div><h3 id="networkMapTitle">Selecciona un estado</h3><p>También puedes deslizar la lista inferior.</p></div><i class="fa-solid fa-hand-pointer"></i></div>
+            <div class="network-map-shell" id="networkMapShell">
+              <img class="network-map-image" id="networkMapImage" alt="Mapa de Venezuela dividido por estados" loading="lazy" />
+              <div class="network-map-hotspots" id="networkMapHotspots"></div>
+            </div>
+            <div class="network-state-chips" id="networkStateChips" aria-label="Estados de Venezuela"></div>
+            <div class="network-map-summary" id="networkMapSummary"><div><strong>Toda Venezuela</strong><span>Preparando puntos de atención…</span></div><span class="network-map-summary-badge">0</span></div>
+            <p class="network-source-note">Mapa base de dominio público disponible en <a href="https://commons.wikimedia.org/wiki/File:Venezuela_con_estados.svg" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a>.</p>
+          </section>
+
+          <section class="network-results-panel" id="networkResultsPanel" aria-labelledby="networkResultsTitle">
+            <div class="network-results-heading">
+              <div><h3 id="networkResultsTitle">Puntos de atención</h3><p id="networkResultCount">Cargando directorio…</p></div>
+              <select class="network-sort" id="networkSort" aria-label="Ordenar resultados">
+                <option value="recommended">Orden recomendado</option>
+                <option value="distance">Más cercanos</option>
+                <option value="name">Nombre A–Z</option>
+              </select>
+            </div>
+            <div class="network-results-list" id="networkResults"><div class="network-loading"><i class="fa-solid fa-spinner fa-spin"></i> Preparando la red de atención…</div></div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
 function injectHeadAssets(html) {
   let result = html;
 
@@ -97,10 +153,51 @@ function injectHeadAssets(html) {
     );
   }
 
+  if (!result.includes('network-directory.css')) {
+    result = result.replace(
+      '<link rel="stylesheet" href="location-reviews.css" />',
+      '<link rel="stylesheet" href="location-reviews.css" />\n  <link rel="stylesheet" href="network-directory.css" />'
+    );
+  }
+
   if (!result.includes('assets/app-icon-192.png')) {
     result = result.replace(
       '<link rel="manifest" href="manifest.webmanifest" />',
       '<link rel="manifest" href="manifest.webmanifest" />\n  <link rel="icon" type="image/png" sizes="192x192" href="assets/app-icon-192.png" />\n  <link rel="apple-touch-icon" sizes="192x192" href="assets/app-icon-192.png" />'
+    );
+  }
+
+  return result;
+}
+
+function injectNetworkDirectory(html) {
+  let result = html;
+
+  if (!result.includes('menuBtnRedAtencion')) {
+    result = result.replace(
+      '          <button class="mobile-nav-link nav-with-badge" type="button" id="menuBtnNotificaciones">',
+      `${NETWORK_MENU_ENTRY}\n          <button class="mobile-nav-link nav-with-badge" type="button" id="menuBtnNotificaciones">`
+    );
+  }
+
+  if (!result.includes('btn-red-atencion')) {
+    result = result.replace(
+      '            <button class="quick-card quick-card-notifications" id="btn-notificaciones" type="button">',
+      `${NETWORK_QUICK_ENTRY}\n            <button class="quick-card quick-card-notifications" id="btn-notificaciones" type="button">`
+    );
+  }
+
+  if (!result.includes('id="modal-red-atencion"')) {
+    result = result.replace(
+      '  <div id="modal-documentos"',
+      `${NETWORK_MODAL_MARKUP}\n\n  <div id="modal-documentos"`
+    );
+  }
+
+  if (!result.includes('network-directory.js')) {
+    result = result.replace(
+      '  <script src="script.js"></script>',
+      '  <script src="network-directory.js"></script>\n  <script src="script.js"></script>'
     );
   }
 
@@ -124,6 +221,7 @@ module.exports = function handler(req, res) {
       throw new Error('No se encontró el bloque de ubicación original.');
     }
     html = html.replace(contactPattern, `\n${CONTACT_MARKUP}`);
+    html = injectNetworkDirectory(html);
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=300, stale-while-revalidate=86400');
