@@ -30,10 +30,8 @@ const HERO_MARKUP = `
               </a>
             </div>
           </div>
-          <div class="hero-figure">
-            <span class="hero-shield" aria-hidden="true"></span>
-            <img src="assets/imagenprincipal.png" alt="Familia protegida junto a su vehículo" class="hero-photo" />
-            <span class="hero-ribbon" aria-hidden="true"></span>
+          <div class="hero-figure hero-figure-caracas">
+            <img src="/api/hero-image.js" alt="Familia venezolana junto a su vehículo con El Ávila y Caracas al fondo" class="hero-photo hero-photo-caracas" />
           </div>
         </div>
         <div class="hero-benefits" aria-label="Beneficios de Líder de Seguros">
