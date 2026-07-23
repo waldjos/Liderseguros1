@@ -4,6 +4,7 @@
     { "src": "^/$", "dest": "/api/page.js" },
     { "src": "^/index\\.html$", "dest": "/api/page.js" },
     { "src": "^/network-directory\\.css$", "dest": "/api/network-directory-style.js" },
+    { "src": "^/network-directory\\.js$", "dest": "/api/network-directory-script.js" },
     { "handle": "filesystem" },
     { "src": "^/api/(.*)$", "dest": "/api/$1" }
   ]
