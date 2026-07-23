@@ -2,9 +2,10 @@ const crypto = require('crypto');
 const part0 = require('./hero-image-data/part-0');
 const part1 = require('./hero-image-data/part-1');
 
+const hash = (value) => crypto.createHash('sha256').update(value).digest('hex');
 const encodedImage = part0 + part1;
 const image = Buffer.from(encodedImage, 'base64');
-const imageHash = crypto.createHash('sha256').update(image).digest('hex');
+const imageHash = hash(image);
 
 module.exports = function handler(req, res) {
   if (req.query?.raw === '1') {
@@ -22,7 +23,9 @@ module.exports = function handler(req, res) {
       sha256: imageHash,
       encodedLength: encodedImage.length,
       part0Length: part0.length,
-      part1Length: part1.length
+      part1Length: part1.length,
+      part0Sha256: hash(part0),
+      part1Sha256: hash(part1)
     });
     return;
   }
