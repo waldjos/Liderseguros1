@@ -9,7 +9,7 @@
     const style = document.createElement('style');
     style.id = STYLE_ID;
     style.textContent = `
-      /* Ajuste final del encuadre visual del hero. */
+      /* Centrado y proporciones finales del visual principal. */
       .hero-panel-premium .hero-figure-caracas {
         box-sizing: border-box !important;
         justify-self: center !important;
@@ -24,15 +24,27 @@
       }
 
       @media (max-width: 720px) {
+        /* El cuadro de la imagen usa exactamente el mismo ancho que la barra de beneficios. */
         .hero-panel-premium .hero-figure-caracas {
-          width: calc(100% - 24px) !important;
-          max-width: 610px !important;
-          margin: 14px auto 0 !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          margin: 14px auto 16px !important;
           left: auto !important;
           right: auto !important;
-          transform: translateX(-6px) !important;
+          transform: none !important;
         }
 
+        .hero-panel-premium .hero-benefits {
+          box-sizing: border-box !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          margin: 0 !important;
+          position: static !important;
+          inset: auto !important;
+          transform: none !important;
+        }
+
+        /* Mantiene centrada la composición interna de familia, vehículo y franjas. */
         .hero-panel-premium .hero-photo-caracas {
           position: absolute !important;
           top: 0 !important;
@@ -49,8 +61,8 @@
 
       @media (max-width: 410px) {
         .hero-panel-premium .hero-figure-caracas {
-          width: calc(100% - 20px) !important;
-          transform: translateX(-5px) !important;
+          width: 100% !important;
+          margin-bottom: 14px !important;
         }
 
         .hero-panel-premium .hero-photo-caracas {
