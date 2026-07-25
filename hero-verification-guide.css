@@ -1,0 +1,465 @@
+/* Verificación SUDEASEG, guía de uso y centrado final del visual principal */
+.hero-verification-actions{
+  display:grid;
+  grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);
+  align-items:stretch;
+  gap:10px;
+  width:100%;
+  margin-top:22px;
+}
+
+.hero-panel-premium .hero-trust-link{
+  min-width:0;
+  min-height:48px;
+  margin:0;
+  padding:8px 13px;
+  border:1px solid rgba(11,46,122,.11);
+  border-radius:17px;
+  background:rgba(255,255,255,.94);
+  color:#183d7d;
+  text-decoration:none;
+  box-shadow:0 8px 22px rgba(11,46,122,.09);
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+
+.hero-panel-premium .hero-trust-link:hover,
+.hero-panel-premium .hero-trust-link:focus-visible{
+  transform:translateY(-2px);
+  border-color:rgba(11,59,145,.28);
+  box-shadow:0 12px 26px rgba(11,46,122,.14);
+  outline:none;
+}
+
+.hero-trust-external{
+  margin-left:auto;
+  color:#f7941d;
+  font-size:.68rem;
+}
+
+.hero-guide-button{
+  min-width:0;
+  min-height:48px;
+  display:grid;
+  grid-template-columns:34px minmax(0,1fr);
+  align-items:center;
+  gap:9px;
+  padding:8px 11px;
+  border:1px solid rgba(11,59,145,.15);
+  border-radius:17px;
+  background:linear-gradient(145deg,#edf5ff,#fff);
+  color:#123a7e;
+  box-shadow:0 8px 22px rgba(11,46,122,.08);
+  text-align:left;
+  cursor:pointer;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+
+.hero-guide-button:hover,
+.hero-guide-button:focus-visible{
+  transform:translateY(-2px);
+  border-color:rgba(247,148,29,.5);
+  box-shadow:0 12px 26px rgba(11,46,122,.13);
+  outline:none;
+}
+
+.hero-guide-button-icon{
+  display:grid;
+  place-items:center;
+  width:34px;
+  height:34px;
+  border-radius:11px;
+  background:linear-gradient(145deg,#0b3b91,#08266c);
+  color:#fff;
+}
+
+.hero-guide-button>span:last-child{
+  display:flex;
+  min-width:0;
+  flex-direction:column;
+  gap:1px;
+}
+
+.hero-guide-button strong{
+  font-size:.72rem;
+  line-height:1.15;
+  font-weight:800;
+}
+
+.hero-guide-button small{
+  color:#657897;
+  font-size:.5rem;
+  line-height:1.2;
+}
+
+/* Centrado reforzado del conjunto escudo, familia, vehículo y franjas. */
+.hero-panel-premium .hero-figure-caracas{
+  width:min(100%,430px)!important;
+  justify-self:center!important;
+  align-self:center!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+.hero-panel-premium .hero-photo-caracas{
+  object-position:center center!important;
+}
+
+.usage-guide-modal{
+  padding:18px;
+}
+
+.usage-guide-content{
+  width:min(920px,100%);
+  max-height:calc(100dvh - 36px);
+  padding:0;
+  overflow:hidden;
+  border-radius:28px;
+  background:#f7faff;
+  box-shadow:0 28px 70px rgba(8,32,78,.24);
+}
+
+.usage-guide-header{
+  position:sticky;
+  top:0;
+  z-index:4;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:20px;
+  padding:24px 26px 20px;
+  border-bottom:1px solid rgba(11,46,122,.09);
+  background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(239,246,255,.98));
+  backdrop-filter:blur(14px);
+}
+
+.usage-guide-heading{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+}
+
+.usage-guide-heading-icon{
+  display:grid;
+  place-items:center;
+  flex:none;
+  width:48px;
+  height:48px;
+  border-radius:16px;
+  background:linear-gradient(145deg,#0b3b91,#08266c);
+  color:#fff;
+  box-shadow:0 12px 24px rgba(11,59,145,.22);
+}
+
+.usage-guide-heading .eyebrow{
+  margin:0 0 3px;
+  color:#f7941d;
+  font-size:.65rem;
+  letter-spacing:.12em;
+}
+
+.usage-guide-heading h2{
+  margin:0;
+  color:#0b2e7a;
+  font-size:1.45rem;
+  line-height:1.15;
+}
+
+.usage-guide-heading p:last-child{
+  max-width:620px;
+  margin:5px 0 0;
+  color:#627491;
+  font-size:.72rem;
+  line-height:1.45;
+}
+
+.usage-guide-close{
+  position:static;
+  flex:none;
+}
+
+.usage-guide-body{
+  max-height:calc(100dvh - 150px);
+  padding:22px 26px 30px;
+  overflow:auto;
+  overscroll-behavior:contain;
+}
+
+.usage-guide-start{
+  display:grid;
+  grid-template-columns:44px minmax(0,1fr);
+  align-items:center;
+  gap:12px;
+  padding:15px 17px;
+  border:1px solid rgba(247,148,29,.2);
+  border-radius:18px;
+  background:linear-gradient(145deg,#fff8ed,#fff);
+  color:#334e7e;
+}
+
+.usage-guide-start>span{
+  display:grid;
+  place-items:center;
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  background:#fff;
+  color:#f7941d;
+  box-shadow:0 8px 18px rgba(247,148,29,.13);
+}
+
+.usage-guide-start strong{
+  color:#0b2e7a;
+  font-size:.84rem;
+}
+
+.usage-guide-start p{
+  margin:3px 0 0;
+  color:#657796;
+  font-size:.66rem;
+  line-height:1.5;
+}
+
+.usage-guide-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin-top:16px;
+}
+
+.usage-guide-grid details{
+  overflow:hidden;
+  border:1px solid rgba(11,46,122,.09);
+  border-radius:17px;
+  background:#fff;
+  box-shadow:0 8px 20px rgba(11,46,122,.06);
+}
+
+.usage-guide-grid summary{
+  display:grid;
+  grid-template-columns:34px minmax(0,1fr);
+  align-items:center;
+  gap:10px;
+  min-height:58px;
+  padding:10px 14px;
+  color:#173d7f;
+  font-size:.72rem;
+  font-weight:800;
+  line-height:1.25;
+  cursor:pointer;
+  list-style:none;
+}
+
+.usage-guide-grid summary::-webkit-details-marker{display:none}
+
+.usage-guide-grid summary>span{
+  display:grid;
+  place-items:center;
+  width:34px;
+  height:34px;
+  border-radius:11px;
+  background:#eef5ff;
+  color:#0b3b91;
+}
+
+.usage-guide-grid details[open] summary{
+  border-bottom:1px solid rgba(11,46,122,.08);
+  background:linear-gradient(145deg,#f5f9ff,#fff);
+}
+
+.usage-guide-detail{
+  padding:13px 15px 16px;
+}
+
+.usage-guide-detail p{
+  margin:0;
+  color:#5d708f;
+  font-size:.65rem;
+  line-height:1.58;
+}
+
+.usage-guide-detail p+p{margin-top:8px}
+
+.usage-guide-detail a{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  margin-top:10px;
+  padding:8px 11px;
+  border-radius:11px;
+  background:#0b3b91;
+  color:#fff;
+  font-size:.62rem;
+  font-weight:800;
+  text-decoration:none;
+}
+
+.usage-guide-footer-note{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  margin-top:16px;
+  padding:13px 15px;
+  border-radius:15px;
+  background:#eaf3ff;
+  color:#536b91;
+}
+
+.usage-guide-footer-note i{
+  margin-top:2px;
+  color:#0b3b91;
+}
+
+.usage-guide-footer-note p{
+  margin:0;
+  font-size:.62rem;
+  line-height:1.5;
+}
+
+@media(max-width:720px){
+  .hero-verification-actions{
+    grid-template-columns:minmax(0,1fr) minmax(0,.82fr);
+    gap:7px;
+    margin-top:11px;
+  }
+
+  .hero-panel-premium .hero-trust-link,
+  .hero-guide-button{
+    min-height:42px;
+    border-radius:14px;
+  }
+
+  .hero-panel-premium .hero-trust-link{
+    padding:6px 8px;
+    gap:6px;
+    font-size:.55rem;
+  }
+
+  .hero-panel-premium .hero-trust-link>i:first-child{
+    width:24px;
+    height:24px;
+    font-size:.64rem;
+  }
+
+  .hero-trust-external{font-size:.54rem}
+
+  .hero-guide-button{
+    grid-template-columns:28px minmax(0,1fr);
+    gap:6px;
+    padding:6px 7px;
+  }
+
+  .hero-guide-button-icon{
+    width:28px;
+    height:28px;
+    border-radius:9px;
+    font-size:.68rem;
+  }
+
+  .hero-guide-button strong{font-size:.58rem}
+  .hero-guide-button small{font-size:.42rem}
+
+  .hero-panel-premium .hero-figure-caracas{
+    width:calc(100% - 30px)!important;
+    max-width:610px!important;
+    margin:14px auto 0!important;
+  }
+
+  .hero-panel-premium .hero-photo-caracas{
+    left:49%!important;
+    right:auto!important;
+    width:102%!important;
+    transform:translateX(-50%)!important;
+    object-position:center center!important;
+  }
+
+  .usage-guide-modal{padding:0}
+
+  .usage-guide-content{
+    width:100%;
+    max-height:100dvh;
+    height:100dvh;
+    border-radius:0;
+  }
+
+  .usage-guide-header{
+    padding:15px 14px 13px;
+    gap:10px;
+  }
+
+  .usage-guide-heading{gap:9px}
+
+  .usage-guide-heading-icon{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    font-size:.86rem;
+  }
+
+  .usage-guide-heading .eyebrow{font-size:.5rem}
+  .usage-guide-heading h2{font-size:1.02rem}
+  .usage-guide-heading p:last-child{font-size:.55rem}
+
+  .usage-guide-body{
+    max-height:calc(100dvh - 102px);
+    padding:13px 12px calc(24px + env(safe-area-inset-bottom,0px));
+  }
+
+  .usage-guide-start{
+    grid-template-columns:36px minmax(0,1fr);
+    gap:9px;
+    padding:11px 12px;
+    border-radius:14px;
+  }
+
+  .usage-guide-start>span{
+    width:36px;
+    height:36px;
+    border-radius:11px;
+  }
+
+  .usage-guide-start strong{font-size:.68rem}
+  .usage-guide-start p{font-size:.52rem}
+
+  .usage-guide-grid{
+    grid-template-columns:1fr;
+    gap:8px;
+    margin-top:10px;
+  }
+
+  .usage-guide-grid details{border-radius:14px}
+
+  .usage-guide-grid summary{
+    grid-template-columns:30px minmax(0,1fr);
+    min-height:50px;
+    gap:8px;
+    padding:8px 10px;
+    font-size:.62rem;
+  }
+
+  .usage-guide-grid summary>span{
+    width:30px;
+    height:30px;
+    border-radius:9px;
+    font-size:.72rem;
+  }
+
+  .usage-guide-detail{padding:10px 12px 13px}
+  .usage-guide-detail p{font-size:.56rem}
+  .usage-guide-detail a{font-size:.54rem}
+  .usage-guide-footer-note p{font-size:.53rem}
+}
+
+@media(max-width:410px){
+  .hero-verification-actions{
+    grid-template-columns:1fr;
+  }
+
+  .hero-panel-premium .hero-figure-caracas{
+    width:calc(100% - 34px)!important;
+  }
+
+  .hero-panel-premium .hero-photo-caracas{
+    left:48.5%!important;
+    width:103%!important;
+  }
+}
