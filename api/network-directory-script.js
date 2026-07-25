@@ -10,11 +10,12 @@ module.exports = (request, response) => {
     const verificationGuide = fs.readFileSync(path.join(process.cwd(), 'hero-verification-guide.js'), 'utf8');
     const finalHeroCentering = fs.readFileSync(path.join(process.cwd(), 'hero-final-centering.js'), 'utf8');
     const officialPatch = fs.readFileSync(path.join(process.cwd(), 'network-official-patch.js'), 'utf8');
+    const logoPatch = fs.readFileSync(path.join(process.cwd(), 'network-logo-patch.js'), 'utf8');
     const deepLink = fs.readFileSync(path.join(process.cwd(), 'network-deeplink.js'), 'utf8');
 
     response.setHeader('Content-Type', 'application/javascript; charset=utf-8');
     response.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
-    response.status(200).send(`${officialPreload}\n${baseScript}\n${enhancement}\n${heroNetworkCta}\n${verificationGuide}\n${finalHeroCentering}\n${officialPatch}\n${deepLink}`);
+    response.status(200).send(`${officialPreload}\n${baseScript}\n${enhancement}\n${heroNetworkCta}\n${verificationGuide}\n${finalHeroCentering}\n${officialPatch}\n${logoPatch}\n${deepLink}`);
   } catch (error) {
     console.error('No se pudo generar el directorio interactivo:', error);
     response.status(500).send("console.error('No se pudo cargar el mapa interactivo.');");

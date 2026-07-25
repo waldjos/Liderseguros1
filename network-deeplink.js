@@ -3,6 +3,8 @@
 (() => {
   const PARAM = 'view';
   const VALUE = 'red-nacional';
+  const HASH = '#red-nacional';
+  const SESSION_KEY = 'liderOpenNetworkDirectory';
   const MODAL_ID = 'modal-red-atencion';
 
   function directUrl() {
@@ -11,40 +13,60 @@
 
   function isRequested() {
     const url = new URL(window.location.href);
-    return url.searchParams.get(PARAM) === VALUE || url.hash === '#red-nacional';
+    return url.searchParams.get(PARAM) === VALUE
+      || url.hash === HASH
+      || window.sessionStorage.getItem(SESSION_KEY) === '1';
   }
 
   function setRequested(enabled) {
     const url = new URL(window.location.href);
-    if (enabled) url.searchParams.set(PARAM, VALUE);
-    else url.searchParams.delete(PARAM);
-    url.hash = '';
-    history.replaceState({}, '', url);
+    if (enabled) {
+      url.searchParams.set(PARAM, VALUE);
+      url.hash = HASH;
+      window.sessionStorage.setItem(SESSION_KEY, '1');
+    } else {
+      url.searchParams.delete(PARAM);
+      url.hash = '';
+      window.sessionStorage.removeItem(SESSION_KEY);
+    }
+    window.history.replaceState({}, '', url);
   }
 
-  function findOpener() {
-    return document.querySelector(`[data-open-modal="${MODAL_ID}"]`)
-      || [...document.querySelectorAll('button,a')].find((node) => /red\s+nacional|red\s+de\s+atenci[oó]n/i.test(node.textContent || ''));
+  function activateDirectoryModal() {
+    const modal = document.getElementById(MODAL_ID);
+    if (!modal) return false;
+
+    document.querySelectorAll('.modal.active').forEach((current) => {
+      if (current !== modal) {
+        current.classList.remove('active');
+        current.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    addShareButton();
+
+    window.requestAnimationFrame(() => {
+      const focusTarget = modal.querySelector('#networkSearch, button, select, input');
+      focusTarget?.focus({ preventScroll: true });
+      modal.dispatchEvent(new CustomEvent('network:opened', { bubbles: true }));
+      window.dispatchEvent(new Event('resize'));
+    });
+    return true;
   }
 
   function openDirectory(attempt = 0) {
-    const opener = findOpener();
-    if (opener) {
-      opener.click();
-      window.setTimeout(addShareButton, 120);
-      return;
-    }
+    if (activateDirectoryModal()) return;
+    if (attempt < 40) window.setTimeout(() => openDirectory(attempt + 1), 100);
+  }
 
-    const modal = document.getElementById(MODAL_ID);
-    if (modal) {
-      modal.classList.add('active');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('modal-open');
-      addShareButton();
-      return;
-    }
-
-    if (attempt < 30) window.setTimeout(() => openDirectory(attempt + 1), 150);
+  function openDirectorySequence() {
+    window.sessionStorage.setItem(SESSION_KEY, '1');
+    [0, 80, 220, 520, 1000, 1800].forEach((delay) => {
+      window.setTimeout(openDirectory, delay);
+    });
   }
 
   async function shareDirectory() {
@@ -133,14 +155,18 @@
 
     window.addEventListener('popstate', () => {
       const modal = document.getElementById(MODAL_ID);
-      if (isRequested()) openDirectory();
+      if (isRequested()) openDirectorySequence();
       else if (modal?.classList.contains('active')) {
         modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('modal-open');
       }
     });
 
-    if (isRequested()) openDirectory();
+    if (isRequested()) openDirectorySequence();
+    window.addEventListener('load', () => {
+      if (isRequested()) openDirectorySequence();
+    }, { once: true });
     window.setTimeout(addShareButton, 500);
   }
 
