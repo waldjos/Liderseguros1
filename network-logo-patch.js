@@ -2,10 +2,12 @@
 
 (() => {
   const DATA_URL = '/api/channel-data';
-  const SPRITE_URL = '/api/channel-logo-sprite.js?v=2';
+  const LOGO_URL = '/api/channel-logo.js?v=1';
   const STYLE_ID = 'networkOfficialLogoStyles';
   const VIEWER_ID = 'networkLogoViewer';
   const NAME_ATTRIBUTE_SELECTOR = '.network-agency-map-icon[title], .leaflet-marker-icon[title]';
+  const GRID_LAST_INDEX = 9;
+  const POSITION_STEP = 100 / GRID_LAST_INDEX;
 
   let agenciesById = new Map();
   let agenciesByName = new Map();
@@ -21,23 +23,84 @@
       .toLowerCase();
   }
 
-  function spritePosition(value) {
-    const text = String(value || '').trim();
-    return /^\d+(?:\.\d+)?%\s+\d+(?:\.\d+)?%$/.test(text) ? text : '';
-  }
+  function spriteCell(agency) {
+    const match = String(agency?.logoPosition || '').trim().match(/^(\d+(?:\.\d+)?)%\s+(\d+(?:\.\d+)?)%$/);
+    if (!agency?.logoSprite || !match) return null;
 
-  function spriteSize(value) {
-    const text = String(value || '').trim();
-    return /^\d+(?:\.\d+)?%\s+\d+(?:\.\d+)?%$/.test(text) ? text : '1000% 1000%';
+    const column = Math.min(GRID_LAST_INDEX, Math.max(0, Math.round(Number(match[1]) / POSITION_STEP)));
+    const row = Math.min(GRID_LAST_INDEX, Math.max(0, Math.round(Number(match[2]) / POSITION_STEP)));
+    return Number.isFinite(column) && Number.isFinite(row) ? { column, row } : null;
   }
 
   function hasSprite(agency) {
-    return Boolean(agency?.logoSprite && spritePosition(agency.logoPosition));
+    return Boolean(spriteCell(agency));
   }
 
-  function setSpriteVariables(node, agency) {
-    node.style.setProperty('--official-logo-position', spritePosition(agency.logoPosition));
-    node.style.setProperty('--official-logo-size', spriteSize(agency.logoSize));
+  function logoUrl(agency) {
+    const cell = spriteCell(agency);
+    return cell ? `${LOGO_URL}&col=${cell.column}&row=${cell.row}` : '';
+  }
+
+  function initials(agency) {
+    const configured = String(agency?.logoText || '').trim();
+    if (configured) return configured.slice(0, 4).toUpperCase();
+
+    return String(agency?.name || 'CANAL')
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 3)
+      .map((word) => word[0])
+      .join('')
+      .toUpperCase();
+  }
+
+  function imageHasVisibleContent(image) {
+    try {
+      const canvas = document.createElement('canvas');
+      canvas.width = 32;
+      canvas.height = 32;
+      const context = canvas.getContext('2d', { willReadFrequently: true });
+      if (!context) return true;
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data;
+      let visiblePixels = 0;
+
+      for (let index = 0; index < pixels.length; index += 4) {
+        const red = pixels[index];
+        const green = pixels[index + 1];
+        const blue = pixels[index + 2];
+        const alpha = pixels[index + 3];
+        if (alpha > 24 && (red < 242 || green < 242 || blue < 242)) visiblePixels += 1;
+        if (visiblePixels > 8) return true;
+      }
+      return false;
+    } catch (error) {
+      return true;
+    }
+  }
+
+  function createLogoVisual(agency, className = '') {
+    const frame = document.createElement('span');
+    frame.className = `official-logo-frame ${className}`.trim();
+
+    const fallback = document.createElement('span');
+    fallback.className = 'official-logo-fallback';
+    fallback.textContent = initials(agency);
+    fallback.setAttribute('aria-hidden', 'true');
+
+    const image = new Image();
+    image.className = 'official-logo-image';
+    image.alt = `Logo de ${agency.name}`;
+    image.decoding = 'async';
+    image.loading = 'lazy';
+    image.addEventListener('load', () => {
+      frame.classList.add(imageHasVisibleContent(image) ? 'is-loaded' : 'is-empty');
+    }, { once: true });
+    image.addEventListener('error', () => frame.classList.add('is-error'), { once: true });
+    image.src = logoUrl(agency);
+
+    frame.append(fallback, image);
+    return frame;
   }
 
   function ensureStyles() {
@@ -48,15 +111,13 @@
     style.textContent = `
       .agency-logo.has-official-logo {
         position: relative !important;
+        display: grid !important;
+        place-items: center !important;
         padding: 0 !important;
         overflow: hidden !important;
         border: 1px solid rgba(11, 46, 122, .14) !important;
-        background-color: #fff !important;
-        background-image: url('${SPRITE_URL}') !important;
-        background-repeat: no-repeat !important;
-        background-position: var(--official-logo-position) !important;
-        background-size: var(--official-logo-size) !important;
-        color: transparent !important;
+        background: #fff !important;
+        color: #0b2e7a !important;
         box-shadow: 0 8px 20px rgba(11, 46, 122, .14) !important;
       }
 
@@ -76,10 +137,54 @@
         outline: none;
       }
 
+      .official-logo-frame {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 100%;
+        height: 100%;
+        min-width: 0;
+        min-height: 0;
+        overflow: hidden;
+        border-radius: inherit;
+        background: #fff;
+      }
+
+      .official-logo-image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        max-width: none !important;
+        object-fit: contain;
+        opacity: 0;
+        transition: opacity .16s ease;
+      }
+
+      .official-logo-frame.is-loaded .official-logo-image { opacity: 1; }
+
+      .official-logo-fallback {
+        display: grid;
+        place-items: center;
+        width: 100%;
+        height: 100%;
+        padding: .18rem;
+        color: #0b2e7a;
+        background: linear-gradient(145deg, #ffffff, #eef3fb);
+        font-size: .62rem;
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -.02em;
+        text-align: center;
+      }
+
+      .official-logo-frame.is-loaded .official-logo-fallback { visibility: hidden; }
+
       .agency-logo-zoom {
         position: absolute;
         right: 3px;
         bottom: 3px;
+        z-index: 3;
         width: 18px;
         height: 18px;
         display: grid;
@@ -97,21 +202,18 @@
         background: var(--pin-color, #0b2e7a) !important;
       }
 
-      .network-agency-map-pin .network-agency-map-logo {
+      .network-agency-map-logo {
         display: block !important;
         width: 27px !important;
         height: 27px !important;
         border-radius: 50% !important;
         border: 1px solid rgba(11, 46, 122, .12) !important;
-        background-color: #fff !important;
-        background-image: url('${SPRITE_URL}') !important;
-        background-repeat: no-repeat !important;
-        background-position: var(--official-logo-position) !important;
-        background-size: var(--official-logo-size) !important;
-        color: transparent !important;
         overflow: hidden !important;
+        background: #fff !important;
         box-shadow: 0 2px 6px rgba(5, 22, 58, .28) !important;
       }
+
+      .network-agency-map-logo .official-logo-fallback { font-size: .42rem; }
 
       .network-group-logo-status > .network-group-title {
         position: sticky;
@@ -167,6 +269,7 @@
         position: absolute;
         top: .65rem;
         right: .65rem;
+        z-index: 2;
         width: 38px;
         height: 38px;
         display: grid;
@@ -206,13 +309,11 @@
         aspect-ratio: 1;
         border-radius: 24px;
         border: 1px solid rgba(11, 46, 122, .12);
-        background-color: #fff;
-        background-image: url('${SPRITE_URL}');
-        background-repeat: no-repeat;
-        background-position: var(--official-logo-position);
-        background-size: var(--official-logo-size);
+        background: #fff;
         box-shadow: inset 0 0 0 8px #fff, 0 14px 34px rgba(11, 46, 122, .16);
       }
+
+      .network-logo-viewer-image .official-logo-fallback { font-size: 1.35rem; }
 
       .network-logo-viewer-hint {
         margin: 0;
@@ -221,7 +322,7 @@
       }
 
       @media (max-width: 520px) {
-        .network-agency-map-pin .network-agency-map-logo {
+        .network-agency-map-logo {
           width: 23px !important;
           height: 23px !important;
         }
@@ -240,12 +341,6 @@
     document.head.appendChild(style);
   }
 
-  function preloadSprite() {
-    const image = new Image();
-    image.decoding = 'async';
-    image.src = SPRITE_URL;
-  }
-
   function ensureViewer() {
     let viewer = document.getElementById(VIEWER_ID);
     if (viewer) return viewer;
@@ -261,7 +356,7 @@
       <div class="network-logo-viewer-card">
         <button class="network-logo-viewer-close" type="button" data-close-logo-viewer aria-label="Cerrar logo">&times;</button>
         <div class="network-logo-viewer-copy"><span>Logo del canal</span><strong id="networkLogoViewerName"></strong></div>
-        <div class="network-logo-viewer-image" role="img"></div>
+        <div class="network-logo-viewer-image" data-logo-viewer-image></div>
         <p class="network-logo-viewer-hint">Pulsa fuera del cuadro o la X para volver al directorio.</p>
       </div>`;
 
@@ -275,14 +370,13 @@
   function openViewer(agency, trigger) {
     if (!hasSprite(agency)) return;
     const viewer = ensureViewer();
-    const image = viewer.querySelector('.network-logo-viewer-image');
+    const imageHost = viewer.querySelector('[data-logo-viewer-image]');
     const name = viewer.querySelector('#networkLogoViewerName');
-    if (!image || !name) return;
+    if (!imageHost || !name) return;
 
     lastFocusedLogo = trigger || null;
     name.textContent = agency.name;
-    image.setAttribute('aria-label', `Logo ampliado de ${agency.name}`);
-    setSpriteVariables(image, agency);
+    imageHost.replaceChildren(createLogoVisual(agency));
     viewer.hidden = false;
     window.setTimeout(() => viewer.querySelector('.network-logo-viewer-close')?.focus({ preventScroll: true }), 30);
   }
@@ -311,12 +405,14 @@
       logo = button;
     }
 
-    logo.replaceChildren();
+    if (logo.dataset.officialLogoVersion === 'image-v1') return;
+
+    logo.replaceChildren(createLogoVisual(agency));
     logo.classList.add('has-official-logo');
     logo.setAttribute('aria-label', `Ver logo ampliado de ${agency.name}`);
     logo.setAttribute('title', `Ver logo de ${agency.name} en grande`);
     logo.dataset.viewOfficialLogo = agency.id;
-    setSpriteVariables(logo, agency);
+    logo.dataset.officialLogoVersion = 'image-v1';
 
     const zoom = document.createElement('span');
     zoom.className = 'agency-logo-zoom';
@@ -327,7 +423,7 @@
   }
 
   function patchMarker(marker) {
-    if (marker.dataset.officialLogoApplied === 'true') return;
+    if (marker.dataset.officialLogoVersion === 'image-v1') return;
     const pin = marker.querySelector('.network-agency-map-pin');
     if (!pin) return;
 
@@ -339,11 +435,12 @@
     logo.setAttribute('role', 'img');
     logo.setAttribute('aria-label', `Logo de ${agency.name}`);
     logo.setAttribute('title', agency.name);
-    setSpriteVariables(logo, agency);
+    logo.appendChild(createLogoVisual(agency));
 
     pin.replaceChildren(logo);
     pin.classList.add('has-official-logo');
     marker.dataset.officialLogoApplied = 'true';
+    marker.dataset.officialLogoVersion = 'image-v1';
   }
 
   function labelRecommendedSort() {
@@ -435,7 +532,6 @@
   async function initialize() {
     ensureStyles();
     ensureViewer();
-    preloadSprite();
     observeDirectory();
     bindInteractions();
 

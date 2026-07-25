@@ -1,4 +1,4 @@
-const CACHE_NAME = 'liderseguros-cache-v29';
+const CACHE_NAME = 'liderseguros-cache-v30';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -13,7 +13,6 @@ const ASSETS_TO_CACHE = [
   './network-directory.css',
   './network-directory.js',
   './network-logo-patch.js',
-  './api/channel-logo-sprite.js?v=2',
   './data/agencies-demo.json',
   './script.js',
   './manifest.webmanifest',
@@ -36,7 +35,8 @@ const ASSETS_TO_CACHE = [
 const NETWORK_FIRST_PATHS = new Set([
   '/network-directory.js',
   '/network-logo-patch.js',
-  '/api/channel-data'
+  '/api/channel-data',
+  '/api/channel-logo.js'
 ]);
 
 self.addEventListener('install', (event) => {
