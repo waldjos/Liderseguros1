@@ -1,0 +1,142 @@
+/* Centrado del visual principal y botón destacado de Red Nacional */
+.hero-panel-premium .hero-figure-caracas{
+  justify-self:center!important;
+  align-self:center!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  overflow:hidden!important;
+}
+
+.hero-panel-premium .hero-photo-caracas{
+  object-position:center center!important;
+}
+
+.hero-network-cta-wrap{
+  position:relative;
+  z-index:4;
+  display:flex;
+  width:100%;
+  margin:14px 0 0;
+}
+
+.hero-panel-premium .hero-network-button{
+  width:100%;
+  min-height:68px;
+  display:grid;
+  grid-template-columns:46px minmax(0,1fr) 34px;
+  align-items:center;
+  gap:13px;
+  padding:10px 16px;
+  border:0;
+  border-radius:21px;
+  background:linear-gradient(135deg,#0b3b91 0%,#08266c 70%,#061d52 100%);
+  color:#fff;
+  box-shadow:0 16px 30px rgba(11,59,145,.24);
+  text-align:left;
+}
+
+.hero-network-button-icon{
+  display:grid;
+  place-items:center;
+  width:46px;
+  height:46px;
+  border-radius:15px;
+  background:rgba(255,255,255,.14);
+  color:#fff;
+  font-size:1.08rem;
+}
+
+.hero-network-button-copy{
+  display:flex;
+  min-width:0;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:2px;
+  line-height:1.2;
+}
+
+.hero-network-button-copy strong{
+  color:#fff;
+  font-size:1rem;
+  font-weight:800;
+}
+
+.hero-network-button-copy small{
+  color:rgba(255,255,255,.78);
+  font-size:.65rem;
+  font-weight:500;
+  white-space:normal;
+}
+
+.hero-network-button-arrow{
+  display:grid;
+  place-items:center;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.32);
+  color:#fff;
+}
+
+@media(max-width:720px){
+  .hero-panel-premium .hero-figure-caracas{
+    width:calc(100% - 18px)!important;
+    max-width:620px!important;
+    margin:14px auto 0!important;
+  }
+
+  .hero-panel-premium .hero-photo-caracas{
+    left:50%!important;
+    right:auto!important;
+    width:100%!important;
+    transform:translateX(-50%)!important;
+  }
+
+  .hero-network-cta-wrap{
+    margin-top:12px;
+  }
+
+  .hero-panel-premium .hero-network-button{
+    min-height:56px;
+    grid-template-columns:38px minmax(0,1fr) 28px;
+    gap:9px;
+    padding:8px 11px;
+    border-radius:17px;
+  }
+
+  .hero-network-button-icon{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    font-size:.86rem;
+  }
+
+  .hero-network-button-copy strong{
+    font-size:.79rem;
+  }
+
+  .hero-network-button-copy small{
+    font-size:.54rem;
+  }
+
+  .hero-network-button-arrow{
+    width:27px;
+    height:27px;
+    font-size:.68rem;
+  }
+}
+
+@media(max-width:410px){
+  .hero-panel-premium .hero-figure-caracas{
+    width:calc(100% - 14px)!important;
+    margin-top:12px!important;
+  }
+
+  .hero-network-button-copy strong{
+    font-size:.74rem;
+  }
+
+  .hero-network-button-copy small{
+    font-size:.5rem;
+  }
+}
