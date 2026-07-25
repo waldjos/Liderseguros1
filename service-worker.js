@@ -1,9 +1,11 @@
-const CACHE_NAME = 'liderseguros-cache-v20';
+const CACHE_NAME = 'liderseguros-cache-v21';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './style.css',
   './hero-modern.css',
+  './hero-network-cta.css',
+  './hero-network-cta.js',
   './location-reviews.css',
   './network-directory.css',
   './network-directory.js',
