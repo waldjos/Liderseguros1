@@ -1,4 +1,4 @@
-const CACHE_NAME = 'liderseguros-cache-v21';
+const CACHE_NAME = 'liderseguros-cache-v22';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -6,6 +6,8 @@ const ASSETS_TO_CACHE = [
   './hero-modern.css',
   './hero-network-cta.css',
   './hero-network-cta.js',
+  './hero-verification-guide.css',
+  './hero-verification-guide.js',
   './location-reviews.css',
   './network-directory.css',
   './network-directory.js',
