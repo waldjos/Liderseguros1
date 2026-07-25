@@ -1,4 +1,4 @@
-const CACHE_NAME = 'liderseguros-cache-v25';
+const CACHE_NAME = 'liderseguros-cache-v26';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
