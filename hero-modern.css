@@ -98,3 +98,18 @@ linear-gradient(145deg,#f8fbff 0%,#eef5ff 44%,#f7faff 100%);box-shadow:0 28px 65
   .hero-benefit{font-size:.47rem}
   .footer-cta-button{font-size:.69rem}
 }
+
+/* Mantiene el panel de beneficios fuera de la fotografía. */
+.hero-panel-premium .hero-grid{position:relative;z-index:2}
+.hero-panel-premium .hero-figure{margin-bottom:0}
+.hero-panel-premium .hero-benefits{position:static!important;inset:auto!important;transform:none!important;clear:both;width:100%;margin:24px 0 0!important;z-index:auto}
+
+@media(max-width:720px){
+  .hero-panel-premium .hero-grid{margin-bottom:0}
+  .hero-panel-premium .hero-figure{margin-bottom:0}
+  .hero-panel-premium .hero-benefits{margin-top:20px!important}
+}
+
+@media(max-width:410px){
+  .hero-panel-premium .hero-benefits{margin-top:18px!important}
+}
