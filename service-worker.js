@@ -1,7 +1,8 @@
-const CACHE_NAME = 'liderseguros-cache-v24';
+const CACHE_NAME = 'liderseguros-cache-v25';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
+  './red-nacional/',
   './style.css',
   './hero-modern.css',
   './hero-network-cta.css',
@@ -12,6 +13,8 @@ const ASSETS_TO_CACHE = [
   './location-reviews.css',
   './network-directory.css',
   './network-directory.js',
+  './api/network-directory.js',
+  './api/channel-data',
   './data/agencies-demo.json',
   './script.js',
   './manifest.webmanifest',
