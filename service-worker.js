@@ -1,4 +1,4 @@
-const CACHE_NAME = 'liderseguros-cache-v28';
+const CACHE_NAME = 'liderseguros-cache-v29';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -33,16 +33,34 @@ const ASSETS_TO_CACHE = [
   './assets/promociones.png'
 ];
 
+const NETWORK_FIRST_PATHS = new Set([
+  '/network-directory.js',
+  '/network-logo-patch.js',
+  '/api/channel-data'
+]);
+
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS_TO_CACHE)));
   self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))))
-  );
-  self.clients.claim();
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)));
+    await self.clients.claim();
+
+    // Recarga una sola vez las ventanas abiertas cuando entra una nueva versión
+    // para que una PWA instalada no continúe ejecutando JavaScript de la caché anterior.
+    const clientList = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    await Promise.all(clientList.map(async (client) => {
+      try {
+        await client.navigate(client.url);
+      } catch (error) {
+        // Algunos navegadores no permiten navegar el cliente durante la activación.
+      }
+    }));
+  })());
 });
 
 self.addEventListener('fetch', (event) => {
@@ -66,6 +84,21 @@ self.addEventListener('fetch', (event) => {
   }
 
   if (!isSameOrigin) return;
+
+  if (NETWORK_FIRST_PATHS.has(requestUrl.pathname)) {
+    event.respondWith(
+      fetch(event.request, { cache: 'no-store' })
+        .then((networkResponse) => {
+          if (networkResponse.ok) {
+            const clone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          }
+          return networkResponse;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
 
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
