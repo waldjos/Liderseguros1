@@ -6,9 +6,12 @@
   <meta name="theme-color" content="#0B3B91">
   <title>Red Nacional de Atención · Líder de Seguros</title>
   <meta name="description" content="Directorio nacional de canales alternativos aprobados de Líder de Seguros.">
-  <script>window.location.replace('/?view=red-nacional');</script>
+  <script>
+    try { sessionStorage.setItem('liderOpenNetworkDirectory', '1'); } catch (error) {}
+    window.location.replace('/?view=red-nacional#red-nacional');
+  </script>
 </head>
 <body>
-  <p>Abriendo la <a href="/?view=red-nacional">Red Nacional de Atención</a>…</p>
+  <p>Abriendo la <a href="/?view=red-nacional#red-nacional">Red Nacional de Atención</a>…</p>
 </body>
 </html>
