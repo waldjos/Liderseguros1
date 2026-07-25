@@ -1,7 +1,18 @@
 'use strict';
 
 (() => {
+  function ensureStyles() {
+    if (document.querySelector('link[data-hero-network-cta]')) return;
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'hero-network-cta.css';
+    link.dataset.heroNetworkCta = 'true';
+    document.head.appendChild(link);
+  }
+
   function promoteNetworkButton() {
+    ensureStyles();
+
     const benefits = document.querySelector('.hero-benefits');
     const networkButton = document.getElementById('btn-red-atencion');
     if (!benefits || !networkButton) return;
