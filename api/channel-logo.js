@@ -3,10 +3,8 @@
 const sharp = require('sharp');
 const crypto = require('crypto');
 const parts = [
-  require('../channel-logo-parts/part-0'),
-  require('../channel-logo-parts/part-1'),
-  require('../channel-logo-parts/part-2'),
-  require('../channel-logo-parts/part-3')
+  require('../channel-logo-hd-parts/part-0'),
+  require('../channel-logo-hd-parts/part-1')
 ];
 
 const SPRITE = Buffer.from(parts.join(''), 'base64');
@@ -26,7 +24,7 @@ async function renderCell(column, row) {
   if (CACHE.has(key)) return CACHE.get(key);
 
   const task = (async () => {
-    const extracted = sharp(SPRITE, { failOn: 'none' })
+    const extracted = sharp(SPRITE, { failOn: 'error' })
       .extract({
         left: column * CELL_SIZE,
         top: row * CELL_SIZE,
