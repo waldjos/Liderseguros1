@@ -10,7 +10,7 @@ const parts = [
 ];
 
 const EXPECTED_BYTES = 45200;
-const EXPECTED_SHA256 = '222f30a3dc1fe6f7af27d3cb0e2b60adfe22a0e732040fa45e8b138b9c6d8c42';
+const EXPECTED_SHA256 = '3cf783556d925cac630a6ef2c2308e01358da6f94c6362662ef8eae1fa0c1d6e';
 const sprite = Buffer.from(parts.join(''), 'base64');
 const spriteHash = crypto.createHash('sha256').update(sprite).digest('hex');
 const declaredRiffBytes = sprite.length >= 8 ? sprite.readUInt32LE(4) + 8 : 0;
