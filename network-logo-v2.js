@@ -2,15 +2,15 @@
 
 (() => {
   const DATA_URL = '/api/channel-data';
-  const SPRITE_URL = '/api/channel-logo-sprite.js?v=3';
-  const STYLE_ID = 'networkLogoSpriteV2Styles';
-  const GRID_LAST_INDEX = 9;
-  const POSITION_STEP = 100 / GRID_LAST_INDEX;
+  const SPRITE_URL = '/api/channel-logo-sprite.js?v=4';
+  const STYLE_ID = 'networkLogoSpriteV3Styles';
+  const RENDERER = 'webp-background-v3';
   const MARKER_SELECTOR = '.network-agency-map-icon[title], .leaflet-marker-icon[title]';
 
   let agenciesById = new Map();
   let agenciesByName = new Map();
   let patchQueued = false;
+  let spritePromise = null;
 
   function normalize(value) {
     return String(value || '')
@@ -21,25 +21,11 @@
       .toLowerCase();
   }
 
-  function spriteCell(agency) {
-    const match = String(agency?.logoPosition || '')
-      .trim()
-      .match(/^(\d+(?:\.\d+)?)%\s+(\d+(?:\.\d+)?)%$/);
-
-    if (!agency?.logoSprite || !match) return null;
-
-    const column = Math.min(
-      GRID_LAST_INDEX,
-      Math.max(0, Math.round(Number(match[1]) / POSITION_STEP))
+  function hasSprite(agency) {
+    return Boolean(
+      agency?.logoSprite
+      && /^\d+(?:\.\d+)?%\s+\d+(?:\.\d+)?%$/.test(String(agency.logoPosition || '').trim())
     );
-    const row = Math.min(
-      GRID_LAST_INDEX,
-      Math.max(0, Math.round(Number(match[2]) / POSITION_STEP))
-    );
-
-    return Number.isFinite(column) && Number.isFinite(row)
-      ? { column, row }
-      : null;
   }
 
   function initials(agency) {
@@ -55,91 +41,113 @@
       .toUpperCase();
   }
 
+  function loadSprite() {
+    if (spritePromise) return spritePromise;
+
+    spritePromise = new Promise((resolve, reject) => {
+      const image = new Image();
+      image.decoding = 'async';
+      image.onload = () => resolve(image);
+      image.onerror = () => reject(new Error('No se pudo cargar el sprite oficial de logos.'));
+      image.src = SPRITE_URL;
+    });
+
+    return spritePromise;
+  }
+
   function ensureStyles() {
     if (document.getElementById(STYLE_ID)) return;
 
     const style = document.createElement('style');
     style.id = STYLE_ID;
     style.textContent = `
-      .logo-sprite-v2-frame {
+      .logo-sprite-v3-frame {
         position: relative !important;
         display: grid !important;
         place-items: center !important;
         width: 100% !important;
         height: 100% !important;
+        min-width: 0 !important;
+        min-height: 0 !important;
         overflow: hidden !important;
         border-radius: inherit !important;
+        background-color: #fff !important;
+        background-image: var(--official-logo-sprite, none) !important;
+        background-repeat: no-repeat !important;
+        background-size: 1000% 1000% !important;
+        background-position: var(--official-logo-position, 0% 0%) !important;
+      }
+
+      .logo-sprite-v3-frame > .official-logo-fallback {
+        position: absolute !important;
+        inset: 0 !important;
+        z-index: 1 !important;
+        display: grid !important;
+        place-items: center !important;
+        width: 100% !important;
+        height: 100% !important;
+        padding: .18rem !important;
+        color: #0b2e7a !important;
+        background: linear-gradient(145deg, #fff, #eef3fb) !important;
+        font-size: .62rem !important;
+        font-weight: 900 !important;
+        line-height: 1 !important;
+        text-align: center !important;
+      }
+
+      .logo-sprite-v3-frame.is-loaded > .official-logo-fallback {
+        display: none !important;
+      }
+
+      .logo-sprite-v3-frame.is-error > .official-logo-fallback {
+        display: grid !important;
+      }
+
+      .agency-logo.has-official-logo {
         background: #fff !important;
       }
 
-      .official-logo-sprite-v2-image {
-        position: absolute !important;
-        display: block !important;
-        width: 1000% !important;
-        height: 1000% !important;
-        max-width: none !important;
-        max-height: none !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        object-fit: fill !important;
-        opacity: 0;
-        transition: opacity .12s ease;
-        pointer-events: none;
-        user-select: none;
+      .network-agency-map-logo .logo-sprite-v3-frame > .official-logo-fallback {
+        font-size: .42rem !important;
       }
 
-      .logo-sprite-v2-frame.is-loaded .official-logo-sprite-v2-image {
-        opacity: 1 !important;
-      }
-
-      .logo-sprite-v2-frame.is-loaded > .official-logo-fallback {
-        visibility: hidden !important;
-      }
-
-      .logo-sprite-v2-frame.is-error > .official-logo-fallback {
-        visibility: visible !important;
+      .network-logo-viewer-image .logo-sprite-v3-frame > .official-logo-fallback {
+        font-size: 1.35rem !important;
       }
     `;
     document.head.appendChild(style);
   }
 
   function createSpriteVisual(agency) {
-    const cell = spriteCell(agency);
-    if (!cell) return null;
+    if (!hasSprite(agency)) return null;
 
     const frame = document.createElement('span');
-    frame.className = 'official-logo-frame logo-sprite-v2-frame';
-    frame.dataset.logoRenderer = 'webp-sprite-v2';
+    frame.className = 'official-logo-frame logo-sprite-v3-frame';
+    frame.dataset.logoRenderer = RENDERER;
     frame.dataset.logoAgencyId = agency.id;
+    frame.style.setProperty('--official-logo-position', String(agency.logoPosition).trim());
+    frame.style.setProperty('--official-logo-sprite', `url("${SPRITE_URL}")`);
 
     const fallback = document.createElement('span');
     fallback.className = 'official-logo-fallback';
     fallback.textContent = initials(agency);
     fallback.setAttribute('aria-hidden', 'true');
+    frame.appendChild(fallback);
 
-    const image = new Image();
-    image.className = 'official-logo-sprite-v2-image';
-    image.alt = `Logo de ${agency.name}`;
-    image.decoding = 'async';
-    image.loading = 'eager';
-    image.draggable = false;
-    image.style.left = `${cell.column * -100}%`;
-    image.style.top = `${cell.row * -100}%`;
-    image.addEventListener('load', () => frame.classList.add('is-loaded'), { once: true });
-    image.addEventListener('error', () => frame.classList.add('is-error'), { once: true });
-    image.src = SPRITE_URL;
+    loadSprite()
+      .then(() => frame.classList.add('is-loaded'))
+      .catch(() => frame.classList.add('is-error'));
 
-    frame.append(fallback, image);
     return frame;
   }
 
   function patchCard(card) {
     const agency = agenciesById.get(card.dataset.agencyId);
-    if (!spriteCell(agency)) return;
+    if (!hasSprite(agency)) return;
 
     let logo = card.querySelector('.agency-logo');
     if (!logo) return;
-    if (logo.dataset.logoRenderer === 'webp-sprite-v2') return;
+    if (logo.dataset.logoRenderer === RENDERER) return;
 
     if (logo.tagName !== 'BUTTON') {
       const button = document.createElement('button');
@@ -158,9 +166,7 @@
     logo.setAttribute('aria-label', `Ver logo ampliado de ${agency.name}`);
     logo.setAttribute('title', `Ver logo de ${agency.name} en grande`);
     logo.dataset.viewOfficialLogo = agency.id;
-    logo.dataset.logoRenderer = 'webp-sprite-v2';
-
-    // La versión anterior consulta este valor para evitar sobrescribir un logo ya procesado.
+    logo.dataset.logoRenderer = RENDERER;
     logo.dataset.officialLogoVersion = 'image-v1';
 
     const zoom = document.createElement('span');
@@ -170,13 +176,13 @@
     logo.appendChild(zoom);
 
     card.dataset.officialLogoApplied = 'true';
-    card.dataset.logoRenderer = 'webp-sprite-v2';
+    card.dataset.logoRenderer = RENDERER;
   }
 
   function patchMarker(marker) {
     const agency = agenciesByName.get(normalize(marker.getAttribute('title')));
-    if (!spriteCell(agency)) return;
-    if (marker.dataset.logoRenderer === 'webp-sprite-v2') return;
+    if (!hasSprite(agency)) return;
+    if (marker.dataset.logoRenderer === RENDERER) return;
 
     const pin = marker.querySelector('.network-agency-map-pin');
     if (!pin) return;
@@ -195,7 +201,7 @@
     pin.classList.add('has-official-logo');
     marker.dataset.officialLogoApplied = 'true';
     marker.dataset.officialLogoVersion = 'image-v1';
-    marker.dataset.logoRenderer = 'webp-sprite-v2';
+    marker.dataset.logoRenderer = RENDERER;
   }
 
   function patchViewer() {
@@ -205,14 +211,14 @@
     const name = viewer.querySelector('#networkLogoViewerName')?.textContent;
     const agency = agenciesByName.get(normalize(name));
     const host = viewer.querySelector('[data-logo-viewer-image]');
-    if (!host || !spriteCell(agency)) return;
-    if (host.dataset.logoAgencyId === agency.id && host.dataset.logoRenderer === 'webp-sprite-v2') return;
+    if (!host || !hasSprite(agency)) return;
+    if (host.dataset.logoAgencyId === agency.id && host.dataset.logoRenderer === RENDERER) return;
 
     const visual = createSpriteVisual(agency);
     if (!visual) return;
 
     host.replaceChildren(visual);
-    host.dataset.logoRenderer = 'webp-sprite-v2';
+    host.dataset.logoRenderer = RENDERER;
     host.dataset.logoAgencyId = agency.id;
   }
 
@@ -230,8 +236,8 @@
   }
 
   function observeChanges() {
-    if (!document.body || document.body.dataset.logoSpriteV2Observer === 'true') return;
-    document.body.dataset.logoSpriteV2Observer = 'true';
+    if (!document.body || document.body.dataset.logoSpriteV3Observer === 'true') return;
+    document.body.dataset.logoSpriteV3Observer = 'true';
     new MutationObserver(schedulePatch).observe(document.body, {
       childList: true,
       subtree: true,
@@ -261,11 +267,11 @@
     }, true);
 
     try {
-      await loadAgencies();
+      await Promise.all([loadAgencies(), loadSprite().catch(() => null)]);
       schedulePatch();
       [120, 350, 800, 1600, 3000].forEach((delay) => window.setTimeout(schedulePatch, delay));
     } catch (error) {
-      console.error('No se pudieron renderizar los logos desde el sprite WebP:', error);
+      console.error('No se pudieron renderizar los logos oficiales:', error);
     }
   }
 
