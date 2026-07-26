@@ -1,4 +1,4 @@
-const CACHE_NAME = 'liderseguros-cache-v32';
+const CACHE_NAME = 'liderseguros-cache-v33';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -37,6 +37,7 @@ const NETWORK_FIRST_PATHS = new Set([
   '/network-directory.js',
   '/network-logo-patch.js',
   '/network-logo-v2.js',
+  '/api/network-directory-script.js',
   '/api/channel-data',
   '/api/channel-logo.js',
   '/api/channel-logo-sprite.js'
@@ -53,8 +54,6 @@ self.addEventListener('activate', (event) => {
     await Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)));
     await self.clients.claim();
 
-    // Recarga una sola vez las ventanas abiertas cuando entra una nueva versión
-    // para que una PWA instalada no continúe ejecutando JavaScript de la caché anterior.
     const clientList = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
     await Promise.all(clientList.map(async (client) => {
       try {

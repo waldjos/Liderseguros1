@@ -1,0 +1,1 @@
+El sprite se valida por tamaño, cabecera RIFF/WEBP y SHA-256 antes de entregarse.
