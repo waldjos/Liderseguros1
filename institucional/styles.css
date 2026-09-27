@@ -512,3 +512,92 @@
     padding:0 9px;
   }
 }
+
+
+/* ===== Portada móvil exacta a referencia — v4 ===== */
+.hero-exact-image{display:none}
+@media(max-width:640px){
+  .hero.hero-collage{
+    padding-top:88px;
+    padding-bottom:44px;
+    background:#fff;
+  }
+  .hero-collage-wrap{
+    width:100%;
+    margin:0;
+    display:block;
+  }
+  .hero-photo-collage.has-exact-mobile{
+    display:block;
+    width:100%;
+    height:auto;
+    margin:0 0 28px;
+    padding:0;
+    border-radius:0;
+    background:#fff;
+    overflow:hidden;
+  }
+  .hero-photo-collage.has-exact-mobile::before{display:none}
+  .hero-photo-collage.has-exact-mobile > figure{display:none!important}
+  .hero-photo-collage.has-exact-mobile .hero-exact-image{
+    display:block;
+    width:100%;
+    height:auto;
+    margin:0;
+    opacity:1;
+  }
+
+  .hero.hero-collage .hero-copy{
+    width:calc(100% - 46px);
+    margin:0 auto;
+    padding:0;
+  }
+  .hero.hero-collage .eyebrow{display:none}
+  .hero.hero-collage h1{
+    max-width:none;
+    margin:0 0 20px;
+    font-size:47px;
+    line-height:1.01;
+    letter-spacing:-.052em;
+    color:var(--navy);
+  }
+  .hero.hero-collage h1 span{
+    color:var(--orange);
+  }
+  .hero.hero-collage .hero-lead{
+    margin:0 0 24px;
+    max-width:none;
+    font-size:15.5px;
+    line-height:1.66;
+    color:#53647a;
+  }
+  .hero.hero-collage .hero-actions{
+    grid-template-columns:1fr 1.08fr;
+    gap:10px;
+    margin-bottom:16px;
+  }
+  .hero.hero-collage .button{
+    min-height:58px;
+    border-radius:20px;
+    font-size:12px;
+    padding:0 12px;
+  }
+  .hero.hero-collage .hero-card{
+    padding:18px 16px 15px;
+    border-radius:22px;
+  }
+  .hero.hero-collage .hero-kpi-grid{
+    margin:16px 0 10px;
+  }
+  .hero.hero-collage .hero-kpi-grid>div{
+    padding:0 9px;
+  }
+}
+@media(max-width:390px){
+  .hero.hero-collage{padding-top:84px}
+  .hero-photo-collage.has-exact-mobile{margin-bottom:24px}
+  .hero.hero-collage .hero-copy{width:calc(100% - 36px)}
+  .hero.hero-collage h1{font-size:39px}
+  .hero.hero-collage .hero-lead{font-size:14.5px}
+  .hero.hero-collage .button{font-size:11px;padding:0 9px}
+}
