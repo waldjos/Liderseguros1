@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/institucional/styles.css?v=4" />
+  <link rel="stylesheet" href="/institucional/styles.css?v=5" />
 </head>
 <body>
   <div class="site-shell">
@@ -30,34 +30,43 @@
 
     <main>
       <section class="hero hero-collage" id="inicio">
-        <div class="wrap hero-collage-wrap">
-          <div class="hero-photo-collage reveal" aria-label="Infraestructura y operación de Líder de Seguros">
+        <div class="hero-visual-shell">
+          <div class="hero-photo-collage" aria-label="Infraestructura y operación de Líder de Seguros">
             <figure class="hero-photo hero-photo-main">
               <div class="sprite-photo sprite-3" role="img" aria-label="Fachada principal de Líder de Seguros"></div>
             </figure>
-            <figure class="hero-photo hero-photo-office">
-              <div class="sprite-photo sprite-4" role="img" aria-label="Oficinas e identidad corporativa de Líder de Seguros"></div>
-            </figure>
-            <figure class="hero-photo hero-photo-fleet">
-              <div class="sprite-photo sprite-5" role="img" aria-label="Flota operativa de Líder de Seguros"></div>
-            </figure>
-          </div>
 
-          <div class="hero-copy reveal delay-1">
-            <p class="eyebrow dark">Asociación Cooperativa Líder de Seguros para Vehículos R.L.</p>
-            <h1>Protección vehicular<br>con <span>respaldo real.</span></h1>
+            <div class="hero-photo-row">
+              <figure class="hero-photo hero-photo-office">
+                <div class="sprite-photo sprite-4" role="img" aria-label="Oficinas e identidad corporativa de Líder de Seguros"></div>
+              </figure>
+              <figure class="hero-photo hero-photo-fleet">
+                <div class="sprite-photo sprite-5" role="img" aria-label="Flota operativa de Líder de Seguros"></div>
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        <div class="wrap hero-copy-shell">
+          <div class="hero-copy">
+            <h1>
+              <span class="hero-title-navy">Protección vehicular</span>
+              <span class="hero-title-accent">con respaldo real.</span>
+            </h1>
+
             <p class="hero-lead">Una operación enfocada en Responsabilidad Civil Vehicular, atención cercana, presencia nacional y una experiencia digital que acompaña al asegurado antes, durante y después de su póliza.</p>
 
             <div class="hero-actions">
               <a class="button button-primary hero-app-button" href="/" target="_blank" rel="noopener">
                 <span class="hero-button-icon" aria-hidden="true">▣</span>
-                Abrir aplicativo
-                <span aria-hidden="true">›</span>
+                <span>Abrir aplicativo</span>
+                <span class="hero-button-arrow" aria-hidden="true">›</span>
               </a>
-              <a class="button button-ghost hero-proposal-button" href="#alianzas">
+
+              <a class="button hero-proposal-button" href="#alianzas">
                 <span class="hero-button-icon hero-button-bank" aria-hidden="true">▥</span>
-                Conocer propuesta institucional
-                <span aria-hidden="true">›</span>
+                <span>Conocer propuesta institucional</span>
+                <span class="hero-button-arrow" aria-hidden="true">›</span>
               </a>
             </div>
 
@@ -66,23 +75,33 @@
                 <span class="hero-card-kicker">Capacidad operativa</span>
                 <span class="hero-card-line" aria-hidden="true"></span>
               </div>
+
               <div class="hero-kpi-grid">
-                <div>
+                <div class="hero-kpi">
                   <span class="hero-kpi-icon hero-kpi-navy" aria-hidden="true">▦</span>
-                  <strong>4</strong>
-                  <span>Sucursales</span>
+                  <div>
+                    <strong>4</strong>
+                    <span>Sucursales</span>
+                  </div>
                 </div>
-                <div>
+
+                <div class="hero-kpi">
                   <span class="hero-kpi-icon hero-kpi-orange" aria-hidden="true">●●●</span>
-                  <strong>100+</strong>
-                  <span>Agencias</span>
+                  <div>
+                    <strong>100+</strong>
+                    <span>Agencias</span>
+                  </div>
                 </div>
-                <div>
+
+                <div class="hero-kpi">
                   <span class="hero-kpi-icon hero-kpi-navy" aria-hidden="true">▰</span>
-                  <strong>349</strong>
-                  <span>Conteo global de canales*</span>
+                  <div>
+                    <strong>349</strong>
+                    <span>Conteo global de canales*</span>
+                  </div>
                 </div>
               </div>
+
               <p>*Conteo de canales alternativos reportado para septiembre de 2026, incluyendo sus distintos estados administrativos.</p>
             </div>
           </div>
@@ -238,7 +257,6 @@
     </footer>
   </div>
 
-  <script src="/institucional/sprite.js?v=1"></script>
-  <script src="/institucional/hero-mobile.js?v=1"></script>\n  <script src="/institucional/app.js?v=1"></script>
+  <script src="/institucional/sprite.js?v=1"></script>\n  <script src="/institucional/app.js?v=1"></script>
 </body>
 </html>
